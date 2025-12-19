@@ -116,6 +116,14 @@ extra:
       link: https://fosstodon.org/@squidfunk
     - icon: fontawesome/brands/x-twitter
       link: https://x.com/squidfunk
+  # llm_search:
+  #   enabled: true
+  #   api_endpoint: "http://localhost:8000"
+  # runllm:
+  #   assistant_id: "YOUR_ASSISTANT_ID_HERE"  # Get this from RunLLM dashboard
+  #   position: "bottom-right"  # Options: bottom-right, bottom-left, top-right, top-left
+  #   theme: "light"  # Options: light, dark, auto
+
 
 # Extensions
 markdown_extensions:
@@ -158,119 +166,125 @@ not_in_nav: |
 
 # Page tree
 nav:
-  - Home: index.md
+  - Home: docs/index.md
   - Getting started:
-    - Installation: getting-started.md
-    - Creating your site: creating-your-site.md
-    - Publishing your site: publishing-your-site.md
-    - Customization: customization.md
-    - Conventions: conventions.md
-    - Browser support: browser-support.md
-    - Enterprise feedback: enterprise-support.md
-    - Philosophy: philosophy.md
-    - Alternatives: alternatives.md
-    - License: license.md
+    - Installation: docs/getting-started.md
+    - Creating your site: docs/creating-your-site.md
+    - Publishing your site: docs/publishing-your-site.md
+    - Customization: docs/customization.md
+    - Conventions: docs/conventions.md
+    - Browser support: docs/browser-support.md
+    - Enterprise feedback: docs/enterprise-support.md
+    - Philosophy: docs/philosophy.md
+    - Alternatives: docs/alternatives.md
+    - License: docs/license.md
     - Tutorials:
-      - tutorials/index.md
+      - docs/tutorials/index.md
       - "Blogs":
-        - tutorials/blogs/basic.md
-        - tutorials/blogs/navigation.md
-        - tutorials/blogs/engage.md
+        - docs/docs/tutorials/blogs/basic.md
+        - docs/tutorials/blogs/navigation.md
+        - docs/tutorials/blogs/engage.md
       - "Social cards":
-        - tutorials/social/basic.md
-        - tutorials/social/custom.md
+        - docs/tutorials/social/basic.md
+        - tdocs/utorials/social/custom.md
     - Changelog:
-      - changelog/index.md
-      - How to upgrade: upgrade.md
+      - docs/changelog/index.md
+      - How to upgrade: docs/upgrade.md
   - Setup:
-    - setup/index.md
-    - Changing the colors: setup/changing-the-colors.md
-    - Changing the fonts: setup/changing-the-fonts.md
-    - Changing the language: setup/changing-the-language.md
-    - Changing the logo and icons: setup/changing-the-logo-and-icons.md
-    - Ensuring data privacy: setup/ensuring-data-privacy.md
-    - Setting up navigation: setup/setting-up-navigation.md
-    - Setting up site search: setup/setting-up-site-search.md
-    - Setting up site analytics: setup/setting-up-site-analytics.md
-    - Setting up social cards: setup/setting-up-social-cards.md
-    - Setting up a blog: setup/setting-up-a-blog.md
-    - Setting up tags: setup/setting-up-tags.md
-    - Setting up versioning: setup/setting-up-versioning.md
-    - Setting up the header: setup/setting-up-the-header.md
-    - Setting up the footer: setup/setting-up-the-footer.md
-    - Adding a git repository: setup/adding-a-git-repository.md
-    - Adding a comment system: setup/adding-a-comment-system.md
-    - Building an optimized site: setup/building-an-optimized-site.md
-    - Building for offline usage: setup/building-for-offline-usage.md
+    - docs/setup/index.md
+    - Changing the colors: docs/setup/changing-the-colors.md
+    - Changing the fonts: docs/setup/changing-the-fonts.md
+    - Changing the language: docs/setup/changing-the-language.md
+    - Changing the logo and icons: docs/setup/changing-the-logo-and-icons.md
+    - Ensuring data privacy: docs/setup/ensuring-data-privacy.md
+    - Setting up navigation: docs/setup/setting-up-navigation.md
+    - Setting up site search: docs/setup/setting-up-site-search.md
+    - Setting up site analytics: docs/setup/setting-up-site-analytics.md
+    - Setting up social cards: docs/setup/setting-up-social-cards.md
+    - Setting up a blog: docs/setup/setting-up-a-blog.md
+    - Setting up tags: docs/setup/setting-up-tags.md
+    - Setting up versioning: docs/setup/setting-up-versioning.md
+    - Setting up the header: docs/setup/setting-up-the-header.md
+    - Setting up the footer: docs/setup/setting-up-the-footer.md
+    - Adding a git repository: docs/setup/adding-a-git-repository.md
+    - Adding a comment system: docs/setup/adding-a-comment-system.md
+    - Building an optimized site: docs/setup/building-an-optimized-site.md
+    - Building for offline usage: docs/setup/building-for-offline-usage.md
     - Extensions:
-      - setup/extensions/index.md
-      - Python Markdown: setup/extensions/python-markdown.md
-      - Python Markdown Extensions: setup/extensions/python-markdown-extensions.md
+      - docs/setup/extensions/index.md
+      - Python Markdown: docs/setup/extensions/python-markdown.md
+      - Python Markdown Extensions: docs/setup/extensions/python-markdown-extensions.md
   - Plugins:
-    - plugins/index.md
-    - Blog: plugins/blog.md
-    - Group: plugins/group.md
-    - Info: plugins/info.md
-    - Meta: plugins/meta.md
-    - Offline: plugins/offline.md
-    - Optimize: plugins/optimize.md
-    - Privacy: plugins/privacy.md
-    - Projects: plugins/projects.md
-    - Search: plugins/search.md
-    - Social: plugins/social.md
-    - Tags: plugins/tags.md
-    - Typeset: plugins/typeset.md
+    - docs/plugins/index.md
+    - Blog: docs/plugins/blog.md
+    - Group: docs/plugins/group.md
+    - Info: docs/plugins/info.md
+    - Meta: docs/plugins/meta.md
+    - Offline: docs/plugins/offline.md
+    - Optimize: docs/plugins/optimize.md
+    - Privacy: docs/plugins/privacy.md
+    - Projects: docs/plugins/projects.md
+    - Search: docs/plugins/search.md
+    - Social: docs/plugins/social.md
+    - Tags: docs/plugins/tags.md
+    - Typeset: docs/plugins/typeset.md
     - Requirements:
-      - Image processing: plugins/requirements/image-processing.md
-      - Caching: plugins/requirements/caching.md
+      - Image processing: docs/plugins/requirements/image-processing.md
+      - Caching: docs/plugins/requirements/caching.md
   - Reference:
-    - reference/index.md
-    - Admonitions: reference/admonitions.md
-    - Annotations: reference/annotations.md
-    - Buttons: reference/buttons.md
-    - Code blocks: reference/code-blocks.md
-    - Content tabs: reference/content-tabs.md
-    - Data tables: reference/data-tables.md
-    - Diagrams: reference/diagrams.md
-    - Footnotes: reference/footnotes.md
-    - Formatting: reference/formatting.md
-    - Grids: reference/grids.md
-    - Icons, Emojis: reference/icons-emojis.md
-    - Images: reference/images.md
-    - Lists: reference/lists.md
-    - Math: reference/math.md
-    - Tooltips: reference/tooltips.md
+    - docs/reference/index.md
+    - Admonitions: docs/reference/admonitions.md
+    - Annotations: docs/reference/annotations.md
+    - Buttons: docs/reference/buttons.md
+    - Code blocks: docs/reference/code-blocks.md
+    - Content tabs: docs/reference/content-tabs.md
+    - Data tables: docs/reference/data-tables.md
+    - Diagrams: docs/reference/diagrams.md
+    - Footnotes: docs/reference/footnotes.md
+    - Formatting: docs/reference/formatting.md
+    - Grids: docs/reference/grids.md
+    - Icons, Emojis: docs/reference/icons-emojis.md
+    - Images: docs/reference/images.md
+    - Lists: docs/reference/lists.md
+    - Math: docs/reference/math.md
+    - Tooltips: docs/reference/tooltips.md
   - Insiders:
-    - insiders/index.md
-    - Why sponsor us: insiders/why-sponsor-us.md
-    - What's in it for you: insiders/benefits.md
-    - Who is sponsoring: insiders/our-sponsors.md
-    - Sponsoring tiers: insiders/sponsoring-tiers.md
-    - How to sponsor: insiders/how-to-sponsor.md
+    - docs/insiders/index.md
+    - Why sponsor us: docs/insiders/why-sponsor-us.md
+    - What's in it for you: docs/insiders/benefits.md
+    - Who is sponsoring: docs/insiders/our-sponsors.md
+    - Sponsoring tiers: docs/insiders/sponsoring-tiers.md
+    - How to sponsor: docs/insiders/how-to-sponsor.md
     - Additional information:
-      - Payment and billing: insiders/payment-and-billing.md
-      - Access management: insiders/access-management.md
-      - Runtime and cancellation: insiders/runtime-and-cancellation.md
-      - Privacy: insiders/privacy.md
-      - License: insiders/license.md
-      - Support: support.md
+      - Payment and billing: docs/insiders/payment-and-billing.md
+      - Access management: docs/insiders/access-management.md
+      - Runtime and cancellation: docs/insiders/runtime-and-cancellation.md
+      - Privacy: docs/insiders/privacy.md
+      - License: docs/insiders/license.md
+      - Support: docs/support.md
     - Using Insiders:
-      - Getting started: insiders/getting-started.md
+      - Getting started: docs/insiders/getting-started.md
     - Changelog:
-      - insiders/changelog/index.md
-      - How to upgrade: insiders/upgrade.md
+      - docs/insiders/changelog/index.md
+      - How to upgrade: docs/insiders/upgrade.md
   - Community:
     - Contributing:
-      - contributing/index.md
-      - Reporting a bug: contributing/reporting-a-bug.md
-      - Reporting a docs issue: contributing/reporting-a-docs-issue.md
-      - Requesting a change: contributing/requesting-a-change.md
-      - Adding translations: contributing/adding-translations.md
-      - Making a pull request: contributing/making-a-pull-request.md
+      - docs/contributing/index.md
+      - Reporting a bug: docs/contributing/reporting-a-bug.md
+      - Reporting a docs issue: docs/contributing/reporting-a-docs-issue.md
+      - Requesting a change: docs/contributing/requesting-a-change.md
+      - Adding translations: docs/contributing/adding-translations.md
+      - Making a pull request: docs/contributing/making-a-pull-request.md
       - Asking a question: https://github.com/squidfunk/mkdocs-material/discussions
     - Guides:
-      - Creating a reproduction: guides/creating-a-reproduction.md
+      - Creating a reproduction: docs/guides/creating-a-reproduction.md
     - Community experts program:
-      - insiders/community-experts-program/index.md
+      - docs/insiders/community-experts-program/index.md
   - Blog:
-    - blog/index.md
+    - docs/blog/index.md
+
+extra_javascript:
+    - "docs/js/runllm-widget.js"
+
+# extra_css:
+#   - stylesheets/llm-search.css
