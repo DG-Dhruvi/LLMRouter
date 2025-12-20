@@ -1,0 +1,35 @@
+# Updating LLMRouter Documentation Website
+
+## 1. Update Content
+
+Edit markdown files in the `docs/` directory:
+
+```bash
+# Edit via command line
+vim docs/index.md
+
+vim docs/[target_file].md
+# etc.
+```
+
+Or you may edit using the IDE.
+
+## 2. Deploy to GitHub Pages
+
+```bash
+# From project root
+mkdocs gh-deploy
+```
+
+Your updated site will be live at: `https://ulab-uiuc.github.io/LLMRouter/`. This process may take 10~20 seconds.
+
+## 3. Update RunLLM
+
+RunLLM automatically syncs with your deployed documentation. To trigger an update:
+
+1. **Wait one week** (automatic sync), OR
+2. **Manual sync** via RunLLM dashboard:
+   - Go to [RunLLM Dashboard](https://runllm.com)
+   - Navigate to your project settings
+   - Click "Sync Documentation"
+

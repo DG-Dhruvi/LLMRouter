@@ -318,4 +318,10 @@ def route_single(self, query_input):
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=ulab-uiuc/LLMRouter&type=date&legend=top-left)](https://www.star-history.com/#ulab-uiuc/LLMRouter&type=date&legend=top-left)
+
+## Acknowledgement
+
+U-Lab
+
 ```
+
