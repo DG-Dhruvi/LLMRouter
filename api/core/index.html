@@ -1285,6 +1285,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="MetaRouter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1295,6 +1345,67 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="BaseTrainer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1489,6 +1600,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="MetaRouter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1499,6 +1660,67 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="BaseTrainer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1537,24 +1759,131 @@
 
 <h1 id="core-classes">Core classes<a class="headerlink" href="#core-classes" title="Permanent link">&para;</a></h1>
 <h2 id="metarouter">MetaRouter<a class="headerlink" href="#metarouter" title="Permanent link">&para;</a></h2>
-<p>Path: <code>llmrouter.models.meta_router.MetaRouter</code></p>
-<p>Constructor:
-- <code>MetaRouter(model, yaml_path=None, resources=None)</code></p>
-<p>Required methods:
-- <code>route_single(batch)</code>
-- <code>route_batch(batch)</code></p>
-<p>Optional helpers:
-- <code>compute_metrics(outputs, batch)</code>
-- <code>save_router(path)</code>
-- <code>load_router(path)</code></p>
-<p>If <code>yaml_path</code> is provided, the router loads config and uses <code>DataLoader</code> to attach datasets to the router instance.</p>
+<p>Base class for all routers.</p>
+<h3 id="signature">Signature<a class="headerlink" href="#signature" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">class MetaRouter(torch.nn.Module, ABC):
+    def __init__(self, model: nn.Module, yaml_path: str | None = None, resources=None):
+        ...
+</code></pre>
+<h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h3>
+<p><code>MetaRouter</code> standardizes routing behavior and optionally loads config and data on initialization.</p>
+<div class="admonition note">
+<p class="admonition-title">Key responsibilities</p>
+<ul>
+<li>Hold the underlying model and shared resources</li>
+<li>Provide <code>route_single</code> and <code>route_batch</code></li>
+<li>Load config and attach datasets via <code>DataLoader</code> when <code>yaml_path</code> is provided</li>
+<li>Provide utility helpers such as <code>save_router</code> and <code>load_router</code></li>
+</ul>
+</div>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td><code>nn.Module</code></td>
+<td>Underlying routing model</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>yaml_path</code></td>
+<td><code>str or None</code></td>
+<td>YAML config path, loads data if provided</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>resources</code></td>
+<td><code>Any</code></td>
+<td>Optional shared resources</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>route_single(batch)</code></li>
+<li><code>route_batch(batch)</code></li>
+<li><code>compute_metrics(outputs, batch)</code></li>
+<li><code>save_router(path)</code></li>
+<li><code>load_router(path)</code></li>
+</ul>
 <h2 id="basetrainer">BaseTrainer<a class="headerlink" href="#basetrainer" title="Permanent link">&para;</a></h2>
-<p>Path: <code>llmrouter.models.base_trainer.BaseTrainer</code></p>
-<p>Constructor:
-- <code>BaseTrainer(router, optimizer=None, device="cuda", **kwargs)</code></p>
-<p>Required methods:
-- <code>loss_func(outputs, batch)</code>
-- <code>train(dataloader)</code></p>
+<p>Base class for router trainers.</p>
+<h3 id="signature_1">Signature<a class="headerlink" href="#signature_1" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">class BaseTrainer(ABC):
+    def __init__(self, router, optimizer=None, device=&quot;cuda&quot;, **kwargs):
+        ...
+</code></pre>
+<h3 id="summary_1">Summary<a class="headerlink" href="#summary_1" title="Permanent link">&para;</a></h3>
+<p>Trainers encapsulate the training loop for each router type.</p>
+<h3 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>router</code></td>
+<td><code>torch.nn.Module</code></td>
+<td>Router instance to train</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>optimizer</code></td>
+<td><code>torch.optim.Optimizer or None</code></td>
+<td>Optimizer for training</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td><code>str</code></td>
+<td>Device for training</td>
+<td><code>cuda</code></td>
+</tr>
+<tr>
+<td><code>**kwargs</code></td>
+<td><code>Any</code></td>
+<td>Extra trainer args</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>loss_func(outputs, batch)</code></li>
+<li><code>train(dataloader)</code></li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">from llmrouter.models.meta_router import MetaRouter
+from llmrouter.models.base_trainer import BaseTrainer
+
+class MyRouter(MetaRouter):
+    def route_single(self, query_input: dict) -&gt; dict:
+        return {&quot;model_name&quot;: &quot;model_a&quot;}
+
+    def route_batch(self, batch: list) -&gt; list:
+        return [self.route_single(q) for q in batch]
+
+class MyTrainer(BaseTrainer):
+    def loss_func(self, outputs, batch):
+        ...
+
+    def train(self, dataloader):
+        ...
+</code></pre>
 
 
 

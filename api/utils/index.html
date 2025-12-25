@@ -1415,43 +1415,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#data-helpers" class="md-nav__link">
+  <a href="#call_api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data helpers
+        call_api
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="call_api">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#embeddings" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Embeddings
+        Parameters
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#api-calls" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#request-schema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API calls
+        Request schema
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#prompting-and-evaluation" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prompting and evaluation
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other helpers
       
     </span>
   </a>
@@ -1501,43 +1529,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#data-helpers" class="md-nav__link">
+  <a href="#call_api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data helpers
+        call_api
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="call_api">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#embeddings" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Embeddings
+        Parameters
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#api-calls" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#request-schema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API calls
+        Request schema
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#prompting-and-evaluation" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prompting and evaluation
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other helpers
       
     </span>
   </a>
@@ -1579,24 +1635,103 @@
 
 <h1 id="utils">Utils<a class="headerlink" href="#utils" title="Permanent link">&para;</a></h1>
 <p>Helpers are exported from <code>llmrouter.utils</code>.</p>
-<h2 id="data-helpers">Data helpers<a class="headerlink" href="#data-helpers" title="Permanent link">&para;</a></h2>
+<h2 id="call_api">call_api<a class="headerlink" href="#call_api" title="Permanent link">&para;</a></h2>
+<p>Send a query to an external LLM API using LiteLLM and round-robin API key selection.</p>
+<h3 id="signature">Signature<a class="headerlink" href="#signature" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">def call_api(
+    request,
+    api_keys_env=None,
+    max_tokens=512,
+    temperature=0.01,
+    top_p=0.9,
+    timeout=30,
+    max_retries=3,
+):
+    ...
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Key responsibilities</p>
 <ul>
-<li><code>load_csv</code>, <code>load_jsonl</code>, <code>jsonl_to_csv</code>, <code>load_pt</code></li>
+<li>Parse and rotate API keys from <code>API_KEYS</code></li>
+<li>Send requests via LiteLLM</li>
+<li>Return response text and token usage info</li>
 </ul>
-<h2 id="embeddings">Embeddings<a class="headerlink" href="#embeddings" title="Permanent link">&para;</a></h2>
+</div>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>request</code></td>
+<td>dict or list</td>
+<td>API request(s) with <code>api_endpoint</code>, <code>query</code>, <code>model_name</code>, <code>api_name</code></td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>api_keys_env</code></td>
+<td>str or None</td>
+<td>Override for <code>API_KEYS</code> env var</td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>max_tokens</code></td>
+<td>int</td>
+<td>Maximum tokens to generate</td>
+<td>512</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td>float</td>
+<td>Sampling temperature</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td><code>top_p</code></td>
+<td>float</td>
+<td>Top-p sampling</td>
+<td>0.9</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>int</td>
+<td>Request timeout (seconds)</td>
+<td>30</td>
+</tr>
+<tr>
+<td><code>max_retries</code></td>
+<td>int</td>
+<td>Retries for failed calls</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="request-schema">Request schema<a class="headerlink" href="#request-schema" title="Permanent link">&para;</a></h3>
+<pre><code class="language-json">{
+  &quot;api_endpoint&quot;: &quot;https://integrate.api.nvidia.com/v1&quot;,
+  &quot;query&quot;: &quot;Hello&quot;,
+  &quot;model_name&quot;: &quot;my_model&quot;,
+  &quot;api_name&quot;: &quot;qwen/qwen2.5-7b-instruct&quot;
+}
+</code></pre>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>get_longformer_embedding</code>, <code>parallel_embedding_task</code></li>
+<li><code>API_KEYS</code> can be a single key or a JSON list of keys.</li>
+<li><code>call_api</code> raises an ImportError if <code>litellm</code> is not installed.</li>
 </ul>
-<h2 id="api-calls">API calls<a class="headerlink" href="#api-calls" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>call_api(request, api_keys_env=None, max_tokens=512, temperature=0.01, top_p=0.9, timeout=30, max_retries=3)</code></li>
-<li>Uses the <code>API_KEYS</code> environment variable for round-robin key selection</li>
-</ul>
-<h2 id="prompting-and-evaluation">Prompting and evaluation<a class="headerlink" href="#prompting-and-evaluation" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>format_*_prompt</code>, <code>generate_task_query</code></li>
-<li>Evaluation helpers are available when optional dependencies are installed</li>
-</ul>
+<h2 id="other-helpers">Other helpers<a class="headerlink" href="#other-helpers" title="Permanent link">&para;</a></h2>
+<p><code>llmrouter.utils</code> also exports helpers for:
+- data loading and conversion
+- embeddings and tensor utilities
+- prompting templates and task helpers
+- progress tracking
+- evaluation (optional dependencies)</p>
 
 
 
