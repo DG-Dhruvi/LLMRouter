@@ -2,13 +2,19 @@
 
 This section documents the public CLI and Python APIs exposed by the `llmrouter` package.
 
-## Modules
-- llmrouter.cli: CLI entry points and subcommands
-- llmrouter.models: router classes and trainers
-- llmrouter.data: data loading utilities
-- llmrouter.plugin_system: custom router discovery
-- llmrouter.utils: helper functions used across training and inference
+## Layout
+Each page follows a consistent structure so you can scan quickly:
+- Summary of the object or command
+- Signature
+- Key responsibilities
+- Parameters and return values
+- Examples and notes
 
-## Version
-- CLI: `llmrouter --version`
-- Python: `import llmrouter; llmrouter.__version__`
+## Quick links
+- CLI
+- Core classes
+- Routers
+- Config reference
+- Plugin system
+- Data utilities
+- Utils
