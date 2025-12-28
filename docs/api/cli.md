@@ -3,13 +3,53 @@
 The `llmrouter` command is installed via the `llmrouter` package and is registered in `pyproject.toml`.
 
 ## Summary
-The CLI is the primary interface for training, inference, and chat. It dispatches to `llmrouter.cli.router_train`, `llmrouter.cli.router_inference`, and `llmrouter.cli.router_chat`.
+The CLI is the primary interface for training, inference, and chat.
+It is implemented in:
+
+- `llmrouter/cli/router_main.py` (entrypoint): https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/cli/router_main.py
+- `llmrouter/cli/router_train.py` (training): https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/cli/router_train.py
+- `llmrouter/cli/router_inference.py` (inference): https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/cli/router_inference.py
 
 !!! note "Dependencies"
     The `chat` command requires `gradio` to be installed.
 
 ## Global options
 - `llmrouter --version` prints the CLI version.
+- `llmrouter <subcommand> --help` prints flags for a subcommand.
+
+## Environment variables
+### `API_KEYS` (only for real API calls)
+`llmrouter infer` (without `--route-only`) calls an OpenAI-compatible endpoint via LiteLLM and requires `API_KEYS`.
+It supports either a single key or a JSON list of keys (used round-robin).
+
+**Single key**
+
+```bash
+export API_KEYS="YOUR_KEY"
+```
+
+```powershell
+$env:API_KEYS="YOUR_KEY"
+```
+
+**Multiple keys (JSON list)**
+
+```bash
+export API_KEYS='["key1","key2","key3"]'
+```
+
+```powershell
+$env:API_KEYS='["key1","key2","key3"]'
+```
+
+!!! tip
+    If you only want routing decisions (no API calls, no API keys), always add `--route-only`.
+
+!!! note "`router_r1` is different"
+    `router_r1` does not use `API_KEYS`. It requires `hparam.api_base` and `hparam.api_key` in its YAML config, and it does not support `--route-only`.
+
+### `LLMROUTER_PLUGINS` (optional)
+If you use custom routers, set `LLMROUTER_PLUGINS` to point to plugin directories (colon-separated). See [Plugin system](plugins.md).
 
 ## train
 Train a router model.
@@ -40,6 +80,17 @@ Run inference or routing.
 llmrouter infer --router <name> --config <path> (--query <text> | --input <file>)   [--load_model_path <path>] [--route-only] [--output <file>] [--output-format json|jsonl]   [--temp <float>] [--max-tokens <int>] [--verbose]
 ```
 
+!!! note "Input/output schemas"
+    For `--input` formats and output fields, see [Data formats](../getting-started/data-formats.md).
+
+!!! note "API endpoint resolution"
+    Inference expects an endpoint from either:
+
+    1. `llm_data[model_name].api_endpoint` (per model), or
+    2. `api_endpoint` in the YAML config
+
+    See [Config reference](config.md).
+
 ### Parameters
 | Name | Type | Description | Default |
 | --- | --- | --- | --- |
@@ -58,6 +109,11 @@ llmrouter infer --router <name> --config <path> (--query <text> | --input <file>
 ### Example
 ```bash
 llmrouter infer --router knnrouter --config configs/model_config_test/knnrouter.yaml --query "What is AI?"
+```
+
+### Batch example (JSONL)
+```bash
+llmrouter infer --router knnrouter --config configs/model_config_test/knnrouter.yaml --input queries.jsonl --output results.jsonl --output-format jsonl --route-only
 ```
 
 ## chat
@@ -93,6 +149,10 @@ List all available routers (including discovered plugins).
 ```bash
 llmrouter list-routers
 ```
+
+### Notes
+- This prints routers available for inference and routers available for training (separately).
+- If a router is missing, check optional dependencies and plugin discovery paths.
 
 ## version
 Show CLI version information.

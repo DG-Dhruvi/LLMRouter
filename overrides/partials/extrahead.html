@@ -1,0 +1,27 @@
+{#-
+  Clear Material "source facts" cache when repo_url changes.
+
+  MkDocs Material stores GitHub repo facts (release tag, stars, forks) in
+  sessionStorage under "<base_path>.__source". When previewing different MkDocs
+  sites on the same origin (e.g., localhost:8000), the cached facts can be from
+  another repo and show wrong numbers.
+-#}
+<script>
+  (function () {
+    try {
+      var basePath = new URL(".", location).pathname;
+      var sourceFactsKey = basePath + ".__source";
+      var sourceRepoKey = basePath + ".__source_repo";
+      var currentRepo = "{{ (config.repo_url or '') | e }}".replace(/\/$/, "");
+      if (!currentRepo) return;
+
+      var storedRepo = sessionStorage.getItem(sourceRepoKey);
+      if (storedRepo !== currentRepo) {
+        sessionStorage.removeItem(sourceFactsKey);
+        sessionStorage.setItem(sourceRepoKey, currentRepo);
+      }
+    } catch (e) {
+      /* no-op */
+    }
+  })();
+</script>

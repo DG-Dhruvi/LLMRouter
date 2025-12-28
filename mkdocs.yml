@@ -19,23 +19,25 @@
 # IN THE SOFTWARE.
 
 # Project information
-site_name: LLM Router
-site_url: https://llm.github.io/mkdocs-material/
-site_author: Martin Donath
+site_name: LLMRouter
+site_url: https://ulab-uiuc.github.io/LLMRouter/
+site_author: LLMRouter contributors
 site_description: >-
-  Write your documentation in Markdown and create a professional static site in
-  minutes – searchable, customizable, in 60+ languages, for all devices
+  LLMRouter is an open-source library for LLM routing: train routers, run inference,
+  and extend with plugins.
 
 # Repository
-repo_name: squidfunk/mkdocs-material
-repo_url: https://github.com/squidfunk/mkdocs-material
+repo_name: ulab-uiuc/LLMRouter
+repo_url: https://github.com/ulab-uiuc/LLMRouter
+edit_uri: edit/website/docs/
 
 # Copyright
-copyright: Copyright &copy; 2016 - 2025 Martin Donath
+copyright: Copyright &copy; 2025 LLMRouter contributors
 
 # Configuration
 theme:
   name: material
+  custom_dir: overrides
   features:
     - announce.dismiss
     - content.action.edit
@@ -105,17 +107,11 @@ extra:
     provider: google
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/squidfunk
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/squidfunk/mkdocs-material/
+      link: https://github.com/ulab-uiuc/LLMRouter
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/mkdocs-material/
-    - icon: fontawesome/brands/bluesky
-      link: https://bsky.app/profile/squidfunk.bsky.social
-    - icon: fontawesome/brands/mastodon
-      link: https://fosstodon.org/@squidfunk
-    - icon: fontawesome/brands/x-twitter
-      link: https://x.com/squidfunk
+      link: https://pypi.org/project/llmrouter/
+    - icon: fontawesome/brands/slack
+      link: https://join.slack.com/t/llmrouteropen-ri04588/shared_invite/zt-3jz3cc6d1-ncwKEHvvWe0OczHx7K5c0g
   # llm_search:
   #   enabled: true
   #   api_endpoint: "http://localhost:8000"
@@ -145,13 +141,14 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
+  - pymdownx.superfences
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.magiclink:
       normalize_issue_symbols: true
       repo_url_shorthand: true
-      user: squidfunk
-      repo: mkdocs-material
+      user: ulab-uiuc
+      repo: LLMRouter
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.snippets:
@@ -180,11 +177,34 @@ nav:
       - Deployment: learn/deployment.md
   - Tutorials:
       - Overview: tutorials/index.md
-      - First routing run: tutorials/first-routing.md
-      - Custom router: tutorials/custom-router.md
-      - Batch inference: tutorials/batch-inference.md
-      - Chat demo: tutorials/chat-demo.md
-      - Evaluation workflow: tutorials/evaluation.md
+      - Workflows:
+          - First routing run: tutorials/first-routing.md
+          - Batch inference: tutorials/batch-inference.md
+          - Chat demo: tutorials/chat-demo.md
+          - Evaluation workflow: tutorials/evaluation.md
+          - Custom router (plugin): tutorials/custom-router.md
+      - Notebooks:
+          - Data preparation: tutorials/notebooks/data-preparation.md
+          - Baselines:
+              - SmallestLLM: tutorials/notebooks/smallest-llm.md
+              - LargestLLM: tutorials/notebooks/largest-llm.md
+              - EloRouter: tutorials/notebooks/elorouter.md
+          - Trainable routers:
+              - KNNRouter: tutorials/notebooks/knnrouter.md
+              - SVMRouter: tutorials/notebooks/svmrouter.md
+              - MLPRouter: tutorials/notebooks/mlprouter.md
+              - MFRouter: tutorials/notebooks/mfrouter.md
+              - DCRouter: tutorials/notebooks/dcrouter.md
+              - AutoMixRouter: tutorials/notebooks/automix-router.md
+              - HybridLLMRouter: tutorials/notebooks/hybrid-llm-router.md
+              - GraphRouter: tutorials/notebooks/graphrouter.md
+              - CausalLMRouter: tutorials/notebooks/causallm-router.md
+              - GMTRouter: tutorials/notebooks/gmtrouter.md
+          - Multi-round routers:
+              - KNNMultiRoundRouter: tutorials/notebooks/knnmultiroundrouter.md
+              - LLMMultiRoundRouter: tutorials/notebooks/llmmultiroundrouter.md
+          - RouterR1: tutorials/notebooks/router-r1.md
+          - Custom routers: tutorials/notebooks/custom-router.md
   - API Reference:
       - Overview: api/index.md
       - CLI: api/cli.md

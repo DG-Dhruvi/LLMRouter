@@ -1,5 +1,11 @@
 # Data utilities
 
+This page documents data-loading helpers and dataset schemas used by `llmrouter`.
+
+Sources:
+- https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/data/data_loader.py
+- https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/data/data.py
+
 ## DataLoader
 `llmrouter.data.DataLoader` attaches datasets to a router when a config is loaded.
 
@@ -7,6 +13,9 @@
 ```python
 class DataLoader:
     def __init__(self, project_root: str):
+        ...
+
+    def to_abs(self, path_str: str) -> str:
         ...
 
     def load_data(self, config, obj_ref):
@@ -17,6 +26,9 @@ class DataLoader:
     - Resolve relative paths to the project root
     - Load datasets from `data_path`
     - Attach datasets to the router instance
+
+!!! note
+    Missing files print warnings and the corresponding attributes are set to `None`.
 
 ### Attributes loaded
 | Attribute | Source key | Description |
@@ -29,10 +41,50 @@ class DataLoader:
 | `llm_data` | `data_path.llm_data` | model metadata |
 | `llm_embedding_data` | `data_path.llm_embedding_data` | model embeddings |
 
-## Input formats
-`llmrouter infer --input` supports:
-- `.txt` (one query per line)
-- `.json` (list of strings or list of objects with `query`)
-- `.jsonl` (one JSON object per line)
+## Data format models (validation)
+The `llmrouter.data.data` module defines Pydantic models and validators for common dataset schemas.
+This is mainly used for training/evaluation pipelines and for checking dataset correctness.
 
-If you need to preprocess data, start with the example datasets under `data/example_data/`.
+### DataFormatType
+```python
+from llmrouter.data import DataFormatType
+```
+Supported values:
+- `DataFormatType.STANDARD`
+- `DataFormatType.GMTROUTER`
+
+### Standard format
+Use `StandardQueryData` for query examples and `StandardRoutingData` for routing labels.
+
+Minimum query example:
+```json
+{"query": "What is machine learning?"}
+```
+
+Minimum routing label example:
+```json
+{"query_id": "q_001", "best_model": "gpt-4"}
+```
+
+### GMTRouter format
+GMTRouter uses a structured JSONL schema with embeddings and per-turn ratings.
+See `GMTRouterInteraction` and `GMTRouterConversationTurn` in the source for full fields and validation rules.
+
+### DataFormatDetector
+```python
+from llmrouter.data import DataFormatDetector
+
+detector = DataFormatDetector()
+is_valid, format_type, error_msg = detector.validate_and_detect(sample)
+```
+
+### Utilities
+```python
+from llmrouter.data import get_format_requirements, print_format_help, DataFormatType
+
+print(get_format_requirements(DataFormatType.STANDARD))
+print_format_help()  # prints all formats
+```
+
+## CLI query files
+For `llmrouter infer --input` formats and output schemas, see [Data formats](../getting-started/data-formats.md).

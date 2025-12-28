@@ -3,6 +3,8 @@
 ## MetaRouter
 Base class for all routers.
 
+Source: https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/models/meta_router.py
+
 ### Signature
 ```python
 class MetaRouter(torch.nn.Module, ABC):
@@ -19,6 +21,14 @@ class MetaRouter(torch.nn.Module, ABC):
     - Load config and attach datasets via `DataLoader` when `yaml_path` is provided
     - Provide utility helpers such as `save_router` and `load_router`
 
+### Common attributes
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `model` | `nn.Module` | Underlying routing model |
+| `resources` | `Any` | Optional shared resources (tokenizer, env, etc.) |
+| `cfg` | `dict` | YAML config (empty if not loaded) |
+| `metric_weights` | `list[float]` | Metric weights from `cfg.metric.weights` |
+
 ### Parameters
 | Name | Type | Description | Default |
 | --- | --- | --- | --- |
@@ -27,14 +37,21 @@ class MetaRouter(torch.nn.Module, ABC):
 | `resources` | `Any` | Optional shared resources | `None` |
 
 ### Methods
-- `route_single(batch)`
-- `route_batch(batch)`
-- `compute_metrics(outputs, batch)`
-- `save_router(path)`
-- `load_router(path)`
+- `route_single(batch)`: route a single input (subclasses implement)
+- `route_batch(batch)`: route a batch input (subclasses implement)
+- `forward(batch)`: delegates to `route_batch` (PyTorch `nn.Module` API)
+- `compute_metrics(outputs, batch) -> dict`: optional, defaults to `{}`
+- `save_router(path)`: `torch.save(self.state_dict(), path)`
+- `load_router(path)`: `torch.load(...); self.load_state_dict(...)`
+
+!!! note "YAML + data loading side effects"
+    If you pass `yaml_path`, `MetaRouter` loads the YAML into `self.cfg` and uses `DataLoader` to attach data fields directly onto the router instance (for example, `query_data_train`, `llm_data`).
+    See [Data utilities](data.md) and [Config reference](config.md).
 
 ## BaseTrainer
 Base class for router trainers.
+
+Source: https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/models/base_trainer.py
 
 ### Signature
 ```python
@@ -55,8 +72,8 @@ Trainers encapsulate the training loop for each router type.
 | `**kwargs` | `Any` | Extra trainer args | none |
 
 ### Methods
-- `loss_func(outputs, batch)`
-- `train(dataloader)`
+- `loss_func(outputs, batch) -> torch.Tensor`: define task-specific loss (subclasses should override)
+- `train(dataloader: Any = None)`: define the full training loop (required)
 
 ### Example
 ```python

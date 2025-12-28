@@ -7,11 +7,18 @@ LLMRouter discovers and registers custom routers at runtime, so you can extend t
 - `~/.llmrouter/plugins/`
 - `$LLMROUTER_PLUGINS` (colon-separated list of directories)
 
+!!! tip
+    On Windows, prefer `./custom_routers/` or `~/.llmrouter/plugins/`. The environment variable path parsing is Unix-oriented.
+
 ## How discovery works
 - Plugin directories are added to `sys.path`.
 - The system looks for a Router class in `__init__.py`, `router.py`, or `model.py`.
 - A class is accepted if its name ends with `Router` and it implements `route_single` and `route_batch`.
 - If `trainer.py` defines a class ending with `Trainer`, it is registered for training.
+
+## Naming
+The CLI router name is the plugin folder name (lowercased), not the Python class name.
+For example, `custom_routers/MyRouter/` becomes `--router myrouter`.
 
 ## Directory layout
 ```

@@ -21,7 +21,10 @@ Supported keys (common across routers):
 - `llm_data` (json)
 - `llm_embedding_data` (json)
 
-Paths are resolved relative to the repository root unless they are absolute.
+Absolute paths are used as-is. Relative paths are resolved against the LLMRouter "project root" (the directory containing the `llmrouter/` package).
+
+!!! note
+    If you installed from PyPI (not a repo clone), relative paths often won't point to your local data. Prefer absolute paths.
 
 ## model_path
 Common keys:
@@ -45,7 +48,14 @@ metric:
 Router-specific hyperparameters. Refer to router-specific configs for exact fields.
 
 ## api_endpoint
-Optional endpoint for inference. If omitted, the default in `call_api` is used.
+Optional global fallback API base URL for inference.
+
+Inference expects an endpoint from either:
+
+1. `llm_data[model_name].api_endpoint` (per model), or
+2. `api_endpoint` in the YAML config
+
+If neither is set, `llmrouter infer` fails with an "API endpoint not found" error.
 
 ## RouterR1 special fields
 `router_r1` expects `api_base` and `api_key` under `hparam`:

@@ -5,6 +5,8 @@ Helpers are exported from `llmrouter.utils`.
 ## call_api
 Send a query to an external LLM API using LiteLLM and round-robin API key selection.
 
+Source: https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/utils/api_calling.py
+
 ### Signature
 ```python
 def call_api(
@@ -21,7 +23,7 @@ def call_api(
 
 !!! note "Key responsibilities"
     - Parse and rotate API keys from `API_KEYS`
-    - Send requests via LiteLLM
+    - Send requests via LiteLLM (`openai/{api_name}` with `api_base`)
     - Return response text and token usage info
 
 ### Parameters
@@ -41,13 +43,29 @@ def call_api(
   "api_endpoint": "https://integrate.api.nvidia.com/v1",
   "query": "Hello",
   "model_name": "my_model",
-  "api_name": "qwen/qwen2.5-7b-instruct"
+  "api_name": "qwen/qwen2.5-7b-instruct",
+  "system_prompt": "You are a helpful assistant."
+}
+```
+
+### Return schema
+For a successful call, the function returns the original dict with added fields:
+
+```json
+{
+  "response": "....",
+  "token_num": 123,
+  "prompt_tokens": 45,
+  "completion_tokens": 78,
+  "response_time": 1.23
 }
 ```
 
 ### Notes
-- `API_KEYS` can be a single key or a JSON list of keys.
-- `call_api` raises an ImportError if `litellm` is not installed.
+- `API_KEYS` can be a single key (`"key"`) or a JSON list of keys (`'["k1","k2"]'`).
+- Key rotation is round-robin per `(api_endpoint, api_name)` for single calls; for batch calls, requests are distributed by index.
+- If LiteLLM does not return usage, token counts fall back to GPT-2 tokenization (if `transformers` is installed) or whitespace splitting.
+- `call_api` raises an `ImportError` if `litellm` is not installed, and `ValueError` if required request fields are missing.
 
 ## Other helpers
 `llmrouter.utils` also exports helpers for:
