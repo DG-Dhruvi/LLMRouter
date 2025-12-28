@@ -802,6 +802,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training and evaluation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -818,6 +836,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#training-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#router-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Router availability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artifacts-and-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifacts and overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducibility-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducibility tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1415,6 +1529,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#training-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#router-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Router availability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artifacts-and-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifacts and overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducibility-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducibility tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1447,11 +1646,46 @@
 
 
 <h1 id="training-and-evaluation">Training and evaluation<a class="headerlink" href="#training-and-evaluation" title="Permanent link">&para;</a></h1>
-<p>Outline
-- Training loop responsibilities
-- Checkpointing and model paths
-- Evaluation scripts and batch runs
-- Reproducibility tips</p>
+<h2 id="training-workflow">Training workflow<a class="headerlink" href="#training-workflow" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Choose a router and config file.</li>
+<li>Run <code>llmrouter train --router &lt;name&gt; --config &lt;path&gt;</code>.</li>
+<li>The router loads config and data via <code>DataLoader</code>.</li>
+<li>The trainer runs <code>train()</code> and writes to <code>model_path.save_model_path</code>.</li>
+</ol>
+<p><code>--device auto</code> will select GPU when available; use <code>--quiet</code> to reduce output.</p>
+<h2 id="inference-workflow">Inference workflow<a class="headerlink" href="#inference-workflow" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Load a router with <code>llmrouter infer</code>.</li>
+<li>Run routing only with <code>--route-only</code>, or perform full inference with API calls.</li>
+<li>Use <code>--output</code> and <code>--output-format</code> for batch runs.</li>
+</ol>
+<h2 id="router-availability">Router availability<a class="headerlink" href="#router-availability" title="Permanent link">&para;</a></h2>
+<p>Not all routers are trainable. If a router is not in the training registry, <code>llmrouter train</code> will report it as unsupported. Use <code>llmrouter list-routers</code> to confirm availability.</p>
+<h2 id="evaluation-options">Evaluation options<a class="headerlink" href="#evaluation-options" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use <code>--route-only</code> to evaluate routing decisions without calling APIs.</li>
+<li>Use full inference to evaluate end-to-end output quality.</li>
+<li>The <code>llmrouter/evaluation</code> package includes scripts and examples for evaluation.</li>
+<li>Optional evaluation helpers are exposed in <code>llmrouter.utils</code> when extra dependencies are installed.</li>
+</ul>
+<h2 id="artifacts-and-overrides">Artifacts and overrides<a class="headerlink" href="#artifacts-and-overrides" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Training checkpoints are written to <code>model_path.save_model_path</code>.</li>
+<li>For inference, <code>--load_model_path</code> overrides <code>model_path.load_model_path</code> in the config.</li>
+</ul>
+<h2 id="common-pitfalls">Common pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Missing data files in <code>data_path</code> will cause warnings or errors.</li>
+<li>Optional router dependencies may not be installed; check <code>llmrouter list-routers</code>.</li>
+<li>Full inference requires <code>API_KEYS</code> to be set for external API calls.</li>
+<li><code>--route-only</code> returns routing decisions and does not call any LLM APIs.</li>
+</ul>
+<h2 id="reproducibility-tips">Reproducibility tips<a class="headerlink" href="#reproducibility-tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Version your config files along with data snapshots.</li>
+<li>Keep the router name, config, and model artifact together for each experiment.</li>
+</ul>
 
 
 

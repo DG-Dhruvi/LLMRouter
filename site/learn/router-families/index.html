@@ -746,6 +746,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Router families
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -762,6 +780,69 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#category-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-and-compute-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data and compute needs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#router-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Router availability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1415,6 +1496,58 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#category-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-and-compute-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data and compute needs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#router-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Router availability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1447,12 +1580,183 @@
 
 
 <h1 id="router-families">Router families<a class="headerlink" href="#router-families" title="Permanent link">&para;</a></h1>
-<p>Outline
-- Single-round routers and baselines
-- Multi-round and agentic routers
-- Personalized routers
-- When to choose each family
-- Trade-offs: cost, latency, accuracy</p>
+<p>Routers make model selection decisions with different assumptions and costs. This page groups routers by how they behave and how much data or training they require.</p>
+<h2 id="category-overview">Category overview<a class="headerlink" href="#category-overview" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>When to use</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baselines</td>
+<td>sanity checks and lower bounds</td>
+<td><code>smallest_llm</code>, <code>largest_llm</code></td>
+</tr>
+<tr>
+<td>Classic ML / embedding</td>
+<td>fast, interpretable, strong baselines</td>
+<td><code>knnrouter</code>, <code>svmrouter</code>, <code>mlprouter</code>, <code>mfrouter</code></td>
+</tr>
+<tr>
+<td>Ranking and preference</td>
+<td>preference-driven selection</td>
+<td><code>elorouter</code>, <code>dcrouter</code></td>
+</tr>
+<tr>
+<td>Hybrid or probabilistic</td>
+<td>combine multiple signals</td>
+<td><code>hybrid_llm</code></td>
+</tr>
+<tr>
+<td>Graph-based</td>
+<td>model relations or user preferences</td>
+<td><code>graphrouter</code>, <code>gmtrouter</code></td>
+</tr>
+<tr>
+<td>LLM-driven</td>
+<td>use an LLM to decide or route</td>
+<td><code>causallm_router</code>, <code>llmmultiroundrouter</code>, <code>router_r1</code></td>
+</tr>
+<tr>
+<td>Mixing and ensembling</td>
+<td>blend multiple models</td>
+<td><code>automix</code> / <code>automixrouter</code></td>
+</tr>
+<tr>
+<td>Multi-round and agentic</td>
+<td>multi-turn or tool-like routing</td>
+<td><code>knnmultiroundrouter</code>, <code>llmmultiroundrouter</code>, <code>router_r1</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-and-compute-needs">Data and compute needs<a class="headerlink" href="#data-and-compute-needs" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Baselines require no training data and typically only use <code>llm_data</code>.</li>
+<li>Classic ML routers usually rely on embeddings and routing labels.</li>
+<li>Ranking routers depend on preference-like signals.</li>
+<li>LLM-driven routers may require API access at inference time.</li>
+<li>Multi-round routers incorporate conversation context; see router-specific configs.</li>
+</ul>
+<h2 id="router-availability">Router availability<a class="headerlink" href="#router-availability" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>Train</th>
+<th>Infer</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>knnrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>baseline, fast</td>
+</tr>
+<tr>
+<td><code>svmrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>linear classifier</td>
+</tr>
+<tr>
+<td><code>mlprouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>MLP classifier</td>
+</tr>
+<tr>
+<td><code>mfrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>matrix factorization</td>
+</tr>
+<tr>
+<td><code>elorouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>pairwise ranking</td>
+</tr>
+<tr>
+<td><code>dcrouter</code> (<code>routerdc</code>)</td>
+<td>yes</td>
+<td>yes</td>
+<td>dual contrastive routing</td>
+</tr>
+<tr>
+<td><code>automix</code> (<code>automixrouter</code>)</td>
+<td>yes</td>
+<td>yes</td>
+<td>auto mixing</td>
+</tr>
+<tr>
+<td><code>hybrid_llm</code> (<code>hybridllm</code>)</td>
+<td>yes</td>
+<td>yes</td>
+<td>optional dependencies</td>
+</tr>
+<tr>
+<td><code>graphrouter</code> (<code>graph_router</code>)</td>
+<td>yes</td>
+<td>yes</td>
+<td>optional dependencies</td>
+</tr>
+<tr>
+<td><code>causallm_router</code> (<code>causallmrouter</code>)</td>
+<td>yes</td>
+<td>yes</td>
+<td>optional dependencies</td>
+</tr>
+<tr>
+<td><code>gmtrouter</code> (<code>gmt_router</code>)</td>
+<td>yes</td>
+<td>yes</td>
+<td>optional dependencies, personalized</td>
+</tr>
+<tr>
+<td><code>knnmultiroundrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>multi-round</td>
+</tr>
+<tr>
+<td><code>llmmultiroundrouter</code></td>
+<td>no</td>
+<td>yes</td>
+<td>LLM-based multi-round</td>
+</tr>
+<tr>
+<td><code>router_r1</code> (<code>router-r1</code>)</td>
+<td>no</td>
+<td>yes</td>
+<td>pretrained, needs <code>api_base</code> and <code>api_key</code></td>
+</tr>
+<tr>
+<td><code>smallest_llm</code></td>
+<td>no</td>
+<td>yes</td>
+<td>always chooses smallest model</td>
+</tr>
+<tr>
+<td><code>largest_llm</code></td>
+<td>no</td>
+<td>yes</td>
+<td>always chooses largest model</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>llmrouter list-routers</code> to see what is available in your environment, especially when optional dependencies are involved.</p>
+<h2 id="trade-offs">Trade-offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Speed vs accuracy: smaller models and simple routers are fast but can be less accurate.</li>
+<li>Cost vs quality: routing to smaller models reduces cost but may reduce quality.</li>
+<li>Interpretability: classical models are easier to inspect than neural or LLM-driven routers.</li>
+</ul>
 
 
 

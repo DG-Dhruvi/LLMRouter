@@ -1305,10 +1305,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#train-infer-routers" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Train + infer routers
+        Summary
       
     </span>
   </a>
@@ -1316,10 +1316,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inference-only-routers" class="md-nav__link">
+  <a href="#router-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inference-only routers
+        Router table
       
     </span>
   </a>
@@ -1327,10 +1327,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pretrained-or-external" class="md-nav__link">
+  <a href="#routing-output-contract" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pretrained or external
+        Routing output contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional dependencies
       
     </span>
   </a>
@@ -1492,10 +1503,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#train-infer-routers" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Train + infer routers
+        Summary
       
     </span>
   </a>
@@ -1503,10 +1514,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inference-only-routers" class="md-nav__link">
+  <a href="#router-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inference-only routers
+        Router table
       
     </span>
   </a>
@@ -1514,10 +1525,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pretrained-or-external" class="md-nav__link">
+  <a href="#routing-output-contract" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pretrained or external
+        Routing output contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional dependencies
       
     </span>
   </a>
@@ -1558,32 +1580,133 @@
 
 
 <h1 id="routers">Routers<a class="headerlink" href="#routers" title="Permanent link">&para;</a></h1>
-<p>Use <code>llmrouter list-routers</code> to see which routers are available in your environment. Some routers require optional dependencies.</p>
-<h2 id="train-infer-routers">Train + infer routers<a class="headerlink" href="#train-infer-routers" title="Permanent link">&para;</a></h2>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Routers implement the routing interface and are addressed by name in the CLI. Some routers are trainable, while others are inference-only baselines or pretrained models.</p>
+<div class="admonition note">
+<p class="admonition-title">Key responsibilities</p>
 <ul>
-<li>knnrouter</li>
-<li>svmrouter</li>
-<li>mlprouter</li>
-<li>mfrouter</li>
-<li>elorouter</li>
-<li>dcrouter (alias: routerdc)</li>
-<li>automixrouter (alias: automix)</li>
-<li>hybrid_llm (alias: hybridllm, optional)</li>
-<li>graphrouter (alias: graph_router, optional)</li>
-<li>causallm_router (alias: causallmrouter, optional)</li>
-<li>gmtrouter (alias: gmt_router, optional)</li>
-<li>knnmultiroundrouter</li>
+<li>Provide <code>route_single</code> and <code>route_batch</code></li>
+<li>Return a model name in the routing output</li>
+<li>Integrate with CLI registries for training and inference</li>
 </ul>
-<h2 id="inference-only-routers">Inference-only routers<a class="headerlink" href="#inference-only-routers" title="Permanent link">&para;</a></h2>
-<ul>
-<li>smallest_llm</li>
-<li>largest_llm</li>
-<li>llmmultiroundrouter</li>
-</ul>
-<h2 id="pretrained-or-external">Pretrained or external<a class="headerlink" href="#pretrained-or-external" title="Permanent link">&para;</a></h2>
-<ul>
-<li>router_r1 (alias: router-r1). Requires api_base and api_key in config.</li>
-</ul>
+</div>
+<h2 id="router-table">Router table<a class="headerlink" href="#router-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>Train</th>
+<th>Infer</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>knnrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>baseline, fast</td>
+</tr>
+<tr>
+<td><code>svmrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>linear classifier</td>
+</tr>
+<tr>
+<td><code>mlprouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>MLP classifier</td>
+</tr>
+<tr>
+<td><code>mfrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>matrix factorization</td>
+</tr>
+<tr>
+<td><code>elorouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>pairwise ranking</td>
+</tr>
+<tr>
+<td><code>dcrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>alias: <code>routerdc</code></td>
+</tr>
+<tr>
+<td><code>automix</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>infer name: <code>automixrouter</code></td>
+</tr>
+<tr>
+<td><code>hybrid_llm</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>alias: <code>hybridllm</code>, optional deps</td>
+</tr>
+<tr>
+<td><code>graphrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>alias: <code>graph_router</code>, optional deps</td>
+</tr>
+<tr>
+<td><code>causallm_router</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>alias: <code>causallmrouter</code>, optional deps</td>
+</tr>
+<tr>
+<td><code>gmtrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>alias: <code>gmt_router</code>, optional deps</td>
+</tr>
+<tr>
+<td><code>knnmultiroundrouter</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>multi-round</td>
+</tr>
+<tr>
+<td><code>llmmultiroundrouter</code></td>
+<td>no</td>
+<td>yes</td>
+<td>LLM-based multi-round</td>
+</tr>
+<tr>
+<td><code>router_r1</code></td>
+<td>no</td>
+<td>yes</td>
+<td>alias: <code>router-r1</code>, requires <code>api_base</code> and <code>api_key</code></td>
+</tr>
+<tr>
+<td><code>smallest_llm</code></td>
+<td>no</td>
+<td>yes</td>
+<td>baseline</td>
+</tr>
+<tr>
+<td><code>largest_llm</code></td>
+<td>no</td>
+<td>yes</td>
+<td>baseline</td>
+</tr>
+</tbody>
+</table>
+<h2 id="routing-output-contract">Routing output contract<a class="headerlink" href="#routing-output-contract" title="Permanent link">&para;</a></h2>
+<p>Inference extracts the routed model name from one of these keys:
+- <code>model_name</code>
+- <code>predicted_llm</code>
+- <code>predicted_llm_name</code></p>
+<p>Custom routers should return one of these keys to ensure compatibility.</p>
+<h2 id="optional-dependencies">Optional dependencies<a class="headerlink" href="#optional-dependencies" title="Permanent link">&para;</a></h2>
+<p>Some routers are optional and may be unavailable if their dependencies are not installed. Use <code>llmrouter list-routers</code> to confirm availability.</p>
 
 
 

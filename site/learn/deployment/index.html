@@ -858,6 +858,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -874,6 +892,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cli-based-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI-based inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chat-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-credentials-and-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API credentials and endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1415,6 +1507,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cli-based-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI-based inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chat-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-credentials-and-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API credentials and endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1447,11 +1602,38 @@
 
 
 <h1 id="deployment-and-integration">Deployment and integration<a class="headerlink" href="#deployment-and-integration" title="Permanent link">&para;</a></h1>
-<p>Outline
-- Running inference as a service
-- Managing API keys and endpoints
-- Scaling batch inference
-- Monitoring and logging</p>
+<p>This page covers common ways to run LLMRouter in production-like settings.</p>
+<h2 id="cli-based-inference">CLI-based inference<a class="headerlink" href="#cli-based-inference" title="Permanent link">&para;</a></h2>
+<p>For a single query:</p>
+<pre><code class="language-bash">llmrouter infer --router knnrouter --config configs/model_config_test/knnrouter.yaml --query &quot;Hello&quot;
+</code></pre>
+<p>For batch inference:</p>
+<pre><code class="language-bash">llmrouter infer --router knnrouter --config configs/model_config_test/knnrouter.yaml   --input queries.jsonl --output results.jsonl --output-format jsonl
+</code></pre>
+<p>Use <code>--route-only</code> to skip API calls and return routing decisions only.</p>
+<h2 id="chat-ui">Chat UI<a class="headerlink" href="#chat-ui" title="Permanent link">&para;</a></h2>
+<p>LLMRouter includes a Gradio-based chat UI:</p>
+<pre><code class="language-bash">llmrouter chat --router knnrouter --config configs/model_config_test/knnrouter.yaml
+</code></pre>
+<h2 id="api-credentials-and-endpoints">API credentials and endpoints<a class="headerlink" href="#api-credentials-and-endpoints" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Configure <code>api_endpoint</code> in your YAML config to point to your LLM endpoint.</li>
+<li>Set <code>API_KEYS</code> in the environment for <code>call_api</code>.</li>
+<li>Single key: <code>API_KEYS=your-key</code></li>
+<li>Multiple keys: <code>API_KEYS='["key1", "key2"]'</code></li>
+</ul>
+<p><code>call_api</code> rotates across keys in a round-robin fashion.</p>
+<h2 id="service-integration">Service integration<a class="headerlink" href="#service-integration" title="Permanent link">&para;</a></h2>
+<p>If you are embedding LLMRouter in a service:
+- Load the router once and reuse it across requests.
+- Consider using <code>llmrouter.cli.router_inference.load_router</code> to load from config.
+- Keep config, data, and model artifacts versioned together.</p>
+<h2 id="operational-tips">Operational tips<a class="headerlink" href="#operational-tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Validate configs in CI by running <code>llmrouter list-routers</code> and a small <code>--route-only</code> test.</li>
+<li>Prefer batch inference for large offline jobs.</li>
+<li>Tune <code>--temp</code> and <code>--max-tokens</code> for your latency and cost targets.</li>
+</ul>
 
 
 

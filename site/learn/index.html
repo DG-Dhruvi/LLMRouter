@@ -1405,6 +1405,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-will-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you will learn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading map
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1437,13 +1467,25 @@
 
 
 <h1 id="learn-llmrouter">Learn LLMRouter<a class="headerlink" href="#learn-llmrouter" title="Permanent link">&para;</a></h1>
-<p>Outline
-- Architecture overview
-- Router families and selection
-- Data and metrics
-- Training and evaluation workflow
-- Plugin system and extensions
-- Deployment and integration</p>
+<p>This section explains how LLMRouter is put together and how to reason about routers, data, and deployment.</p>
+<h2 id="what-you-will-learn">What you will learn<a class="headerlink" href="#what-you-will-learn" title="Permanent link">&para;</a></h2>
+<ul>
+<li>How the CLI maps to the core Python modules</li>
+<li>How routers load configs and data</li>
+<li>How router families differ and when to use them</li>
+<li>How training and inference are wired</li>
+<li>How plugins extend the system</li>
+<li>How to deploy and operate routing workflows</li>
+</ul>
+<h2 id="reading-map">Reading map<a class="headerlink" href="#reading-map" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Architecture: execution paths, core classes, and data flow</li>
+<li>Router families: categories and trade-offs</li>
+<li>Data and metrics: expected inputs and objective weights</li>
+<li>Training and evaluation: workflows, artifacts, and pitfalls</li>
+<li>Plugin system: custom routers without forking</li>
+<li>Deployment: inference, batch, and integration patterns</li>
+</ul>
 
 
 

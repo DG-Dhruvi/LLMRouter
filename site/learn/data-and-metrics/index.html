@@ -774,6 +774,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data and metrics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -790,6 +808,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loaded-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loaded datasets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM metadata
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric weights
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1415,6 +1518,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loaded-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loaded datasets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM metadata
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric weights
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1447,11 +1624,99 @@
 
 
 <h1 id="data-and-metrics">Data and metrics<a class="headerlink" href="#data-and-metrics" title="Permanent link">&para;</a></h1>
-<p>Outline
-- Query data vs routing data
-- LLM metadata and embeddings
-- Metric weights and optimization targets
-- Evaluation datasets and metrics</p>
+<p>LLMRouter loads data based on <code>data_path</code> in your YAML config and attaches those datasets to the router instance.</p>
+<h2 id="loaded-datasets">Loaded datasets<a class="headerlink" href="#loaded-datasets" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Attribute on router</th>
+<th>Config key</th>
+<th>Typical format</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query_data_train</code></td>
+<td><code>query_data_train</code></td>
+<td>jsonl</td>
+<td>training queries</td>
+</tr>
+<tr>
+<td><code>query_data_test</code></td>
+<td><code>query_data_test</code></td>
+<td>jsonl</td>
+<td>test queries</td>
+</tr>
+<tr>
+<td><code>query_embedding_data</code></td>
+<td><code>query_embedding_data</code></td>
+<td>pt</td>
+<td>query embeddings</td>
+</tr>
+<tr>
+<td><code>routing_data_train</code></td>
+<td><code>routing_data_train</code></td>
+<td>jsonl</td>
+<td>routing labels and metrics</td>
+</tr>
+<tr>
+<td><code>routing_data_test</code></td>
+<td><code>routing_data_test</code></td>
+<td>jsonl</td>
+<td>routing labels and metrics</td>
+</tr>
+<tr>
+<td><code>llm_data</code></td>
+<td><code>llm_data</code></td>
+<td>json</td>
+<td>model metadata</td>
+</tr>
+<tr>
+<td><code>llm_embedding_data</code></td>
+<td><code>llm_embedding_data</code></td>
+<td>json</td>
+<td>model embeddings</td>
+</tr>
+</tbody>
+</table>
+<p>Paths are resolved relative to the repository root unless they are already absolute.</p>
+<h2 id="query-data">Query data<a class="headerlink" href="#query-data" title="Permanent link">&para;</a></h2>
+<p>A minimal query JSONL line can be as simple as:</p>
+<pre><code class="language-json">{&quot;query&quot;: &quot;Explain transformers.&quot;}
+</code></pre>
+<p>Some routers or datasets include additional fields, but <code>query</code> is the common denominator.</p>
+<h2 id="routing-data">Routing data<a class="headerlink" href="#routing-data" title="Permanent link">&para;</a></h2>
+<p><code>routing_data_*</code> is loaded from JSONL and converted to a table. Fields depend on the router, but commonly include:
+- <code>query</code>
+- <code>model_name</code>
+- one or more metric columns such as <code>performance</code> or <code>cost</code></p>
+<p>Example line:</p>
+<pre><code class="language-json">{&quot;query&quot;: &quot;Explain transformers.&quot;, &quot;model_name&quot;: &quot;model_a&quot;, &quot;performance&quot;: 0.82, &quot;cost&quot;: 0.05}
+</code></pre>
+<p>When in doubt, inspect the example datasets under <code>data/example_data/</code>.</p>
+<h2 id="llm-metadata">LLM metadata<a class="headerlink" href="#llm-metadata" title="Permanent link">&para;</a></h2>
+<p><code>llm_data</code> is a JSON file describing candidate models. During inference, if a model entry contains a <code>model</code> field, LLMRouter uses it as the API model name when calling external endpoints.</p>
+<p>Example:</p>
+<pre><code class="language-json">{
+  &quot;model_a&quot;: {
+    &quot;model&quot;: &quot;qwen/qwen2.5-7b-instruct&quot;,
+    &quot;cost&quot;: 0.5,
+    &quot;capability&quot;: 0.7
+  }
+}
+</code></pre>
+<h2 id="metric-weights">Metric weights<a class="headerlink" href="#metric-weights" title="Permanent link">&para;</a></h2>
+<p><code>metric.weights</code> specifies objective weights such as <code>performance</code>, <code>cost</code>, or <code>llm_judge</code>. How the weights are used depends on the router and trainer implementation.</p>
+<p>Example:</p>
+<pre><code class="language-yaml">metric:
+  weights:
+    performance: 1
+    cost: 0
+    llm_judge: 0
+</code></pre>
+<h2 id="embeddings">Embeddings<a class="headerlink" href="#embeddings" title="Permanent link">&para;</a></h2>
+<p>Embedding-based routers rely on <code>query_embedding_data</code> and <code>llm_embedding_data</code>. Ensure the embedding formats match the router you are using.</p>
 
 
 

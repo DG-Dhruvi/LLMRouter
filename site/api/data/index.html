@@ -1397,6 +1397,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="DataLoader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributes-loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes loaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1489,6 +1517,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="DataLoader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributes-loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes loaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1538,20 +1594,75 @@
 <h1 id="data-utilities">Data utilities<a class="headerlink" href="#data-utilities" title="Permanent link">&para;</a></h1>
 <h2 id="dataloader">DataLoader<a class="headerlink" href="#dataloader" title="Permanent link">&para;</a></h2>
 <p><code>llmrouter.data.DataLoader</code> attaches datasets to a router when a config is loaded.</p>
-<p>Keys loaded from <code>data_path</code>:
-- query_data_train
-- query_data_test
-- query_embedding_data
-- routing_data_train
-- routing_data_test
-- llm_data
-- llm_embedding_data</p>
-<p>Paths are resolved relative to the repo root.</p>
+<h3 id="signature">Signature<a class="headerlink" href="#signature" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">class DataLoader:
+    def __init__(self, project_root: str):
+        ...
+
+    def load_data(self, config, obj_ref):
+        ...
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Key responsibilities</p>
+<ul>
+<li>Resolve relative paths to the project root</li>
+<li>Load datasets from <code>data_path</code></li>
+<li>Attach datasets to the router instance</li>
+</ul>
+</div>
+<h3 id="attributes-loaded">Attributes loaded<a class="headerlink" href="#attributes-loaded" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Source key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query_data_train</code></td>
+<td><code>data_path.query_data_train</code></td>
+<td>training queries</td>
+</tr>
+<tr>
+<td><code>query_data_test</code></td>
+<td><code>data_path.query_data_test</code></td>
+<td>test queries</td>
+</tr>
+<tr>
+<td><code>query_embedding_data</code></td>
+<td><code>data_path.query_embedding_data</code></td>
+<td>query embeddings</td>
+</tr>
+<tr>
+<td><code>routing_data_train</code></td>
+<td><code>data_path.routing_data_train</code></td>
+<td>routing labels</td>
+</tr>
+<tr>
+<td><code>routing_data_test</code></td>
+<td><code>data_path.routing_data_test</code></td>
+<td>routing labels</td>
+</tr>
+<tr>
+<td><code>llm_data</code></td>
+<td><code>data_path.llm_data</code></td>
+<td>model metadata</td>
+</tr>
+<tr>
+<td><code>llm_embedding_data</code></td>
+<td><code>data_path.llm_embedding_data</code></td>
+<td>model embeddings</td>
+</tr>
+</tbody>
+</table>
 <h2 id="input-formats">Input formats<a class="headerlink" href="#input-formats" title="Permanent link">&para;</a></h2>
 <p><code>llmrouter infer --input</code> supports:
-- .txt (one query per line)
-- .json (list of strings or list of objects with <code>query</code>)
-- .jsonl (one JSON object per line)</p>
+- <code>.txt</code> (one query per line)
+- <code>.json</code> (list of strings or list of objects with <code>query</code>)
+- <code>.jsonl</code> (one JSON object per line)</p>
+<p>If you need to preprocess data, start with the example datasets under <code>data/example_data/</code>.</p>
 
 
 

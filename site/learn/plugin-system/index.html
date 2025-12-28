@@ -830,6 +830,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plugin system
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -846,6 +864,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery paths
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-discovery-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How discovery works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directory-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directory layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#router-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Router interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trainer-interface-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trainer interface (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using plugins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1415,6 +1529,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery paths
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-discovery-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How discovery works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directory-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directory layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#router-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Router interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trainer-interface-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trainer interface (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using plugins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1447,11 +1646,48 @@
 
 
 <h1 id="plugin-system">Plugin system<a class="headerlink" href="#plugin-system" title="Permanent link">&para;</a></h1>
-<p>Outline
-- Plugin discovery paths
-- Required router interface
-- Optional trainer interface
-- Debugging plugin loading</p>
+<p>LLMRouter discovers and registers custom routers at runtime, so you can extend the framework without modifying core code.</p>
+<h2 id="discovery-paths">Discovery paths<a class="headerlink" href="#discovery-paths" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>./custom_routers/</code></li>
+<li><code>~/.llmrouter/plugins/</code></li>
+<li><code>$LLMROUTER_PLUGINS</code> (colon-separated list of directories)</li>
+</ul>
+<h2 id="how-discovery-works">How discovery works<a class="headerlink" href="#how-discovery-works" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Plugin directories are added to <code>sys.path</code>.</li>
+<li>The system looks for a Router class in <code>__init__.py</code>, <code>router.py</code>, or <code>model.py</code>.</li>
+<li>A class is accepted if its name ends with <code>Router</code> and it implements <code>route_single</code> and <code>route_batch</code>.</li>
+<li>If <code>trainer.py</code> defines a class ending with <code>Trainer</code>, it is registered for training.</li>
+</ul>
+<h2 id="directory-layout">Directory layout<a class="headerlink" href="#directory-layout" title="Permanent link">&para;</a></h2>
+<pre><code>custom_routers/
+  my_router/
+    __init__.py
+    router.py
+    trainer.py  # optional
+</code></pre>
+<h2 id="router-interface">Router interface<a class="headerlink" href="#router-interface" title="Permanent link">&para;</a></h2>
+<p>Custom routers should implement <code>route_single</code> and <code>route_batch</code> and expose a class name ending with <code>Router</code>.</p>
+<pre><code class="language-python">from llmrouter.models.meta_router import MetaRouter
+
+class MyRouter(MetaRouter):
+    def route_single(self, query_input: dict) -&gt; dict:
+        return {&quot;model_name&quot;: &quot;model_a&quot;}
+
+    def route_batch(self, batch: list) -&gt; list:
+        return [self.route_single(q) for q in batch]
+</code></pre>
+<h2 id="trainer-interface-optional">Trainer interface (optional)<a class="headerlink" href="#trainer-interface-optional" title="Permanent link">&para;</a></h2>
+<p>If you provide a trainer, implement a class ending with <code>Trainer</code> in <code>trainer.py</code> and follow the <code>BaseTrainer</code> interface.</p>
+<h2 id="using-plugins">Using plugins<a class="headerlink" href="#using-plugins" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Place the plugin under a discovery path.</li>
+<li>Run <code>llmrouter list-routers</code> to verify it was loaded.</li>
+<li>Use <code>llmrouter train</code> or <code>llmrouter infer</code> with the custom router name.</li>
+</ol>
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
+<p>Use <code>discover_and_register_plugins(verbose=True)</code> to see discovery details during development.</p>
 
 
 

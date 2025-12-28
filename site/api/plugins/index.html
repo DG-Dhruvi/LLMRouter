@@ -1372,13 +1372,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
+  <a href="#discovery-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API
+        Discovery behavior
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discover_and_register_plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        discover_and_register_plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pluginregistry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PluginRegistry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1387,6 +1426,17 @@
     <span class="md-ellipsis">
       
         Router interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example layout
       
     </span>
   </a>
@@ -1503,13 +1553,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
+  <a href="#discovery-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API
+        Discovery behavior
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discover_and_register_plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        discover_and_register_plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pluginregistry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PluginRegistry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1518,6 +1607,17 @@
     <span class="md-ellipsis">
       
         Router interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example layout
       
     </span>
   </a>
@@ -1559,23 +1659,56 @@
 
 <h1 id="plugin-system">Plugin system<a class="headerlink" href="#plugin-system" title="Permanent link">&para;</a></h1>
 <p>LLMRouter discovers and registers custom routers at runtime.</p>
+<div class="admonition note">
+<p class="admonition-title">Key responsibilities</p>
+<ul>
+<li>Discover custom routers from plugin directories</li>
+<li>Validate router interfaces (<code>route_single</code>, <code>route_batch</code>)</li>
+<li>Register routers into CLI registries</li>
+</ul>
+</div>
 <h2 id="discovery-paths">Discovery paths<a class="headerlink" href="#discovery-paths" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>./custom_routers/</code></li>
 <li><code>~/.llmrouter/plugins/</code></li>
 <li><code>$LLMROUTER_PLUGINS</code> (colon-separated)</li>
 </ul>
-<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h2 id="discovery-behavior">Discovery behavior<a class="headerlink" href="#discovery-behavior" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>llmrouter.plugin_system.discover_and_register_plugins(plugin_dirs=None, verbose=False)</code></li>
-<li><code>PluginRegistry.discover_plugins(plugin_dir, verbose=False)</code></li>
+<li>Adds plugin directories to <code>sys.path</code>.</li>
+<li>Looks for Router classes in <code>__init__.py</code>, <code>router.py</code>, or <code>model.py</code>.</li>
+<li>Looks for Trainer classes in <code>trainer.py</code>.</li>
 </ul>
+<h2 id="core-api">Core API<a class="headerlink" href="#core-api" title="Permanent link">&para;</a></h2>
+<h3 id="discover_and_register_plugins">discover_and_register_plugins<a class="headerlink" href="#discover_and_register_plugins" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">from llmrouter.plugin_system import discover_and_register_plugins
+
+registry = discover_and_register_plugins(plugin_dirs=None, verbose=False)
+</code></pre>
+<p>Parameters:
+- <code>plugin_dirs</code>: optional list of directories to scan
+- <code>verbose</code>: enable discovery logs</p>
+<h3 id="pluginregistry">PluginRegistry<a class="headerlink" href="#pluginregistry" title="Permanent link">&para;</a></h3>
+<p>Key methods:
+| Method | Purpose |
+| --- | --- |
+| <code>discover_plugins(plugin_dir, verbose=False)</code> | scan a directory for plugins |
+| <code>register_to_dict(target_dict)</code> | register routers into a registry |
+| <code>get_router_names()</code> | list discovered router names |
+| <code>get_router(name)</code> | get a router class by name |</p>
 <h2 id="router-interface">Router interface<a class="headerlink" href="#router-interface" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Class name ends with <code>Router</code></li>
 <li>Implements <code>route_single</code> and <code>route_batch</code></li>
-<li>Optional <code>Trainer</code> class in <code>trainer.py</code> for training support</li>
+<li>Optional trainer class in <code>trainer.py</code></li>
 </ul>
+<h2 id="example-layout">Example layout<a class="headerlink" href="#example-layout" title="Permanent link">&para;</a></h2>
+<pre><code>custom_routers/
+  my_router/
+    __init__.py
+    router.py
+    trainer.py  # optional
+</code></pre>
 
 
 

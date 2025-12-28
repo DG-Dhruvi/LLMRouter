@@ -1333,6 +1333,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#top-level-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data_path" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1381,6 +1392,17 @@
     <span class="md-ellipsis">
       
         api_endpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routerr1-special-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RouterR1 special fields
       
     </span>
   </a>
@@ -1514,6 +1536,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#top-level-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data_path" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1568,6 +1601,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#routerr1-special-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RouterR1 special fields
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1602,10 +1646,40 @@
 
 
 <h1 id="config-reference">Config reference<a class="headerlink" href="#config-reference" title="Permanent link">&para;</a></h1>
-<p>LLMRouter uses YAML config files. Common top-level keys are listed below.</p>
+<p>LLMRouter uses YAML config files for training and inference. This page lists common keys and how they are used.</p>
+<h2 id="top-level-keys">Top-level keys<a class="headerlink" href="#top-level-keys" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data_path</code></td>
+<td>Dataset and metadata paths</td>
+</tr>
+<tr>
+<td><code>model_path</code></td>
+<td>Model checkpoints and artifacts</td>
+</tr>
+<tr>
+<td><code>metric</code></td>
+<td>Objective weights for routing</td>
+</tr>
+<tr>
+<td><code>hparam</code></td>
+<td>Router-specific hyperparameters</td>
+</tr>
+<tr>
+<td><code>api_endpoint</code></td>
+<td>Optional inference endpoint</td>
+</tr>
+</tbody>
+</table>
 <h2 id="data_path">data_path<a class="headerlink" href="#data_path" title="Permanent link">&para;</a></h2>
-<p>Dataset and metadata locations. Paths are resolved relative to the repo root.</p>
-<p>Supported keys:
+<p>Supported keys (common across routers):
 - <code>query_data_train</code> (jsonl)
 - <code>query_data_test</code> (jsonl)
 - <code>query_embedding_data</code> (pt)
@@ -1613,14 +1687,15 @@
 - <code>routing_data_test</code> (jsonl)
 - <code>llm_data</code> (json)
 - <code>llm_embedding_data</code> (json)</p>
+<p>Paths are resolved relative to the repository root unless they are absolute.</p>
 <h2 id="model_path">model_path<a class="headerlink" href="#model_path" title="Permanent link">&para;</a></h2>
-<p>Model checkpoints and weights.</p>
 <p>Common keys:
 - <code>ini_model_path</code>
 - <code>save_model_path</code>
 - <code>load_model_path</code></p>
+<p><code>llmrouter infer --load_model_path</code> overrides <code>model_path.load_model_path</code> in the config.</p>
 <h2 id="metric">metric<a class="headerlink" href="#metric" title="Permanent link">&para;</a></h2>
-<p>Routing objective weights. Example:</p>
+<p>Weights for routing objectives. Example:</p>
 <pre><code class="language-yaml">metric:
   weights:
     performance: 1
@@ -1628,9 +1703,15 @@
     llm_judge: 0
 </code></pre>
 <h2 id="hparam">hparam<a class="headerlink" href="#hparam" title="Permanent link">&para;</a></h2>
-<p>Router-specific hyperparameters.</p>
+<p>Router-specific hyperparameters. Refer to router-specific configs for exact fields.</p>
 <h2 id="api_endpoint">api_endpoint<a class="headerlink" href="#api_endpoint" title="Permanent link">&para;</a></h2>
-<p>Optional inference endpoint. If omitted, the default in the inference code is used.</p>
+<p>Optional endpoint for inference. If omitted, the default in <code>call_api</code> is used.</p>
+<h2 id="routerr1-special-fields">RouterR1 special fields<a class="headerlink" href="#routerr1-special-fields" title="Permanent link">&para;</a></h2>
+<p><code>router_r1</code> expects <code>api_base</code> and <code>api_key</code> under <code>hparam</code>:</p>
+<pre><code class="language-yaml">hparam:
+  api_base: &quot;https://your-endpoint/v1&quot;
+  api_key: &quot;...&quot;
+</code></pre>
 
 
 
