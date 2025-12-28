@@ -825,10 +825,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#loaded-datasets" class="md-nav__link">
+  <a href="#how-paths-are-resolved" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Loaded datasets
+        How paths are resolved
       
     </span>
   </a>
@@ -836,10 +836,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#query-data" class="md-nav__link">
+  <a href="#loaded-datasets-attributes-on-the-router-instance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Query data
+        Loaded datasets (attributes on the router instance)
       
     </span>
   </a>
@@ -847,10 +847,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#routing-data" class="md-nav__link">
+  <a href="#query-data-query_data_train-query_data_test" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Routing data
+        Query data (query_data_train / query_data_test)
       
     </span>
   </a>
@@ -858,10 +858,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#llm-metadata" class="md-nav__link">
+  <a href="#routing-data-routing_data_train-routing_data_test" class="md-nav__link">
     <span class="md-ellipsis">
       
-        LLM metadata
+        Routing data (routing_data_train / routing_data_test)
       
     </span>
   </a>
@@ -869,10 +869,93 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#metric-weights" class="md-nav__link">
+  <a href="#from-logs-to-supervision-how-routing-becomes-learnable" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Metric weights
+        From logs to supervision (how routing becomes learnable)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From logs to supervision (how routing becomes learnable)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-classification-label-best-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Classification label: "best model"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pairwise-preferences-winner-beats-loser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) Pairwise preferences: "winner beats loser"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-top-k-vs-last-k-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Top-k vs last-k sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cost-aware-gating-labels-2-model-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) Cost-aware gating labels (2-model routing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#candidate-models-llm_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Candidate models (llm_data)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-weights-metricweights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric weights (metric.weights)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-objective-you-can-reason-about" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A simple objective you can reason about
       
     </span>
   </a>
@@ -884,6 +967,17 @@
     <span class="md-ellipsis">
       
         Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next
       
     </span>
   </a>
@@ -1007,12 +1101,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
     
     
     
@@ -1073,6 +1161,70 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Workflows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../tutorials/first-routing/" class="md-nav__link">
         
@@ -1082,34 +1234,6 @@
     
   
     First routing run
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/custom-router/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Custom router
   
 
     
@@ -1202,6 +1326,836 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/custom-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom router (plugin)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/data-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Baselines
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Baselines
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/smallest-llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmallestLLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/largest-llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LargestLLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/elorouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EloRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_3" id="__nav_4_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trainable routers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Trainable routers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/knnrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KNNRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/svmrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SVMRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/mlprouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MLPRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/mfrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MFRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/dcrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DCRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/automix-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoMixRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/hybrid-llm-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HybridLLMRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/graphrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GraphRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/causallm-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CausalLMRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/gmtrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GMTRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-round routers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Multi-round routers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/knnmultiroundrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KNNMultiRoundRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/llmmultiroundrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLMMultiRoundRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/router-r1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RouterR1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/notebooks/custom-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom routers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1525,10 +2479,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#loaded-datasets" class="md-nav__link">
+  <a href="#how-paths-are-resolved" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Loaded datasets
+        How paths are resolved
       
     </span>
   </a>
@@ -1536,10 +2490,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#query-data" class="md-nav__link">
+  <a href="#loaded-datasets-attributes-on-the-router-instance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Query data
+        Loaded datasets (attributes on the router instance)
       
     </span>
   </a>
@@ -1547,10 +2501,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#routing-data" class="md-nav__link">
+  <a href="#query-data-query_data_train-query_data_test" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Routing data
+        Query data (query_data_train / query_data_test)
       
     </span>
   </a>
@@ -1558,10 +2512,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#llm-metadata" class="md-nav__link">
+  <a href="#routing-data-routing_data_train-routing_data_test" class="md-nav__link">
     <span class="md-ellipsis">
       
-        LLM metadata
+        Routing data (routing_data_train / routing_data_test)
       
     </span>
   </a>
@@ -1569,10 +2523,93 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#metric-weights" class="md-nav__link">
+  <a href="#from-logs-to-supervision-how-routing-becomes-learnable" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Metric weights
+        From logs to supervision (how routing becomes learnable)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From logs to supervision (how routing becomes learnable)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-classification-label-best-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Classification label: "best model"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pairwise-preferences-winner-beats-loser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) Pairwise preferences: "winner beats loser"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-top-k-vs-last-k-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Top-k vs last-k sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cost-aware-gating-labels-2-model-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) Cost-aware gating labels (2-model routing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#candidate-models-llm_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Candidate models (llm_data)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-weights-metricweights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric weights (metric.weights)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-objective-you-can-reason-about" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A simple objective you can reason about
       
     </span>
   </a>
@@ -1584,6 +2621,17 @@
     <span class="md-ellipsis">
       
         Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next
       
     </span>
   </a>
@@ -1624,13 +2672,24 @@
 
 
 <h1 id="data-and-metrics">Data and metrics<a class="headerlink" href="#data-and-metrics" title="Permanent link">&para;</a></h1>
-<p>LLMRouter loads data based on <code>data_path</code> in your YAML config and attaches those datasets to the router instance.</p>
-<h2 id="loaded-datasets">Loaded datasets<a class="headerlink" href="#loaded-datasets" title="Permanent link">&para;</a></h2>
+<p>LLMRouter is config-driven: your YAML points to data files, and the framework loads them and attaches the results to the router instance.</p>
+<p>The loader implementation lives here (main branch):
+<a href="https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/data/data_loader.py">llmrouter/data/data_loader.py</a>.</p>
+<h2 id="how-paths-are-resolved">How paths are resolved<a class="headerlink" href="#how-paths-are-resolved" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Absolute paths are used as-is.</li>
+<li>Relative paths are resolved against the LLMRouter "project root" (the directory containing the <code>llmrouter/</code> package).</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you installed from PyPI (not a repo clone), prefer absolute paths so your configs can find local data files.</p>
+</div>
+<h2 id="loaded-datasets-attributes-on-the-router-instance">Loaded datasets (attributes on the router instance)<a class="headerlink" href="#loaded-datasets-attributes-on-the-router-instance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Attribute on router</th>
-<th>Config key</th>
+<th>YAML key (<code>data_path</code>)</th>
 <th>Typical format</th>
 <th>Purpose</th>
 </tr>
@@ -1670,7 +2729,7 @@
 <td><code>llm_data</code></td>
 <td><code>llm_data</code></td>
 <td>json</td>
-<td>model metadata</td>
+<td>candidate model metadata</td>
 </tr>
 <tr>
 <td><code>llm_embedding_data</code></td>
@@ -1680,43 +2739,98 @@
 </tr>
 </tbody>
 </table>
-<p>Paths are resolved relative to the repository root unless they are already absolute.</p>
-<h2 id="query-data">Query data<a class="headerlink" href="#query-data" title="Permanent link">&para;</a></h2>
-<p>A minimal query JSONL line can be as simple as:
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Explain transformers.&quot;</span><span class="p">}</span>
-</span></code></pre></div></p>
-<p>Some routers or datasets include additional fields, but <code>query</code> is the common denominator.</p>
-<h2 id="routing-data">Routing data<a class="headerlink" href="#routing-data" title="Permanent link">&para;</a></h2>
-<p><code>routing_data_*</code> is loaded from JSONL and converted to a table. Fields depend on the router, but commonly include:
-- <code>query</code>
-- <code>model_name</code>
-- one or more metric columns such as <code>performance</code> or <code>cost</code></p>
-<p>Example line:
-<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Explain transformers.&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;model_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model_a&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;performance&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.82</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;cost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">}</span>
-</span></code></pre></div></p>
-<p>When in doubt, inspect the example datasets under <code>data/example_data/</code>.</p>
-<h2 id="llm-metadata">LLM metadata<a class="headerlink" href="#llm-metadata" title="Permanent link">&para;</a></h2>
-<p><code>llm_data</code> is a JSON file describing candidate models. During inference, if a model entry contains a <code>model</code> field, LLMRouter uses it as the API model name when calling external endpoints.</p>
-<p>Example:
+<h2 id="query-data-query_data_train-query_data_test">Query data (<code>query_data_train</code> / <code>query_data_test</code>)<a class="headerlink" href="#query-data-query_data_train-query_data_test" title="Permanent link">&para;</a></h2>
+<p>Query datasets are JSONL. The only universally required field is <code>query</code>.</p>
+<p>Minimal example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>{&quot;query&quot;: &quot;Explain transformers.&quot;}
+</span></code></pre></div>
+<p>Many datasets include extra fields (for example <code>task_name</code>, <code>ground_truth</code>, <code>choices</code>, <code>metric</code>). Some routers and evaluators use these fields.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>llmrouter infer --input ...</code> only loads query strings (it ignores extra fields and keeps only <code>query</code>).
+Training pipelines may use the richer per-row objects loaded by <code>DataLoader</code>.</p>
+</div>
+<h2 id="routing-data-routing_data_train-routing_data_test">Routing data (<code>routing_data_train</code> / <code>routing_data_test</code>)<a class="headerlink" href="#routing-data-routing_data_train-routing_data_test" title="Permanent link">&para;</a></h2>
+<p>Routing datasets are JSONL and are converted into a tabular form. The exact schema depends on the router/trainer, but common columns include:</p>
+<ul>
+<li>which model was used or is optimal (for example <code>model_name</code>, <code>best_model</code>)</li>
+<li>one or more numeric metrics (for example <code>performance</code>, <code>cost</code>, <code>llm_judge</code>)</li>
+</ul>
+<p>Minimal example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{&quot;query&quot;: &quot;Explain transformers.&quot;, &quot;model_name&quot;: &quot;small&quot;, &quot;performance&quot;: 0.82, &quot;cost&quot;: 0.05}
+</span></code></pre></div>
+<h2 id="from-logs-to-supervision-how-routing-becomes-learnable">From logs to supervision (how routing becomes learnable)<a class="headerlink" href="#from-logs-to-supervision-how-routing-becomes-learnable" title="Permanent link">&para;</a></h2>
+<p>Most "trainable" routers need a supervision signal derived from routing logs.
+LLMRouter supports multiple philosophies for extracting that signal:</p>
+<h3 id="1-classification-label-best-model">1) Classification label: "best model"<a class="headerlink" href="#1-classification-label-best-model" title="Permanent link">&para;</a></h3>
+<p>Used by embedding classifiers (SVM/MLP) and sometimes as a target for other methods.</p>
+<p>Given per-query measurements for each model, define a scalar objective and take the winner:</p>
+<p><code>best_model(q) = argmax_m Score(m, q)</code></p>
+<h3 id="2-pairwise-preferences-winner-beats-loser">2) Pairwise preferences: "winner beats loser"<a class="headerlink" href="#2-pairwise-preferences-winner-beats-loser" title="Permanent link">&para;</a></h3>
+<p>Used by ranking-style routers (Elo, matrix factorization) and preference learning setups.</p>
+<p>For each query, build comparisons like:</p>
+<ul>
+<li>(winner, loser) for all other models, or</li>
+<li>a sampled subset of comparisons for efficiency</li>
+</ul>
+<h3 id="3-top-k-vs-last-k-sets">3) Top-k vs last-k sets<a class="headerlink" href="#3-top-k-vs-last-k-sets" title="Permanent link">&para;</a></h3>
+<p>Used by contrastive approaches (for example RouterDC), where "positives" are top performers and "negatives" are bottom performers.</p>
+<h3 id="4-cost-aware-gating-labels-2-model-routing">4) Cost-aware gating labels (2-model routing)<a class="headerlink" href="#4-cost-aware-gating-labels-2-model-routing" title="Permanent link">&para;</a></h3>
+<p>Used by small-vs-large routers (Hybrid LLM, Automix).
+Instead of picking among many models, the signal is "is the small model good enough?"</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Different routers consume different supervision formats. The safest workflow is: start from the router's README (linked from <a href="../../api/routers/">API Reference - Routers</a>) and use the example config/data as a template.</p>
+</div>
+<h2 id="candidate-models-llm_data">Candidate models (<code>llm_data</code>)<a class="headerlink" href="#candidate-models-llm_data" title="Permanent link">&para;</a></h2>
+<p><code>llm_data</code> is a JSON object mapping <code>model_name</code> -&gt; metadata.</p>
+<p>For full inference (not <code>--route-only</code>), LLMRouter expects:</p>
+<ul>
+<li><code>model</code>: provider-specific model id (used as <code>api_model_name</code>)</li>
+<li><code>api_endpoint</code>: OpenAI-compatible base URL for the provider (per model), or <code>api_endpoint</code> in YAML config</li>
+</ul>
+<p>Example:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;model_a&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;qwen/qwen2.5-7b-instruct&quot;</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;cost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;capability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;small&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7B&quot;</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;qwen/qwen2.5-7b-instruct&quot;</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;api_endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://integrate.api.nvidia.com/v1&quot;</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<h2 id="metric-weights">Metric weights<a class="headerlink" href="#metric-weights" title="Permanent link">&para;</a></h2>
-<p><code>metric.weights</code> specifies objective weights such as <code>performance</code>, <code>cost</code>, or <code>llm_judge</code>. How the weights are used depends on the router and trainer implementation.</p>
-<p>Example:
+</span></code></pre></div>
+<p>See the full example used by the <code>main</code> branch configs:
+<a href="https://github.com/ulab-uiuc/LLMRouter/blob/main/data/example_data/llm_candidates/default_llm.json">data/example_data/llm_candidates/default_llm.json</a>.</p>
+<h2 id="metric-weights-metricweights">Metric weights (<code>metric.weights</code>)<a class="headerlink" href="#metric-weights-metricweights" title="Permanent link">&para;</a></h2>
+<p><code>metric.weights</code> is how you tell a trainer what to optimize (for example quality vs cost).
+How weights are used depends on the router and trainer implementation.</p>
+<p>Example:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">metric</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">weights</span><span class="p">:</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">performance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">cost</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">llm_judge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
+<h2 id="a-simple-objective-you-can-reason-about">A simple objective you can reason about<a class="headerlink" href="#a-simple-objective-you-can-reason-about" title="Permanent link">&para;</a></h2>
+<p>Many workflows can be viewed as optimizing a weighted objective per (model, query):</p>
+<p><code>Score(m, q) = w_perf * Perf(m, q) - w_cost * Cost(m, q) + w_judge * Judge(m, q)</code></p>
+<p>Practical notes:</p>
+<ul>
+<li>Make sure your metrics are on comparable scales (normalization matters).</li>
+<li>Be explicit about the sign convention for cost: cost is usually "lower is better", so it often appears with a minus sign.</li>
+<li>If you add new metrics, document them and update your label-generation logic consistently.</li>
+</ul>
 <h2 id="embeddings">Embeddings<a class="headerlink" href="#embeddings" title="Permanent link">&para;</a></h2>
-<p>Embedding-based routers rely on <code>query_embedding_data</code> and <code>llm_embedding_data</code>. Ensure the embedding formats match the router you are using.</p>
+<p>Embedding-based routers typically rely on:</p>
+<ul>
+<li><code>query_embedding_data</code> (PyTorch <code>.pt</code> file)</li>
+<li><code>llm_embedding_data</code> (JSON file)</li>
+</ul>
+<p>Make sure the embedding formats match what the router expects.</p>
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<ul>
+<li>For config keys: <a href="../../api/config/">Config reference</a></li>
+<li>For training workflow: <a href="../training-and-evaluation/">Training and evaluation</a></li>
+</ul>
 
 
 

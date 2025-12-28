@@ -12,9 +12,13 @@
         <meta name="author" content="LLMRouter contributors">
       
       
-        <link rel="canonical" href="https://ulab-uiuc.github.io/LLMRouter/tutorials/blogs/basic/">
+        <link rel="canonical" href="https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/smallest-llm/">
       
       
+        <link rel="prev" href="../data-preparation/">
+      
+      
+        <link rel="next" href="../largest-llm/">
       
       
         
@@ -25,7 +29,7 @@
     
     
       
-        <title>Basic blogs - LLMRouter</title>
+        <title>SmallestLLM - LLMRouter</title>
       
     
     
@@ -86,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#basic-blogs" class="md-skip">
+        <a href="#smallestllm-baseline" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +129,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Basic blogs
+              SmallestLLM
             
           </span>
         </div>
@@ -314,10 +318,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../" class="md-tabs__link">
           
   
@@ -870,6 +876,8 @@
       
   
   
+    
+  
   
   
     
@@ -883,26 +891,23 @@
       
         
       
-        
-      
-        
-      
-        
-      
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -924,13 +929,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -949,6 +954,73 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Workflows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../first-routing/" class="md-nav__link">
         
@@ -958,34 +1030,6 @@
     
   
     First routing run
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../custom-router/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Custom router
   
 
     
@@ -1078,6 +1122,934 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom router (plugin)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Baselines
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Baselines
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmallestLLM
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmallestLLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run (CLI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-tweak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to tweak
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../largest-llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LargestLLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elorouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EloRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_3" id="__nav_4_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trainable routers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Trainable routers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knnrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KNNRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../svmrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SVMRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlprouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MLPRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mfrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MFRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DCRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automix-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoMixRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hybrid-llm-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HybridLLMRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GraphRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causallm-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CausalLMRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gmtrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GMTRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-round routers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Multi-round routers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knnmultiroundrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KNNMultiRoundRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llmmultiroundrouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLMMultiRoundRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../router-r1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RouterR1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom routers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1401,10 +2373,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#key-concepts" class="md-nav__link">
+  <a href="#config" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key concepts
+        Config
       
     </span>
   </a>
@@ -1412,10 +2384,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setting-up-your-blog" class="md-nav__link">
+  <a href="#run-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setting up your blog
+        Run (CLI)
       
     </span>
   </a>
@@ -1423,82 +2395,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-metadata" class="md-nav__link">
+  <a href="#what-to-tweak" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Post metadata
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Post metadata">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drafts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Drafts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Edits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reading-time" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reading time
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pinning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pinning
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#related-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related links
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#meta-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Meta plugin
+        What to tweak
       
     </span>
   </a>
@@ -1506,10 +2406,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
+  <a href="#next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's next?
+        Next
       
     </span>
   </a>
@@ -1533,7 +2433,7 @@
 
 
   
-    <a href="https://github.com/ulab-uiuc/LLMRouter/edit/website/docs/tutorials/blogs/basic.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/ulab-uiuc/LLMRouter/edit/website/docs/tutorials/notebooks/smallest-llm.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1542,301 +2442,45 @@
     
       
     
-    <a href="https://github.com/ulab-uiuc/LLMRouter/raw/website/docs/tutorials/blogs/basic.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/ulab-uiuc/LLMRouter/raw/website/docs/tutorials/notebooks/smallest-llm.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="basic-blogs">Basic blogs<a class="headerlink" href="#basic-blogs" title="Permanent link">&para;</a></h1>
-<p>Blogs are a great way to engage with your audience. Software developers can use
-a blog to announce new features, demonstrate their usage and provide background
-information. You can demonstrate competence by commenting on the state of the
-art or document your own work as best practice. Posts on current topics can help
-draw in visitors for your main website and can keep your audience engaged. Of
-course, you can blog about any topics close to your heart.</p>
-<p>The <a href="../../../plugins/blog/">blog plugin</a> makes running a blog alongside your other content easy but you
-can also configure it to run a stand-alone blog if posts are the only kind
-of content you need.</p>
-<p>After a brief overview of the basic concepts of a blog, this tutorial guides you
-through the process of configuring the <a href="../../../plugins/blog/">blog plugin</a>, setting up your blog,
-creating posts, and defining post metadata.</p>
-<p><strong>Time required:</strong> typically 20 minutes</p>
-<h2 id="key-concepts">Key concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h2>
-<p><strong>Post, excerpt</strong>: a blog consists of a number of self-contained <em>posts</em> (often called
-articles) and an index page that shows the posts in reverse chronological order, with
-the most recent post at the top. The index page usually shows only a short <em>excerpt</em> and a
-link that the user can click to navigate to the full post.</p>
-<p><strong>Metadata</strong>: both the index page and the post itself list information such as
-when you published the post, when you updated it, who the author is, and what the
-expected reading time is.</p>
-<p><strong>Slug</strong>: since the blog posts are primarily arranged by time and not into a hierarchy,
-their URLs do not reflect such a structure. Instead, each post's URL
-contains a shortened description, the <em>slug</em>, which is usually derived from
-the first heading in the post.</p>
-<p><strong>Navigation</strong>: the main navigation structure is the timeline, which you can
-subdivide into <em>categories</em>. The main index page shows the more recent posts
-while an <em>archive</em> section allows access to older ones, organized by year.
-In addition, posts can be <em>tagged</em> and <em>tag index pages</em> provide an additional
-navigation structure based on content.</p>
-<p>You can see all these elements on the <a href="https://squidfunk.github.io/mkdocs-material/blog/">Material for MkDocs blog</a>.</p>
-<h2 id="setting-up-your-blog">Setting up your blog<a class="headerlink" href="#setting-up-your-blog" title="Permanent link">&para;</a></h2>
-<p>The blog plugin is part of Material for MkDocs but you need to configure it
-in the <code>mkdocs.yml</code>.</p>
-<div class="admonition example">
-<p class="admonition-title">Set up a blog</p>
-<p>If you have not done so already, create a project for your blog,
-then edit the <code>mkdocs.yml</code> file to make sure it has the following content:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Blog Tutorial</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">site_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">an example blog set up following the tutorial</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">site_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://www.example.com</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">theme</span><span class="p">:</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">plugins</span><span class="p">:</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blog</span>
-</span></code></pre></div>
-<p>The blog plugin will create a directory structure for your blog posts if it
-does not exist, so simply run <code>mkdocs serve</code> to get:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docs
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── blog
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│   ├── index.md
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   └── posts
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>└── index.md
-</span></code></pre></div>
+<h1 id="smallestllm-baseline">SmallestLLM (baseline)<a class="headerlink" href="#smallestllm-baseline" title="Permanent link">&para;</a></h1>
+<p>SmallestLLM is a baseline router: it always routes to the smallest candidate model (based on the <code>size</code> field in <code>llm_data</code>).</p>
+<p>Notebook: <a href="https://github.com/ulab-uiuc/LLMRouter/blob/main/notebooks/smallest_llm/01_smallest_llm_inference.ipynb">https://github.com/ulab-uiuc/LLMRouter/blob/main/notebooks/smallest_llm/01_smallest_llm_inference.ipynb</a></p>
+<p>Router docs: <a href="https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/models/smallest_llm/README.md">https://github.com/ulab-uiuc/LLMRouter/blob/main/llmrouter/models/smallest_llm/README.md</a></p>
+<h2 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Test config: <a href="https://github.com/ulab-uiuc/LLMRouter/blob/main/configs/model_config_test/smallest_llm.yaml">https://github.com/ulab-uiuc/LLMRouter/blob/main/configs/model_config_test/smallest_llm.yaml</a></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The notebook currently references <code>configs/model_config_train/smallest_llm.yaml</code>, but the repo ships the baseline config under <code>configs/model_config_test/</code>.
+Use the test config above (or change the notebook path).</p>
 </div>
-<p>Now create your first blog post in <code>docs/blog/posts</code>. You can use any
-naming convention and directory structure you like for your posts, as long as
-they are inside <code>docs/blog/posts</code>.</p>
-<p>Each post <em>must</em> have a page header, which appears at the top of the Markdown
-code between lines with three dashes. Within this header, you need to have at
-least a <code>date</code> entry but you can add other data, as you will see below.
-Following the header comes the page content. Note that it is important
-to have a level one heading as the plugin uses it to produce the <em>slug</em>. Also,
-by adding <code>&lt;!-- more --&gt;</code> to the page, you can define where the excerpt will end
-that the index page shows.</p>
-<div class="admonition example">
-<p class="admonition-title">Write your first post</p>
-<p>Create a file <code>docs/blog/posts/myfirst.md</code> with the following contents:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>---
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>date:
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  created: 2023-12-31
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>---
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a># Happy new years eve!
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>We hope you are all having fun and wish you all the best for the new year!
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>&lt;!-- more --&gt;
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>tempor incididunt ut labore et dolore magna aliqua.
+<h2 id="run-cli">Run (CLI)<a class="headerlink" href="#run-cli" title="Permanent link">&para;</a></h2>
+<p>Route-only (no API calls):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>llmrouter<span class="w"> </span>infer<span class="w"> </span>--router<span class="w"> </span>smallest_llm<span class="w"> </span>--config<span class="w"> </span>configs/model_config_test/smallest_llm.yaml<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;Explain transformers.&quot;</span><span class="w"> </span>--route-only
 </span></code></pre></div>
-<p>Then, run <code>mkdocs serve</code> and point your web browser at
-<code>http://localhost:8000/blog</code>.</p>
-<p>The blog plugin automatically creates navigation elements for
-the blog. The index page shows only the extract. When you select the
-"Continue reading" link, you will get to the full blog post. Note how it
-has a URL generated from the first-level heading.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Navigation</p>
-<p>We also have a <a href="../navigation/">tutorial on navigation</a> that shows you how to change the
-automatically created navigation and integrate the blog into your existing
-navigation structure. It shows how to create secondary navigation, produce
-author pages, and control pagination.</p>
-</div>
-<h2 id="post-metadata">Post metadata<a class="headerlink" href="#post-metadata" title="Permanent link">&para;</a></h2>
-<p>In addition to the date, you can provide other metadata and give the plugin
-instructions, such as to treat a post as a draft or to pin it.</p>
-<h3 id="drafts">Drafts<a class="headerlink" href="#drafts" title="Permanent link">&para;</a></h3>
-<p>You may want to produce a draft of a blog post and work with it locally but
-exclude it from the build that you publish. Simply add a field to the page
-header to indicate that a post is still in draft form.</p>
-<div class="admonition example">
-<p class="admonition-title">Create a draft</p>
-<p>Create a second blog post in <code>docs/blogs/posts/draft.md</code> with the following
-contents:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>---
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>date:
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  created: 2024-01-01
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="hll">draft: true
-</span></span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>---
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a># Happy new year!
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>Happy 2024 to everyone. Wishing you all the best!
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>&lt;!-- more --&gt;
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>tempor incididunt ut labore et dolore magna aliqua.
+<p>Full inference (routes + calls the selected model):
+- Ensure <code>llm_data</code> contains <code>api_endpoint</code> and <code>model</code> for the routed model.
+- Set <code>API_KEYS</code> (see <a href="../../../getting-started/installation/">Installation</a>).</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>llmrouter<span class="w"> </span>infer<span class="w"> </span>--router<span class="w"> </span>smallest_llm<span class="w"> </span>--config<span class="w"> </span>configs/model_config_test/smallest_llm.yaml<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;Explain transformers.&quot;</span>
 </span></code></pre></div>
-<p>Now, note how the draft appears on the index page but with a label that
-indicates that it is a draft. When you run <code>mkdocs build</code>, the draft will
-<em>not</em> appear in the output:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$ mkdocs build
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$ ls site/blog
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>site/blog
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── 2023
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   └── 12
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│       └── 31
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│           └── happy-new-years-eve
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│               └── index.html
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>...
-</span></code></pre></div>
-<p>The first blog post for 2024 is not there yet because it is still in draft
-stage. Remember to remove the <code>draft</code> setting in the header when it is time
-to publish it.</p>
-</div>
-<p>If you are using the <a href="../../../insiders/">Insiders Edition</a>, you can also create
-a folder to keep your drafts in and use the <a href="../../../plugins/meta/">Meta plugin</a> to add the
-<code>draft</code> header setting to all the posts in that folder. This has the advantage
-that it is easier to see which posts are still in draft form. We will cover the
-Meta plugin later on.</p>
-<h3 id="edits">Edits<a class="headerlink" href="#edits" title="Permanent link">&para;</a></h3>
-<p>Sometimes, bloggers need to update a post. This might happen when you make
-a mistake or when something changes that you need to reflect in the post. To
-indicate you have edited a post, you can include an <code>updated</code> date in the page
-header.</p>
-<div class="admonition example">
-<p class="admonition-title">Editing a post</p>
-<p>Make a change to your first blog post, then add an edit date to the header:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>---
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>date:
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="hll">  created: 2023-12-31
-</span></span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="hll">  updated: 2024-01-02
-</span></span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>---
-</span></code></pre></div>
-</div>
-<p>The Metadata section of the blog post itself will contain the edit date,
-though the index page omits this detail by default.</p>
-<h3 id="reading-time">Reading time<a class="headerlink" href="#reading-time" title="Permanent link">&para;</a></h3>
-<p>To give the reader some idea of how long it might take them to read a post,
-a read time is automatically calculated. If you want to override this, you can
-do so in the page header by specifying the number of minutes you estimate
-your readers will take the read the post.</p>
-<div class="admonition example">
-<p class="admonition-title">Overriding the reading time</p>
-<p>Add a reading time override to your first blog post:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>---
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>date:
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  created: 2023-12-31
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  updated: 2024-01-02
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="hll">readtime: 15
-</span></span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>---
-</span></code></pre></div>
-</div>
-<h3 id="pinning">Pinning<a class="headerlink" href="#pinning" title="Permanent link">&para;</a></h3>
-<p>Sometimes, blog authors want to 'pin' a specific post so that it will always
-appear at the top of the index page, no matter what else gets published. If you
-are using the <a href="../../../insiders/">Insiders Edition</a>, you can achieve this by adding the <code>pin</code>
-attribute in the page header:</p>
-<div class="admonition example">
-<p class="admonition-title">Pin a post <!-- md:sponsors --></p>
-<p>Add the <code>pin</code> attribute to your first blog post:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>---
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>date:
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  created: 2023-12-31
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  updated: 2024-01-02
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>readtime: 15
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="hll">pin: true
-</span></span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>---
-</span></code></pre></div>
-<p>Observe how this makes the post appear on top of the index page even though
-its publication date is prior to other posts. A small pin icon shows that the
-post has been pinned.</p>
-</div>
-<h3 id="related-links">Related links<a class="headerlink" href="#related-links" title="Permanent link">&para;</a></h3>
-<p>When your blog is part of a wider site such as technical documentation, you
-will want to provide links from blog posts into your other content. One way you
-can do this is to have a related links section. The blog plugin can create one
-for you if you provide link targets in your page header:</p>
-<div class="admonition example">
-<p class="admonition-title">Add a related links section <!-- md:sponsors --></p>
-<p>Add the following to a blog post:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>---
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>date:
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  created: 2023-12-31
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>...
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="hll">links:
-</span></span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="hll">  - index.md
-</span></span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="hll">  - blog/index.md
-</span></span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>---
-</span></code></pre></div>
-<p>The related links appear underneath the Metadata section.</p>
-</div>
-<p>The nice thing here is that you do not need to provide a page title. The plugin
-will deduce the link text by applying the same logic that MkDocs uses for the
-main navigation. In fact, the syntax is the same as that of the <code>nav</code> section
-in the <code>mkdocs.yml</code>, so you can override the title if you want and even define
-subsections:</p>
-<div class="admonition example">
-<p class="admonition-title">Override the page titles</p>
-<p>Change the link section to override the page titles:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>---
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>date:
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  created: 2023-12-31
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>...
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>links:
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="hll">  - Homepage: index.md
-</span></span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="hll">  - Blog index: blog/index.md
-</span></span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="hll">  - External links:
-</span></span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="hll">    - Material documentation: https://squidfunk.github.io/mkdocs-material
-</span></span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>---
-</span></code></pre></div>
-</div>
-<p>The plugin renders related links in the left sidebar on screens that are wide
-enough and at the bottom of the post on narrow screens. Change the size of your
-browser window to see this in action.</p>
-<h2 id="meta-plugin">Meta plugin<a class="headerlink" href="#meta-plugin" title="Permanent link">&para;</a></h2>
-<p>The Meta plugin helps simplify the management of metadata that is common to a
-group of files in the same subdirectory. Instead of having to repeat the same
-metadata in the page headers of a number of files, you can add a <code>.meta.yml</code>
-file in the directory and the Meta plugin will merge its contents into the
-headers of all the pages contained. Settings from the page header take
-precedence, so you can always override settings by adding them to a post's
-header.</p>
-<p>For example, you may want to manage drafts by keeping them in a directory
-together so that they are not only flagged as drafts but also easier to find.
-(Otherwise, you would need to inspect the page headers or trace back from the
-output to the files to figure out which posts are drafts.)</p>
-<div class="admonition example">
-<p class="admonition-title">Drafts using the Meta plugin <!-- md:sponsors --></p>
-<p>You first need to activate the plugin in your <code>mkdocs.yaml</code>:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">plugins</span><span class="p">:</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blog</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="hll"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meta</span>
-</span></span></code></pre></div>
-<p>Now create the folder for the drafts:</p>
-<p>=== "MacOS/Linux"</p>
-<div class="language-text highlight"><pre><span></span><code>```bash
-$ mkdir docs/blog/posts/drafts
-```
-</code></pre></div>
-<p>=== "Windows"
-    <div class="language-powershell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">$</span> <span class="n">mkdir</span> <span class="n">docs</span><span class="p">\</span><span class="n">blog</span><span class="p">\</span><span class="n">posts</span><span class="p">\</span><span class="n">drafts</span>
-</span></code></pre></div></p>
-<p>Now, within this folder, crate a file <code>.meta.yml</code> that contains:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</span></code></pre></div>
-<p>Add another blog post and store it in <code>docs/blog/posts/drafts</code>. When you
-look at it locally, you will see the label that identifies it as a draft,
-while in the version built for publication it does not appear. To move a
-post from draft status to published, simply move it outside <code>drafts/</code>.</p>
-</div>
-<h2 id="whats-next">What's next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
-<p>You should now have a working blog. However, as it accumulates content, you
-may want to make sure that people can find posts they are interested in, so
-you may want to add secondary navigation with tags and categories. You may
-have more than one author and want to attribute posts to them as well as
-generate author pages for them. We have a <a href="../navigation/">tutorial on navigation, pagination,
-and authors</a> that covers these topics.</p>
-<p>You may want to increase engagement with your blog by allowing people to
-subscribe to an RSS feed or by setting up a comment system. The <a href="../engage/">engagement
-and dissemination tutorial</a> walks you through setting these up.</p>
+<h2 id="what-to-tweak">What to tweak<a class="headerlink" href="#what-to-tweak" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>data_path.llm_data</code>: define your candidate models and their sizes.</li>
+<li><code>metric.weights</code>: SmallestLLM ignores most weights, but other routers use them.</li>
+</ul>
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Compare with <a href="../largest-llm/">LargestLLM</a>.</li>
+<li>See the router table: <a href="../../../api/routers/#router-table">Routers</a>.</li>
+</ul>
 
 
 
@@ -1869,6 +2513,44 @@ and dissemination tutorial</a> walks you through setting these up.</p>
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../data-preparation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Data preparation">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Data preparation
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../largest-llm/" class="md-footer__link md-footer__link--next" aria-label="Next: LargestLLM">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                LargestLLM
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">

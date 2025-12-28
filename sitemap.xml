@@ -465,23 +465,75 @@
          <lastmod>2025-12-28</lastmod>
     </url>
     <url>
-         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/blogs/basic/</loc>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/automix-router/</loc>
          <lastmod>2025-12-28</lastmod>
     </url>
     <url>
-         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/blogs/engage/</loc>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/causallm-router/</loc>
          <lastmod>2025-12-28</lastmod>
     </url>
     <url>
-         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/blogs/navigation/</loc>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/custom-router/</loc>
          <lastmod>2025-12-28</lastmod>
     </url>
     <url>
-         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/social/basic/</loc>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/data-preparation/</loc>
          <lastmod>2025-12-28</lastmod>
     </url>
     <url>
-         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/social/custom/</loc>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/dcrouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/elorouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/gmtrouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/graphrouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/hybrid-llm-router/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/knnmultiroundrouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/knnrouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/largest-llm/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/llmmultiroundrouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/mfrouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/mlprouter/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/router-r1/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/smallest-llm/</loc>
+         <lastmod>2025-12-28</lastmod>
+    </url>
+    <url>
+         <loc>https://ulab-uiuc.github.io/LLMRouter/tutorials/notebooks/svmrouter/</loc>
          <lastmod>2025-12-28</lastmod>
     </url>
 </urlset>
