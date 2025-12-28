@@ -185,25 +185,26 @@ nav:
           - Custom router (plugin): tutorials/custom-router.md
       - Notebooks:
           - Data preparation: tutorials/notebooks/data-preparation.md
-          - Baselines:
-              - SmallestLLM: tutorials/notebooks/smallest-llm.md
-              - LargestLLM: tutorials/notebooks/largest-llm.md
-              - EloRouter: tutorials/notebooks/elorouter.md
-          - Trainable routers:
+          - Single-Round Routers:
               - KNNRouter: tutorials/notebooks/knnrouter.md
               - SVMRouter: tutorials/notebooks/svmrouter.md
               - MLPRouter: tutorials/notebooks/mlprouter.md
               - MFRouter: tutorials/notebooks/mfrouter.md
+              - EloRouter: tutorials/notebooks/elorouter.md
               - DCRouter: tutorials/notebooks/dcrouter.md
               - AutoMixRouter: tutorials/notebooks/automix-router.md
               - HybridLLMRouter: tutorials/notebooks/hybrid-llm-router.md
               - GraphRouter: tutorials/notebooks/graphrouter.md
               - CausalLMRouter: tutorials/notebooks/causallm-router.md
+              - SmallestLLM: tutorials/notebooks/smallest-llm.md
+              - LargestLLM: tutorials/notebooks/largest-llm.md
+          - Multi-Round Routers:
+              - RouterR1: tutorials/notebooks/router-r1.md
+          - Personalized Routers:
               - GMTRouter: tutorials/notebooks/gmtrouter.md
-          - Multi-round routers:
+          - Agentic Routers:
               - KNNMultiRoundRouter: tutorials/notebooks/knnmultiroundrouter.md
               - LLMMultiRoundRouter: tutorials/notebooks/llmmultiroundrouter.md
-          - RouterR1: tutorials/notebooks/router-r1.md
           - Custom routers: tutorials/notebooks/custom-router.md
   - API Reference:
       - Overview: api/index.md

@@ -10,11 +10,10 @@ The goal is to help you reproduce the notebook workflows and translate them into
 ## Quick links
 - Workflows: [First routing run](first-routing.md), [Batch inference](batch-inference.md), [Chat demo](chat-demo.md), [Evaluation workflow](evaluation.md), [Custom router](custom-router.md)
 - [Data preparation](notebooks/data-preparation.md)
-- Baselines: [SmallestLLM](notebooks/smallest-llm.md), [LargestLLM](notebooks/largest-llm.md), [EloRouter](notebooks/elorouter.md)
-- Trainable routers: [KNNRouter](notebooks/knnrouter.md), [SVMRouter](notebooks/svmrouter.md), [MLPRouter](notebooks/mlprouter.md), [MFRouter](notebooks/mfrouter.md), [DCRouter](notebooks/dcrouter.md)
-- Advanced trainable routers: [AutoMixRouter](notebooks/automix-router.md), [HybridLLMRouter](notebooks/hybrid-llm-router.md), [GraphRouter](notebooks/graphrouter.md), [CausalLMRouter](notebooks/causallm-router.md), [GMTRouter](notebooks/gmtrouter.md)
-- Multi-round routers: [KNNMultiRoundRouter](notebooks/knnmultiroundrouter.md), [LLMMultiRoundRouter](notebooks/llmmultiroundrouter.md)
-- Inference-only special: [RouterR1](notebooks/router-r1.md)
+- Single-Round Routers: [KNNRouter](notebooks/knnrouter.md), [SVMRouter](notebooks/svmrouter.md), [MLPRouter](notebooks/mlprouter.md), [MFRouter](notebooks/mfrouter.md), [EloRouter](notebooks/elorouter.md), [DCRouter](notebooks/dcrouter.md), [AutoMixRouter](notebooks/automix-router.md), [HybridLLMRouter](notebooks/hybrid-llm-router.md), [GraphRouter](notebooks/graphrouter.md), [CausalLMRouter](notebooks/causallm-router.md), [SmallestLLM](notebooks/smallest-llm.md), [LargestLLM](notebooks/largest-llm.md)
+- Multi-Round Routers: [RouterR1](notebooks/router-r1.md)
+- Personalized Routers: [GMTRouter](notebooks/gmtrouter.md)
+- Agentic Routers: [KNNMultiRoundRouter](notebooks/knnmultiroundrouter.md), [LLMMultiRoundRouter](notebooks/llmmultiroundrouter.md)
 - Extending the framework: [Custom routers](notebooks/custom-router.md)
 
 ## Recommended path
