@@ -582,6 +582,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#create-a-conda-environment-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a conda environment (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#option-a-install-from-pypi" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -603,17 +614,6 @@
   
     <nav class="md-nav" aria-label="Option B: Install from source (recommended for examples)">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-an-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Create an environment
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#install-editable" class="md-nav__link">
@@ -2499,6 +2499,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#create-a-conda-environment-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a conda environment (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#option-a-install-from-pypi" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2520,17 +2531,6 @@
   
     <nav class="md-nav" aria-label="Option B: Install from source (recommended for examples)">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-an-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Create an environment
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#install-editable" class="md-nav__link">
@@ -2636,44 +2636,39 @@
 <p class="admonition-title">Note</p>
 <p>The documentation site is built from the <code>website</code> branch, but the runnable code and example assets live on <code>main</code>.</p>
 </div>
+<h2 id="create-a-conda-environment-recommended">Create a conda environment (recommended)<a class="headerlink" href="#create-a-conda-environment-recommended" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>llmrouter<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>conda<span class="w"> </span>activate<span class="w"> </span>llmrouter
+</span></code></pre></div>
 <h2 id="option-a-install-from-pypi">Option A: Install from PyPI<a class="headerlink" href="#option-a-install-from-pypi" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>llmrouter
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>llmrouter-lib
 </span></code></pre></div>
 <h2 id="option-b-install-from-source-recommended-for-examples">Option B: Install from source (recommended for examples)<a class="headerlink" href="#option-b-install-from-source-recommended-for-examples" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ulab-uiuc/LLMRouter.git
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>LLMRouter
-</span></code></pre></div>
-<h3 id="create-an-environment">Create an environment<a class="headerlink" href="#create-an-environment" title="Permanent link">&para;</a></h3>
-<p><strong>macOS/Linux</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</span></code></pre></div>
-<p><strong>Windows PowerShell</strong></p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ulab-uiuc/LLMRouter.git
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>LLMRouter
 </span></code></pre></div>
 <h3 id="install-editable">Install (editable)<a class="headerlink" href="#install-editable" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </span></code></pre></div>
 <h2 id="verify">Verify<a class="headerlink" href="#verify" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>llmrouter<span class="w"> </span>--version
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>llmrouter<span class="w"> </span>list-routers
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import llmrouter; print(llmrouter.__version__)&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>llmrouter<span class="w"> </span>--version
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>llmrouter<span class="w"> </span>list-routers
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import llmrouter; print(llmrouter.__version__)&quot;</span>
 </span></code></pre></div>
 <h2 id="api-keys-only-for-real-api-calls">API keys (only for real API calls)<a class="headerlink" href="#api-keys-only-for-real-api-calls" title="Permanent link">&para;</a></h2>
 <p><code>llmrouter infer</code> (without <code>--route-only</code>) calls an OpenAI-compatible endpoint via LiteLLM and requires <code>API_KEYS</code>.
 It supports either a single key or a JSON list of keys (used round-robin).</p>
 <p><strong>Single key</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">API_KEYS</span><span class="o">=</span><span class="s2">&quot;YOUR_KEY&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">API_KEYS</span><span class="o">=</span><span class="s2">&quot;YOUR_KEY&quot;</span>
 </span></code></pre></div>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">$env:API_KEYS</span><span class="p">=</span><span class="s2">&quot;YOUR_KEY&quot;</span>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">$env:API_KEYS</span><span class="p">=</span><span class="s2">&quot;YOUR_KEY&quot;</span>
 </span></code></pre></div>
 <p><strong>Multiple keys (JSON list)</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">API_KEYS</span><span class="o">=</span><span class="s1">&#39;[&quot;key1&quot;,&quot;key2&quot;,&quot;key3&quot;]&#39;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">API_KEYS</span><span class="o">=</span><span class="s1">&#39;[&quot;key1&quot;,&quot;key2&quot;,&quot;key3&quot;]&#39;</span>
 </span></code></pre></div>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">$env:API_KEYS</span><span class="p">=</span><span class="s1">&#39;[&quot;key1&quot;,&quot;key2&quot;,&quot;key3&quot;]&#39;</span>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">$env:API_KEYS</span><span class="p">=</span><span class="s1">&#39;[&quot;key1&quot;,&quot;key2&quot;,&quot;key3&quot;]&#39;</span>
 </span></code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
