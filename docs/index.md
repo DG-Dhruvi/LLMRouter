@@ -228,18 +228,3 @@ If you find LLMRouter useful for your research or projects, please cite:
   note         = {GitHub repository}
 }
 ```
-
-
-## Acknowledgments 🙏
-
-LLMRouter is built upon the research of the following papers:
-
-| Router | Paper | Venue |
-|--------|-------|-------|
-| RouteLLM | [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665) | NeurIPS 2024 Workshop |
-| Hybrid LLM | [Hybrid LLM: Cost-Efficient and Quality-Aware Query Routing](https://arxiv.org/abs/2404.14618) | ICLR 2024 |
-| RouterDC | [RouterDC: Query-Based Router by Dual Contrastive Learning](https://arxiv.org/abs/2409.19383) | Findings of EMNLP 2024 |
-| GraphRouter | [GraphRouter: A Graph-based Router for LLM Selections](https://arxiv.org/abs/2410.03834) | NAACL 2025 |
-| AutoMix | [AutoMix: Automatically Mixing Language Models](https://arxiv.org/abs/2310.12963) | NAACL 2025 |
-| Router-R1 | [Router-R1: Teaching LLMs Multi-Round Routing via RL](https://arxiv.org/abs/2506.09033) | NeurIPS 2025 |
-| GMT | [Generative Multi-Turn Routing](https://arxiv.org/abs/2506.14069) | arXiv 2025 |
