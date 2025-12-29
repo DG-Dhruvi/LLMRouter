@@ -43,8 +43,8 @@ title: LLMRouter
 
 | Section | Description |
 |---------|-------------|
-| [Getting Started](getting-started.md) | Installation and quick setup guide |
-| [Supported Routers](api/routers.md) | Full list of 16+ routers with documentation |
+| [Get Started](#get-started-) | Installation and quick setup guide |
+| [Supported Routers](#supported-routers-) | Full list of 16+ routers with documentation |
 | [Tutorials](tutorials/index.md) | Jupyter notebook tutorials for each router |
 | [API Reference](api/index.md) | Complete API documentation |
 
@@ -106,7 +106,62 @@ See the [full router documentation](api/routers.md) for detailed usage.
 === "From PyPI"
 
     ```bash
-    pip install llmrouter
+    pip install llmrouter-lib
+    ```
+
+### Setting Up API Keys 🔑
+
+LLMRouter requires API keys to make LLM API calls for inference, chat, and data generation. Set the `API_KEYS` environment variable:
+
+=== "JSON Array (Recommended)"
+
+    ```bash
+    export API_KEYS='["your-key-1", "your-key-2", "your-key-3"]'
+    ```
+
+=== "Comma-Separated"
+
+    ```bash
+    export API_KEYS='key1,key2,key3'
+    ```
+
+=== "Single Key"
+
+    ```bash
+    export API_KEYS='your-api-key'
+    ```
+
+!!! note "Important"
+    - API keys are used for **inference**, **chat interface**, and **data generation**
+    - Multiple keys enable automatic load balancing across API calls
+    - For persistent setup, add the export command to `~/.bashrc` or `~/.zshrc`
+
+### Configuring API Endpoints 🌐
+
+API endpoints can be specified at two levels (resolved in priority order):
+
+| Priority | Location | Description |
+|:--------:|----------|-------------|
+| 1 | Per-Model | `api_endpoint` field in LLM candidate JSON (`default_llm.json`) |
+| 2 | Router-Level | `api_endpoint` field in router YAML config |
+
+??? example "Per-Model Endpoints (default_llm.json)"
+    ```json
+    {
+      "qwen2.5-7b-instruct": {
+        "model": "qwen/qwen2.5-7b-instruct",
+        "api_endpoint": "https://integrate.api.nvidia.com/v1"
+      },
+      "custom-model": {
+        "model": "custom/model-name",
+        "api_endpoint": "https://api.customprovider.com/v1"
+      }
+    }
+    ```
+
+??? example "Router-Level Endpoint (YAML config)"
+    ```yaml
+    api_endpoint: 'https://integrate.api.nvidia.com/v1'  # Fallback for all models
     ```
 
 ### Quick Test
