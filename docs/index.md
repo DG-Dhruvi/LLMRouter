@@ -10,14 +10,20 @@ title: LLMRouter
 
 <h1 align="center">🚀 LLMRouter: An Open-Source Library for LLM Routing</h1>
 
-<div align="center">
-
-[![Python 3.10](https://img.shields.io/badge/python-%E2%89%A53.10-blue)](https://www.python.org/downloads/release/python-3109/)
-[![GitHub pull request](https://img.shields.io/badge/PRs-welcome-orange)](https://github.com/ulab-uiuc/LLMRouter/pulls)
-[![Slack](https://img.shields.io/badge/Slack-Join%20Us-4A154B?logo=slack&logoColor=white)](https://join.slack.com/t/llmrouteropen-ri04588/shared_invite/zt-3jz3cc6d1-ncwKEHvvWe0OczHx7K5c0g)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ulab-uiuc/LLMRouter/blob/main/LICENSE)
-
-</div>
+<p align="center">
+  <a href="https://www.python.org/downloads/release/python-3109/">
+    <img src="https://img.shields.io/badge/python-%E2%89%A53.10-blue" alt="Python 3.10">
+  </a>
+  <a href="https://github.com/ulab-uiuc/LLMRouter/pulls">
+    <img src="https://img.shields.io/badge/PRs-welcome-orange" alt="PRs Welcome">
+  </a>
+  <a href="https://join.slack.com/t/llmrouteropen-ri04588/shared_invite/zt-3jz3cc6d1-ncwKEHvvWe0OczHx7K5c0g">
+    <img src="https://img.shields.io/badge/Slack-Join%20Us-4A154B?logo=slack&logoColor=white" alt="Slack">
+  </a>
+  <a href="https://github.com/ulab-uiuc/LLMRouter/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+  </a>
+</p>
 
 
 ## Introduction ✨
