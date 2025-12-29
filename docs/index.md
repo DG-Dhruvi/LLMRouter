@@ -8,73 +8,136 @@ title: LLMRouter
 </div>
 
 
-<h1 align="center">LLMRouter<br>An Open-Source Library for LLM Routing</h1>
+<h1 align="center">🚀 LLMRouter: An Open-Source Library for LLM Routing</h1>
 
+<div align="center">
 
-LLMRouter is an intelligent routing system designed to optimize LLM inference by dynamically selecting the most suitable model for each query based on task difficulty, cost, and performance requirements. It also provides a unified CLI for training, inference, and an interactive chat UI, plus a plugin system for custom routers.
+[![Python 3.10](https://img.shields.io/badge/python-%E2%89%A53.10-blue)](https://www.python.org/downloads/release/python-3109/)
+[![GitHub pull request](https://img.shields.io/badge/PRs-welcome-orange)](https://github.com/ulab-uiuc/LLMRouter/pulls)
+[![Slack](https://img.shields.io/badge/Slack-Join%20Us-4A154B?logo=slack&logoColor=white)](https://join.slack.com/t/llmrouteropen-ri04588/shared_invite/zt-3jz3cc6d1-ncwKEHvvWe0OczHx7K5c0g)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ulab-uiuc/LLMRouter/blob/main/LICENSE)
 
-<div style="text-align:center;">
-    <img src="assets/llmrouter.png" style="width: 100%; height: auto;">
 </div>
 
 
+## Introduction ✨
+
+<div style="text-align:center;">
+    <img src="assets/llmrouter_.png" style="width: 100%; height: auto;">
+</div>
+
+**LLMRouter** is an intelligent routing system designed to optimize LLM inference by dynamically selecting the most suitable model for each query. To achieve intelligent routing, it defines:
+
+- 🚀 **Smart Routing**: Automatically routes queries to the optimal LLM based on task complexity, cost, and performance requirements.
+- 📊 **Multiple Router Models**: Support for **over 16 routing models**, including KNN, SVM, MLP, Matrix Factorization, Elo Rating, Graph-based routers, BERT-based routers, Hybrid probabilistic routers, transformed-score routers, multi-round routers, and many additional advanced strategies.
+- 🛠️ **Unified CLI**: Complete command-line interface for training, inference, and interactive chat with Gradio-based UI.
+- 📈 **Data Generation Pipeline**: Complete pipeline for generating training data from 11 benchmark datasets with automatic API calling and evaluation.
 
 
-## What you can do with LLMRouter
-- Route each query to the best LLM (quality/cost/latency trade-offs)
-- Train and compare classic ML, neural, and LLM-based routers
-- Run single-query and batch inference (with optional API calls)
-- Extend the system with custom routers via plugins (no core-code changes)
+## News 📰
 
-## Key capabilities
-- Smart routing across 16+ router families, from lightweight baselines to multi-round strategies
-- Unified CLI for training, batch inference, and chat UI
-- Plugin system for custom routers without modifying core code
-- Example configs and datasets for reproducible experiments
+- 🚀 **[2025-12]**: **LLMRouter** is officially released - ship smarter 🧠, cost-aware 💸 LLM routing with 16+ routers 🧭, a unified `llmrouter` CLI 🛠️, and a plugin workflow for custom routers 🧩.
 
-## Quickstart
 
-Recommended for first-time users: clone the repo so you can use the example configs and datasets.
+## Quick Navigation 🔗
+
+| Section | Description |
+|---------|-------------|
+| [Getting Started](getting-started.md) | Installation and quick setup guide |
+| [Supported Routers](api/routers.md) | Full list of 16+ routers with documentation |
+| [Tutorials](tutorials/index.md) | Jupyter notebook tutorials for each router |
+| [API Reference](api/index.md) | Complete API documentation |
+
+
+## Supported Routers 🧭
+
+### Single-Round Routers
+| Router | Training | Inference | Description |
+|--------|:--------:|:---------:|-------------|
+| KNN Router | ✅ | ✅ | K-Nearest Neighbors based routing |
+| SVM Router | ✅ | ✅ | Support Vector Machine based routing |
+| MLP Router | ✅ | ✅ | Multi-Layer Perceptron based routing |
+| MF Router | ✅ | ✅ | Matrix Factorization based routing |
+| Elo Router | N/A | ✅ | Elo Rating based routing |
+| DC Router | ✅ | ✅ | Dual Contrastive learning based routing |
+| AutoMix | N/A | ✅ | Automatic model mixing |
+| HybridLLM | ✅ | ✅ | Hybrid LLM routing strategy |
+| Graph Router | ✅ | ✅ | Graph-based routing |
+| CausalLM Router | ✅ | ✅ | Causal Language Model router |
+
+### Multi-Round Routers
+| Router | Training | Inference | Description |
+|--------|:--------:|:---------:|-------------|
+| Router-R1 | [External](https://github.com/ulab-uiuc/Router-R1) | ✅ | RL-based multi-round routing with reasoning |
+
+### Personalized Routers
+| Router | Training | Inference | Description |
+|--------|:--------:|:---------:|-------------|
+| GMT Router | ✅ | ✅ | Graph-based personalized router with user preference learning |
+
+### Agentic Routers
+| Router | Training | Inference | Description |
+|--------|:--------:|:---------:|-------------|
+| KNN Multi-Round | ✅ | ✅ | KNN-based agentic router for complex tasks |
+| LLM Multi-Round | N/A | ✅ | LLM-based agentic router for complex tasks |
+
+See the [full router documentation](api/routers.md) for detailed usage.
+
+
+## Get Started 🚀
+
+### Installation
+
+=== "From Source (Recommended)"
+
+    ```bash
+    # Clone the repository
+    git clone https://github.com/ulab-uiuc/LLMRouter.git
+    cd LLMRouter
+
+    # Create and activate virtual environment
+    conda create -n llmrouter python=3.10
+    conda activate llmrouter
+
+    # Install the package
+    pip install -e .
+    ```
+
+=== "From PyPI"
+
+    ```bash
+    pip install llmrouter
+    ```
+
+### Quick Test
 
 ```bash
-git clone https://github.com/ulab-uiuc/LLMRouter.git
-cd LLMRouter
-
-# Create a virtual environment (example with conda)
-conda create -n llmrouter python=3.10
-conda activate llmrouter
-
-# Install
-pip install -e .
-
-# Route a single query (no API calls)
-llmrouter infer --router knnrouter --config configs/model_config_test/knnrouter.yaml --query "What is machine learning?" --route-only
+# Route a single query (no API calls needed)
+llmrouter infer --router knnrouter \
+  --config configs/model_config_test/knnrouter.yaml \
+  --query "What is machine learning?" \
+  --route-only
 ```
 
-## Demo (chat UI)
+
+## Interactive Chat Demo 💬
 
 <div style="text-align:center;">
     <img src="assets/llmrouter_chat.gif" style="width: 100%; height: auto;">
 </div>
 
+Launch the Gradio-based chat interface:
+
 ```bash
 llmrouter chat --router knnrouter --config configs/model_config_test/knnrouter.yaml
 ```
 
-## Supported routers (overview)
-LLMRouter supports a wide range of routing strategies:
 
-- **Single-round routers**: KNN, SVM, MLP, MF, DCRouter, graph-based routers
-- **Multi-round / agentic routers**: KNNMultiRoundRouter, LLMMultiRoundRouter, Router-R1
-- **Personalized routers**: GMT-based routing with user preference signals
-- **Baselines**: always-smallest / always-largest
+## Extending with Custom Routers 🧩
 
-See the full list (with per-router docs): [Routers](api/routers.md).
+LLMRouter supports a plugin system so you can add custom routers under `custom_routers/` and use them via the same CLI without modifying core code.
 
-## Extending with custom routers
-LLMRouter supports a plugin system so you can add a router under `custom_routers/` and use it via the same CLI.
-
-??? example "Minimal custom router skeleton"
+??? example "Minimal Custom Router Example"
     ```python
     from llmrouter.models.meta_router import MetaRouter
     import torch.nn as nn
@@ -90,8 +153,10 @@ LLMRouter supports a plugin system so you can add a router under `custom_routers
             return [self.route_single(x) for x in batch]
     ```
 
-## Citation
-If you find LLMRouter useful for your research or projects, please cite it as:
+
+## Citation 📚
+
+If you find LLMRouter useful for your research or projects, please cite:
 
 ```bibtex
 @misc{llmrouter2025,
@@ -102,3 +167,18 @@ If you find LLMRouter useful for your research or projects, please cite it as:
   note         = {GitHub repository}
 }
 ```
+
+
+## Acknowledgments 🙏
+
+LLMRouter is built upon the research of the following papers:
+
+| Router | Paper | Venue |
+|--------|-------|-------|
+| RouteLLM | [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665) | NeurIPS 2024 Workshop |
+| Hybrid LLM | [Hybrid LLM: Cost-Efficient and Quality-Aware Query Routing](https://arxiv.org/abs/2404.14618) | ICLR 2024 |
+| RouterDC | [RouterDC: Query-Based Router by Dual Contrastive Learning](https://arxiv.org/abs/2409.19383) | Findings of EMNLP 2024 |
+| GraphRouter | [GraphRouter: A Graph-based Router for LLM Selections](https://arxiv.org/abs/2410.03834) | NAACL 2025 |
+| AutoMix | [AutoMix: Automatically Mixing Language Models](https://arxiv.org/abs/2310.12963) | NAACL 2025 |
+| Router-R1 | [Router-R1: Teaching LLMs Multi-Round Routing via RL](https://arxiv.org/abs/2506.09033) | NeurIPS 2025 |
+| GMT | [Generative Multi-Turn Routing](https://arxiv.org/abs/2506.14069) | arXiv 2025 |
