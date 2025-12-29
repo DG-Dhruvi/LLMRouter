@@ -106,7 +106,7 @@ See the [full router documentation](api/routers.md) for detailed usage.
 === "From PyPI"
 
     ```bash
-    pip install llmrouter
+    pip install llmrouter-lib
     ```
 
 ### Setting Up API Keys 🔑
