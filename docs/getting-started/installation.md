@@ -9,11 +9,18 @@ LLMRouter can be installed from PyPI, or from source if you want the example con
 !!! note
     The documentation site is built from the `website` branch, but the runnable code and example assets live on `main`.
 
+## Create a conda environment (recommended)
+
+```bash
+conda create -n llmrouter python=3.10
+conda activate llmrouter
+```
+
 ## Option A: Install from PyPI
 
 ```bash
 python -m pip install -U pip
-python -m pip install llmrouter
+python -m pip install llmrouter-lib
 ```
 
 ## Option B: Install from source (recommended for examples)
@@ -21,22 +28,6 @@ python -m pip install llmrouter
 ```bash
 git clone https://github.com/ulab-uiuc/LLMRouter.git
 cd LLMRouter
-```
-
-### Create an environment
-
-**macOS/Linux**
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-**Windows PowerShell**
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
 ```
 
 ### Install (editable)
