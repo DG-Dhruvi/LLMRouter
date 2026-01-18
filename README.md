@@ -9,7 +9,7 @@
   <p>
     <a href="https://www.python.org/downloads/release/python-3109/"><img src="https://img.shields.io/badge/PYTHON-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
     <a href="https://github.com/ulab-uiuc/LLMRouter/pulls"><img src="https://img.shields.io/badge/PRS-WELCOME-orange?style=for-the-badge" alt="PRs"></a>
-    <a href="https://join.slack.com/t/llmrouteropen-ri04588/shared_invite/zt-3jz3cc6d1-ncwKEHvvWe0OczHx7K5c0g"><img src="https://img.shields.io/badge/SLACK-JOIN%20US-4A154B?style=for-the-badge&logo=slack&logoColor=white" alt="Slack"></a>
+    <a href="https://join.slack.com/t/llmrouteropen-ri04588/shared_invite/zt-3mkx82cut-A25v5yR52xVKi7_jm_YK_w"><img src="https://img.shields.io/badge/SLACK-JOIN%20US-4A154B?style=for-the-badge&logo=slack&logoColor=white" alt="Slack"></a>
     <a href="https://github.com/ulab-uiuc/LLMRouter/issues/136"><img src="https://img.shields.io/badge/💬WeChat-Group-07c160?style=for-the-badge&logo=wechat&logoColor=white&labelColor=1a1a2e"></a>
     <a href="https://ulab-uiuc.github.io/LLMRouter/" style="text-decoration:none;"><img src="https://img.shields.io/badge/DOCS-ONLINE-0A9EDC?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Docs"></a>
     <a href="https://x.com/youjiaxuan/status/2005877938554589370" style="text-decoration:none;"><img src="https://img.shields.io/badge/TWITTER-ANNOUNCEMENTS-1DA1F2?style=for-the-badge&logo=x&logoColor=white" alt="Twitter"></a>
@@ -35,6 +35,11 @@
 4. 📈 *Data Generation Pipeline*: Complete pipeline for generating training data from 11 benchmark datasets with automatic API calling and evaluation.
 
 ## 📰 News
+
+
+- ⭐ **[2026-01]**: **LLMRouter** just crossed 1K GitHub stars! We’ve also released llmrouter-lib v0.2.0. Updates include service-specific dict configs (OpenAI, Anthropic, etc.) and multimodal routing (Video/Image + Text) on Geometry3K, MathVista, and Charades-Ego—all in the first unified open-source LLM routing library with 16+ routers, a unified CLI, Gradio UI, and 11 datasets. Install via pip install llmrouter-lib. More updates soon! 🚀
+
+
 
 - 🚀 **[2025-12]**: **LLMRouter** is officially released - ship smarter 🧠, cost-aware 💸 LLM routing with 16+ routers 🧭, a unified `llmrouter` CLI 🛠️, and a plugin workflow for custom routers 🧩.
 
@@ -122,6 +127,8 @@ pip install llmrouter-lib
 ### 🔑 Setting Up API Keys
 
 LLMRouter requires API keys to make LLM API calls for inference, chat, and data generation. Set the `API_KEYS` environment variable using one of the following formats:
+
+> 💡 **Free NVIDIA API Keys**: The NVIDIA endpoints currently used in LLMRouter have freely available API keys. To get started, visit [https://build.nvidia.com/](https://build.nvidia.com/) to create an account, then you can generate your API keys at no cost.
 
 #### **Service-Specific Dict Format** (recommended for multiple providers)
 
@@ -240,9 +247,68 @@ export API_KEYS='{"Ollama": ""}'
 
 **Important**: Use the `/v1` endpoint (OpenAI-compatible), not the native API endpoints. Empty strings are automatically detected for localhost endpoints (`localhost` or `127.0.0.1`).
 
+### 🧪 Testing Model Availability
+
+You can test the availability of different candidate models using the following curl commands. This is useful for verifying that your API keys work correctly and that specific models are accessible:
+
+**Note**: If you're using the dict format for `API_KEYS`, extract the NVIDIA key first (e.g., using `echo $API_KEYS | python3 -c "import sys, json; print(json.load(sys.stdin)['NVIDIA'].split(',')[0])"`), or set a temporary variable with your NVIDIA API key.
+
+```bash
+# export API_KEYS=...
+
+# Example API endpoint - adjust based on your configuration
+# This example uses NVIDIA's endpoint, but you should use the endpoint
+# specified in your LLM candidate JSON or router config
+API_ENDPOINT="https://integrate.api.nvidia.com/v1/chat/completions"
+
+# Example model list - adjust based on your LLM candidate configuration
+# These are example models; replace with the actual model names/IDs
+# from your LLM candidate JSON file
+MODELS=(
+  "qwen/qwen2.5-7b-instruct"
+  "meta/llama-3.1-8b-instruct"
+  "mistralai/mistral-7b-instruct-v0.3"
+  "nvidia/llama-3.3-nemotron-super-49b-v1"
+  "mistralai/mixtral-8x7b-instruct-v0.1"
+  "mistralai/mixtral-8x22b-instruct-v0.1"
+)
+
+SYSTEM_PROMPT="Hello."
+PROMPT="Hello."
+
+for MODEL in "${MODELS[@]}"; do
+  echo "===== $MODEL ====="
+
+  curl "$API_ENDPOINT" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $API_KEYS" \
+    -d "{
+      \"model\": \"$MODEL\",
+      \"messages\": [
+        {
+          \"role\": \"system\",
+          \"content\": \"$SYSTEM_PROMPT\"
+        },
+        {
+          \"role\": \"user\",
+          \"content\": \"$PROMPT\"
+        }
+      ],
+      \"temperature\": 0.8,
+      \"max_tokens\": 200
+    }"
+
+  echo
+done
+```
+
+This script will test each model in the list and display the response, helping you verify which models are available and working with your API key.
+
 ### 📊 Preparing Training Data
 
 LLMRouter includes a complete data generation pipeline that transforms raw benchmark datasets into formatted routing data with embeddings. The pipeline supports 11 diverse benchmark datasets including Natural QA, Trivia QA, MMLU, GPQA, MBPP, HumanEval, GSM8K, CommonsenseQA, MATH, OpenbookQA, and ARC-Challenge.
+
+> 💡 **Multimodal Integration**: Learn how to incorporate complex multimodal tasks (Video/Image + Text) into LLMRouter by checking our [Multimodal Task Guide](data/multimodal_tasks/README.md). We currently support 5 multimodal tasks across 3 datasets (Geometry3K, MathVista, Charades-Ego).
 
 #### Pipeline Overview
 
@@ -585,9 +651,11 @@ score = calculate_task_performance(
 For detailed guides on creating custom tasks:
 - 📖 **Complete Guide**: [custom_tasks/README.md](custom_tasks/README.md)
 
-<!-- ## Star History
+### 🎥 Hands-on: Multi-View Video Tasks
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ulab-uiuc/LLMRouter&type=date&legend=top-left)](https://www.star-history.com/#ulab-uiuc/LLMRouter&type=date&legend=top-left) -->
+Follow our **step-by-step walkthrough** in the [Charades-Ego Integration Guide](data/charades_ego/README.md) to process paired egocentric videos, generate VLM-based features, and train routers for **Activity**, **Object**, and **Verb** recognition.
+
+
 
 
 ## 🗺️ TODO
@@ -636,6 +704,12 @@ Contributing to LLMRouter is more than adding code. It is an opportunity to **in
 
 
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ulab-uiuc/LLMRouter&type=date&legend=top-left)](https://www.star-history.com/#ulab-uiuc/LLMRouter&type=date&legend=top-left)
+
+
+
 
 ## 📚 Citation
 
@@ -644,7 +718,7 @@ If you find LLMRouter useful for your research or projects, please cite it as:
 ```bibtex
 @misc{llmrouter2025,
   title        = {LLMRouter: An Open-Source Library for LLM Routing},
-  author       = {Tao Feng and Haozhen Zhang and Zijie Lei and Haodong Yue and Chongshan Lin and Jiaxuan You},
+  author       = {Tao Feng and Haozhen Zhang and Zijie Lei and Haodong Yue and Chongshan Lin and Ge Liu and Jiaxuan You},
   year         = {2025},
   howpublished = {\url{https://github.com/ulab-uiuc/LLMRouter}},
   note         = {GitHub repository}
