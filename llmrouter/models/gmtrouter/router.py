@@ -60,7 +60,7 @@ class GMTRouter(MetaRouter):
             yaml_path: Path to YAML configuration file
         """
         dummy_model = nn.Identity()
-        super().__init__(model=dummy_model, yaml_path=yaml_path)
+        super(GMTRouter, self).__init__(model=dummy_model, yaml_path=yaml_path)
 
         # GMTRouter-specific configuration
         self.gmt_config = self.cfg.get("gmt_config", {})

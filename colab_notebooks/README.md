@@ -1,48 +1,33 @@
-# LLMRouter Jupyter Notebooks
+# LLMRouter Colab Notebooks
 
-This directory contains Jupyter notebooks for training and inference of all LLMRouter methods on Colab.
+This directory contains Jupyter notebooks for training and inference of all LLMRouter methods. Click the **Open in Colab** badge to run any notebook directly in Google Colab.
 
-## Directory Structure
+---
 
-```
-colab_notebooks/
-├── custom_router/             # Custom Router Tutorial
-│   └── 01_creating_custom_routers.ipynb
-├── data_preparation/          # Shared data preparation
-│   └── 01_data_preparation.ipynb
-├── knnrouter/                 # K-Nearest Neighbors Router
-│   └── 01_knnrouter_training_inference.ipynb
-├── svmrouter/                 # Support Vector Machine Router
-│   └── 01_svmrouter_training_inference.ipynb
-├── mlprouter/                 # Multi-Layer Perceptron Router
-│   └── 01_mlprouter_training_inference.ipynb
-├── mfrouter/                  # Matrix Factorization Router
-│   └── 01_mfrouter_training_inference.ipynb
-├── dcrouter/                  # Dual Contrastive Router
-│   └── 01_dcrouter_training_inference.ipynb
-├── graphrouter/               # Graph Neural Network Router
-│   └── 01_graphrouter_training_inference.ipynb
-├── causallm_router/           # Causal Language Model Router
-│   └── 01_causallm_router_training_inference.ipynb
-├── automix_router/            # Automatic LLM Mixing Router
-│   └── 01_automix_router_training_inference.ipynb
-├── hybrid_llm_router/         # Hybrid LLM Router
-│   └── 01_hybrid_llm_router_training_inference.ipynb
-├── gmtrouter/                 # Graph-based Multi-Turn Router
-│   └── 01_gmtrouter_training_inference.ipynb
-├── elorouter/                 # Elo Rating Router (inference only)
-│   └── 01_elorouter_inference.ipynb
-├── smallest_llm/              # SmallestLLM Baseline (inference only)
-│   └── 01_smallest_llm_inference.ipynb
-├── largest_llm/               # LargestLLM Baseline (inference only)
-│   └── 01_largest_llm_inference.ipynb
-├── router_r1/                 # RouterR1 Agentic Router (inference only)
-│   └── 01_router_r1_inference.ipynb
-├── knnmultiroundrouter/       # KNN Multi-Round Router
-│   └── 01_knnmultiroundrouter_training_inference.ipynb
-└── llmmultiroundrouter/       # LLM Multi-Round Router (inference only)
-    └── 01_llmmultiroundrouter_inference.ipynb
-```
+## Quick Access
+
+| Notebook | Colab |
+|----------|-------|
+| [AutomixRouter](automix_router/01_automix_router_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/automix_router/01_automix_router_training_inference.ipynb) |
+| [CausalLMRouter](causallm_router/01_causallm_router_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/causallm_router/01_causallm_router_training_inference.ipynb) |
+| [Custom Router Tutorial](custom_router/01_creating_custom_routers.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/custom_router/01_creating_custom_routers.ipynb) |
+| [Data Preparation](data_preparation/01_data_preparation.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/data_preparation/01_data_preparation.ipynb) |
+| [DCRouter](dcrouter/01_dcrouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/dcrouter/01_dcrouter_training_inference.ipynb) |
+| [EloRouter](elorouter/01_elorouter_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/elorouter/01_elorouter_inference.ipynb) |
+| [GMTRouter](gmtrouter/01_gmtrouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/gmtrouter/01_gmtrouter_training_inference.ipynb) |
+| [GraphRouter](graphrouter/01_graphrouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/graphrouter/01_graphrouter_training_inference.ipynb) |
+| [HybridLLMRouter](hybrid_llm_router/01_hybrid_llm_router_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/hybrid_llm_router/01_hybrid_llm_router_training_inference.ipynb) |
+| [KNNMultiRoundRouter](knnmultiroundrouter/01_knnmultiroundrouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/knnmultiroundrouter/01_knnmultiroundrouter_training_inference.ipynb) |
+| [KNNRouter](knnrouter/01_knnrouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/knnrouter/01_knnrouter_training_inference.ipynb) |
+| [LargestLLM](largest_llm/01_largest_llm_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/largest_llm/01_largest_llm_inference.ipynb) |
+| [LLMMultiRoundRouter](llmmultiroundrouter/01_llmmultiroundrouter_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/llmmultiroundrouter/01_llmmultiroundrouter_inference.ipynb) |
+| [MFRouter](mfrouter/01_mfrouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/mfrouter/01_mfrouter_training_inference.ipynb) |
+| [MLPRouter](mlprouter/01_mlprouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/mlprouter/01_mlprouter_training_inference.ipynb) |
+| [RouterR1](router_r1/01_router_r1_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/router_r1/01_router_r1_inference.ipynb) |
+| [SmallestLLM](smallest_llm/01_smallest_llm_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/smallest_llm/01_smallest_llm_inference.ipynb) |
+| [SVMRouter](svmrouter/01_svmrouter_training_inference.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ulab-uiuc/LLMRouter/blob/main/colab_notebooks/svmrouter/01_svmrouter_training_inference.ipynb) |
+
+---
 
 ## Router Comparison
 
@@ -65,12 +50,12 @@ colab_notebooks/
 | KNNMultiRoundRouter | Multi-Round KNN | Yes | No | Multi-step queries |
 | LLMMultiRoundRouter | Multi-Round LLM | No | Optional | Zero-shot multi-round |
 
-## Using with Google Colab
+---
 
-All notebooks are compatible with Google Colab. To use:
+## Getting Started on Colab
 
-1. Upload the notebook to Colab
-2. Install dependencies:
+1. Click the **Open in Colab** badge next to any notebook above
+2. In Colab, install dependencies:
    ```python
    !pip install llmrouter-lib transformers torch
    ```
@@ -80,6 +65,8 @@ All notebooks are compatible with Google Colab. To use:
    %cd LLMRouter
    ```
 4. Run the notebook cells
+
+---
 
 ## Configuration Files
 
@@ -98,6 +85,8 @@ os.environ['ANTHROPIC_API_KEY'] = 'your-key'
 # Or for multiple keys:
 os.environ['API_KEYS'] = '["key1", "key2"]'
 ```
+
+---
 
 ## Common Issues
 
