@@ -55,6 +55,7 @@
 - [Running Inference via a Router](#running-inference)
 - [Interactive Chat Interface with a Router](#interactive-chat-interface)
 - [ComfyUI Interface](#-comfyui-interface)
+- [RouteProfile — Richer Model Embeddings](#-routeprofile--richer-model-embeddings)
 - [Creating Your Own Routers](#-creating-your-own-routers)
 - [Adding Your Own Tasks](#-adding-your-own-tasks)
 - [OpenClaw Router (OpenClaw Integration)](#-openclaw-router-openclaw-integration)
@@ -728,6 +729,99 @@ For detailed guides on creating custom tasks:
 ### 🎥 Hands-on: Multi-View Video Tasks
 
 Follow our **step-by-step walkthrough** in the [Charades-Ego Integration Guide](data/charades_ego/README.md) to process paired egocentric videos, generate VLM-based features, and train routers for **Activity**, **Object**, and **Verb** recognition.
+
+## 📊 RouteProfile — Richer Model Embeddings
+
+Several routers (GraphRouter, MFRouter, PersonalizedRouter) represent each candidate LLM as a 768-dim embedding vector. By default these are Longformer encodings of each model's text description — capturing what a model says about itself, but not how it actually performs. **RouteProfile** replaces these with graph-propagated embeddings that jointly encode benchmark scores, architectural family, and query-domain coverage, giving routing models a richer signal with no router code changes.
+
+### Which Routers Benefit
+
+| Router | Embedding source | How RouteProfile plugs in |
+|--------|-----------------|--------------------------|
+| `graphrouter` | `llm_data[model]["embedding"]` | `apply --format json` |
+| `mfrouter` | `llm_data[model]["embedding"]` | `apply --format json` |
+| `personalizedrouter` | `llm_embedding_data` (.pkl) | `apply --format pkl` |
+
+### Installation
+
+```bash
+# Core (emb_gnn, flat, index, trainable_gnn — no GPU needed for emb_gnn/flat/index)
+pip install -e ".[routeprofile]"
+
+# With text_gnn support (requires GPU + vLLM)
+pip install -e ".[routeprofile-text-gnn]"
+```
+
+### Profile Methods
+
+| Method | GPU | Quality | Description |
+|--------|:---:|:-------:|-------------|
+| `emb_gnn` | No | ★★★★ | K-hop degree-normalised propagation over the heterogeneous graph — **recommended starting point** |
+| `trainable_gnn` | Yes | ★★★★★ | Self-supervised HANConv trained via masked feature reconstruction |
+| `text_gnn` | Yes (vLLM) | ★★★★ | Summarises K-hop neighbour texts with a local LLM, then Longformer-encodes the summary |
+| `flat` | No | ★★ | Random-samples neighbour texts and Longformer-encodes them |
+| `index` | No | ★ | Random orthogonal vectors (ablation baseline) |
+
+### Full Workflow (4 Steps)
+
+```bash
+# Step 1 — install
+pip install -e ".[routeprofile]"
+
+# Step 2 — build a heterogeneous graph from bundled model/task/domain metadata
+llmrouter profile build-graph \
+    --graph-type task_domain \
+    --mode standard \
+    --output-dir data/my_graphs/
+
+# Step 3 — generate per-model 768-dim embeddings (no GPU needed for emb_gnn)
+llmrouter profile build-profile \
+    --method emb_gnn \
+    --graph data/my_graphs/task_domain_graph_full.pt \
+    --output data/my_profiles/emb_gnn.npz
+
+# Step 4 — merge into llm_data JSON
+llmrouter profile apply \
+    --profile data/my_profiles/emb_gnn.npz \
+    --llm-data data/example_data/llm_candidates/default_llm.json \
+    --output data/example_data/llm_candidates/default_llm_rp.json
+```
+
+Then update your router YAML to point at the enriched file — **no other changes needed**:
+
+```yaml
+# configs/model_config_train/graphrouter.yaml
+data_path:
+  llm_data: 'data/example_data/llm_candidates/default_llm_rp.json'
+```
+
+```bash
+# Train and infer exactly as before
+llmrouter train --router graphrouter --config configs/model_config_train/graphrouter.yaml
+llmrouter infer --router graphrouter --config configs/model_config_test/graphrouter.yaml --query "..."
+```
+
+For PersonalizedRouter (which reads a `.pkl` instead of a JSON field):
+
+```bash
+llmrouter profile apply \
+    --profile data/my_profiles/emb_gnn.npz \
+    --llm-data data/example_data/llm_candidates/default_llm.json \
+    --output data/example_data/llm_embeddings/routeprofile_emb_gnn.pkl \
+    --format pkl
+```
+
+### Bundled Data
+
+The package ships JSON files for **8 LLM candidates** (Qwen2.5-7B, Gemma-2-9B, Llama-3.1-8B, Mixtral-8x7B, Mixtral-8x22B, Llama-3.2-3B, Mistral-Small-24B, Llama-3.3-70B) evaluated on **11 benchmarks** (IFEval, BBH, MATH, GSM8K, HumanEval, MBPP, MMLU, MMLU-Pro, TheoremQA, C-Eval, ARC). The CLI works out of the box without any external data download.
+
+To use your own models, pass `--profile-data-dir` pointing to a directory with the same JSON schema — see [`llmrouter/routeprofile/README.md`](llmrouter/routeprofile/README.md#using-custom-profile-data) for the format.
+
+### Full Documentation
+
+- **User guide & CLI reference**: [`llmrouter/routeprofile/README.md`](llmrouter/routeprofile/README.md)
+- **Integration change log**: [`ROUTEPROFILE_INTEGRATION.md`](ROUTEPROFILE_INTEGRATION.md)
+- **Interactive tutorial**: [`notebooks/routeprofile/01_routeprofile_tutorial.ipynb`](notebooks/routeprofile/01_routeprofile_tutorial.ipynb)
 
 ## 🔌 OpenClaw Router (OpenClaw Integration)
 

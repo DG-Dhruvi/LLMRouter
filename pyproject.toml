@@ -58,6 +58,10 @@ classifiers = [
 [project.optional-dependencies]
 # RouterR1 requires vLLM (GPU only)
 router-r1 = ["vllm==0.6.3", "torch==2.4.0", "openai>=1.0"]
+# RouteProfile: graph-based LLM profiling (no GPU required for training-free methods)
+routeprofile = ["torch-geometric>=2.4.0", "scipy>=1.10"]
+# RouteProfile with text_gnn support (requires local LLM via vLLM, GPU needed)
+routeprofile-text-gnn = ["torch-geometric>=2.4.0", "scipy>=1.10", "vllm>=0.3.0"]
 # All optional dependencies
 all = ["vllm==0.6.3", "torch==2.4.0", "openai>=1.0"]
 
@@ -65,9 +69,10 @@ all = ["vllm==0.6.3", "torch==2.4.0", "openai>=1.0"]
 llmrouter = "llmrouter.cli.router_main:main"
 
 [tool.setuptools]
-# Enable including package data (YAML configs, JSON files, etc.)
-# For finer control, provide a MANIFEST.in file.
 include-package-data = true
+
+[tool.setuptools.package-data]
+"llmrouter.routeprofile.data.profile_data" = ["*.json"]
 
 [tool.setuptools.packages.find]
 where = ["."]

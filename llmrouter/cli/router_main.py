@@ -528,6 +528,13 @@ For more information on each subcommand, use:
     )
     version_parser.set_defaults(func=version_command)
 
+    # ========== PROFILE SUBCOMMAND (RouteProfile) ==========
+    try:
+        from llmrouter.cli.router_profile import add_profile_parser
+        add_profile_parser(subparsers)
+    except ImportError:
+        pass
+
     # ========== SERVE SUBCOMMAND ==========
     serve_parser = subparsers.add_parser(
         "serve",

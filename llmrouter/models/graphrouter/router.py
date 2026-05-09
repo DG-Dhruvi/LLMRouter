@@ -120,7 +120,9 @@ class GraphRouter(MetaRouter):
 
     def _prepare_llm_embeddings(self):
         """Prepare LLM embeddings from config."""
-        llm_data = self.cfg.get("llm_data", {})
+        # Use the JSON dict loaded by DataLoader (self.llm_data), falling back to
+        # self.cfg["llm_data"] only when the router is constructed without a YAML path.
+        llm_data = getattr(self, "llm_data", None) or self.cfg.get("llm_data", {}) or {}
         llm_embeddings = []
 
         for model_name in self.model_names:
