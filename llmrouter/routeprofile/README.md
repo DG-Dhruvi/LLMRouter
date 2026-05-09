@@ -95,28 +95,51 @@ llmrouter infer --router graphrouter --config configs/model_config_test/graphrou
 
 ### `llmrouter profile build-graph`
 
-Builds a PyTorch Geometric `HeteroData` graph from JSON metadata files.
+Builds a PyTorch Geometric `HeteroData` graph from JSON metadata files and saves it as a `.pt` file.
 
 ```
 llmrouter profile build-graph [OPTIONS]
 
 Options:
   --graph-type  {task,query,query_task,task_domain,query_task_domain,all}
-                Graph topology (default: task_domain)
-  --mode        {standard,newllm}   Routing setting (default: standard)
-  --profile-data-dir DIR            Override bundled JSON data directory
-  --output-dir  DIR                 Output directory for .pt files
-                                    (default: ./results/result_data_graph/{mode}/)
+                Graph topology to build (default: task_domain)
+  --mode        {standard,newllm}
+                Routing setting — controls which model feature file is loaded
+                  standard : uses model_feature_standard.json (8 known candidate LLMs)
+                  newllm   : uses model_feature_newllm.json   (unseen/held-out LLMs)
+                (default: standard)
+  --profile-data-dir DIR
+                Directory containing the 5–7 input JSON files.
+                If omitted, the bundled default data is used automatically.
+  --output-dir  DIR
+                Output directory for .pt graph files.
+                (default: ./results/result_data_graph/{mode}/)
 ```
 
-**Graph types** (richer = more node types = more context, but slower to build):
+#### `--graph-type` — choosing a graph topology
 
-| Type | Node types | Best for |
-|------|-----------|----------|
-| `task` | arch · model · dataset | Fastest; captures benchmark performance |
-| `task_domain` | arch · model · dataset · domain | Adds domain hierarchy |
-| `query_task_domain` | arch · model · dataset · domain · query | Richest; adds per-query context |
-| `query` / `query_task` | model · dataset · query | Query-focused variants |
+Each graph type corresponds to a different set of node and edge types. Richer graphs encode more context for model embeddings but take longer to build (mainly due to Longformer encoding of text features).
+
+| `--graph-type` | Node types | Edge types | Build time | When to use |
+|----------------|-----------|-----------|:----------:|-------------|
+| `task` | `architecture` · `model` · `dataset` | arch↔model (family), model↔dataset (benchmark scores) | ~2 min | Good default; captures benchmark performance without domain overhead |
+| `task_domain` | `architecture` · `model` · `dataset` · `domain` | above + dataset↔domain (task-domain grouping) | ~2 min | **Recommended**: adds domain hierarchy (knowledge / reasoning / math / coding) |
+| `query_task_domain` | `architecture` · `model` · `dataset` · `domain` · `query` | above + query↔dataset (per-query alignment) | ~10 min | Richest context; useful when query-level routing diversity matters |
+| `query` | `model` · `dataset` · `query` | model↔dataset, query↔dataset | ~5 min | Query-focused; no architecture nodes |
+| `query_task` | `model` · `dataset` · `query` | model↔dataset, query↔dataset | ~5 min | Query + task; no architecture or domain nodes |
+| `all` | — | — | ~20 min | Builds all five graph types in one run |
+
+**Node feature encoding**: text fields (model description, benchmark description, etc.) are encoded with `get_longformer_embedding` (768-dim). Numerical benchmark scores are stored as edge weights on model↔dataset edges.
+
+**Output filename** for each graph type:
+
+| `--graph-type` | Output file |
+|----------------|------------|
+| `task` | `task_graph_full.pt` |
+| `task_domain` | `task_domain_graph_full.pt` |
+| `query_task_domain` | `query_task_domain_graph_full.pt` |
+| `query` | `query_graph_full.pt` |
+| `query_task` | `query_task_graph_full.pt` |
 
 ### `llmrouter profile build-profile`
 
@@ -212,54 +235,157 @@ data_path:
 | `personalizedrouter` | `llm_embedding_data` (.pkl) | Use `apply --format pkl` |
 | `gmtrouter` | Inline in interaction JSONL | Not applicable (uses interaction data) |
 
+## Bundled Default Data Location
+
+The default input JSON files are packaged inside the library at:
+
+```
+llmrouter/routeprofile/data/profile_data/
+├── model_feature_standard.json   ← model metadata + benchmark scores (standard setting)
+├── model_feature_newllm.json     ← same schema, for new/unseen LLMs (--mode newllm)
+├── model_family_feature.json     ← architecture family → text description
+├── task_feature.json             ← benchmark name → text description
+├── task_queries_standard.json    ← benchmark name → list of representative queries
+├── domain_feature.json           ← domain name → text description
+└── domain_task_map.json          ← domain name → list of benchmark names
+```
+
+When you run `llmrouter profile build-graph` **without** `--profile-data-dir`, these files are loaded automatically from the installed package. You do not need to download or copy them.
+
+To inspect the bundled data from Python:
+```python
+from llmrouter.routeprofile.data import get_bundled_path
+import json
+
+path = get_bundled_path("model_feature_standard.json")
+data = json.load(open(path))
+print(list(data.keys()))
+# ['qwen2.5-7b-instruct', 'gemma-2-9b-it', 'llama-3.1-8b-instruct', ...]
+```
+
 ## Using Custom Profile Data
 
-By default, `build-graph` uses bundled JSON files covering 8 LLM candidates and standard benchmarks (IFEval, BBH, MATH, GSM8K, HumanEval, MBPP, etc.).
+To profile models not in the bundled data, create a directory containing the required JSON files and pass it via `--profile-data-dir`:
 
-To use your own models, create a directory with:
-```
-my_profile_data/
-├── model_feature_standard.json   # model metadata + benchmark scores
-├── model_family_feature.json     # architecture family descriptions
-├── task_feature.json             # benchmark descriptions
-├── domain_task_map.json          # domain → benchmark mapping
-└── domain_feature.json           # domain descriptions
+```bash
+llmrouter profile build-graph \
+    --graph-type task_domain \
+    --mode standard \
+    --profile-data-dir my_profile_data/ \
+    --output-dir data/my_graphs/
 ```
 
-Then pass `--profile-data-dir my_profile_data/` to `build-graph`.
+### Required files and their formats
 
-**`model_feature_standard.json` format:**
+#### `model_feature_standard.json` (and `model_feature_newllm.json`)
+
+One entry per candidate LLM. The **key** (model name) must match the model name in your `llm_data.json` so that the `apply` step can merge embeddings correctly.
 
 ```json
 {
   "your-model-name": {
     "size": "7B",
-    "feature": "Natural language description of the model...",
+    "feature": "Natural language description used as the model node's text feature.",
     "architecture": "LlamaForCausalLM",
-    "detailed_scores": {
-      "ifeval": 75.85,
-      "bbh": 53.94,
-      "math": 50.0
-    },
     "parameters": 7.6,
     "model": "provider/model-id",
     "service": "NVIDIA",
-    "api_endpoint": "https://integrate.api.nvidia.com/v1"
+    "api_endpoint": "https://integrate.api.nvidia.com/v1",
+    "average_score": 45.2,
+    "detailed_scores": {
+      "ifeval": 75.85,
+      "bbh":   53.94,
+      "math":  50.0,
+      "gsm8k": 86.58,
+      "human_eval": 11.33,
+      "mbpp":  1.33
+    }
   }
 }
 ```
 
-The model name (key) must match the model name in `llm_data.json` for the `apply` step to work.
+Fields used by the graph builders:
 
-## Bundled Default Data
+| Field | Used for | Required |
+|-------|---------|:--------:|
+| `feature` | Longformer node embedding (model node text) | Yes |
+| `architecture` | Links model node to an architecture node | Yes |
+| `detailed_scores` | Edge weights on model↔dataset edges | Yes |
+| `size`, `parameters`, etc. | Informational only | No |
 
-The package includes data for 8 candidate models across 11+ benchmarks:
+`detailed_scores` keys must match keys in `task_feature.json`. Scores can be `null` (edge is omitted for that benchmark).
 
-**Models**: qwen2.5-7b-instruct · gemma-2-9b-it · llama-3.1-8b-instruct · mixtral-8x7b-instruct · mixtral-8x22b-instruct · llama-3.2-3b-instruct · mistral-small-24b-instruct · llama-3.3-70b-instruct
+#### `model_family_feature.json`
 
-**Benchmarks**: IFEval · BBH · MATH · GSM8K · HumanEval · MBPP · MMLU · MMLU-Pro · TheoremQA · C-Eval · ARC
+Architecture class name → natural language description. Used as the text feature for `architecture` nodes.
 
-**Domains**: knowledge · reasoning · math · coding
+```json
+{
+  "LlamaForCausalLM": "A family of decoder-only Transformer LLMs from Meta...",
+  "Qwen2ForCausalLM": "Decoder-only Transformers from Alibaba Cloud...",
+  "MistralForCausalLM": "Efficient sliding-window attention models from Mistral AI..."
+}
+```
+
+Every `architecture` value that appears in `model_feature_standard.json` must have an entry here.
+
+#### `task_feature.json`
+
+Benchmark name → natural language description. Used as the text feature for `dataset` nodes.
+
+```json
+{
+  "ifeval":   "IFEval evaluates instruction-following...",
+  "bbh":      "BIG-Bench Hard covers 23 challenging reasoning tasks...",
+  "math":     "MATH covers competition-level mathematics...",
+  "gsm8k":    "GSM8K is a dataset of grade-school math word problems...",
+  "human_eval": "HumanEval tests functional correctness of generated Python code..."
+}
+```
+
+Keys must match the keys used in `detailed_scores` inside `model_feature_standard.json`.
+
+#### `domain_feature.json`
+
+Domain name → natural language description. Used as the text feature for `domain` nodes. Only needed for `--graph-type task_domain` or `query_task_domain`.
+
+```json
+{
+  "knowledge": "Tasks requiring broad factual knowledge...",
+  "reasoning": "Tasks requiring multi-step logical inference...",
+  "math":      "Tasks involving numerical computation and proof...",
+  "coding":    "Tasks requiring generating or debugging code..."
+}
+```
+
+#### `domain_task_map.json`
+
+Domain name → list of benchmark names. Defines which benchmarks belong to each domain. Creates `dataset↔domain` edges in the graph. Only needed for `--graph-type task_domain` or `query_task_domain`.
+
+```json
+{
+  "knowledge": ["mmlu", "gpqa", "natural_qa", "trivia_qa"],
+  "reasoning": ["bbh", "arc_challenge", "commonsense_qa", "musr"],
+  "math":      ["math", "gsm8k", "TheoremQA"],
+  "coding":    ["human_eval", "mbpp"]
+}
+```
+
+Benchmark names must be a subset of keys in `task_feature.json`.
+
+#### `task_queries_standard.json`
+
+Benchmark name → list of representative query strings. Used to create `query` nodes in `--graph-type query`, `query_task`, or `query_task_domain`. Not needed for `task` or `task_domain`.
+
+```json
+{
+  "ifeval":  ["Write an extremely short essay on...", "Translate the following sentence..."],
+  "gsm8k":   ["Janet has 4 apples. She gives 2 to Bob...", "..."],
+  "human_eval": ["def fibonacci(n):\n    # complete this function", "..."]
+}
+```
+
+Each query is Longformer-encoded to create the text feature of a `query` node. More queries = more `query` nodes = slower graph construction but richer representation.
 
 ## Reference
 

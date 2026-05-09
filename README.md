@@ -813,9 +813,18 @@ llmrouter profile apply \
 
 ### Bundled Data
 
-The package ships JSON files for **8 LLM candidates** (Qwen2.5-7B, Gemma-2-9B, Llama-3.1-8B, Mixtral-8x7B, Mixtral-8x22B, Llama-3.2-3B, Mistral-Small-24B, Llama-3.3-70B) evaluated on **11 benchmarks** (IFEval, BBH, MATH, GSM8K, HumanEval, MBPP, MMLU, MMLU-Pro, TheoremQA, C-Eval, ARC). The CLI works out of the box without any external data download.
+The package ships JSON files located at `llmrouter/routeprofile/data/profile_data/`:
 
-To use your own models, pass `--profile-data-dir` pointing to a directory with the same JSON schema — see [`llmrouter/routeprofile/README.md`](llmrouter/routeprofile/README.md#using-custom-profile-data) for the format.
+| File | Content |
+|------|---------|
+| `model_feature_standard.json` | 8 LLM candidates with benchmark scores and descriptions |
+| `model_family_feature.json` | Architecture family text descriptions |
+| `task_feature.json` | Benchmark descriptions (IFEval, BBH, MATH, GSM8K, HumanEval, …) |
+| `domain_feature.json` | Domain descriptions (knowledge, reasoning, math, coding, …) |
+| `domain_task_map.json` | Domain → benchmark name mapping |
+| `task_queries_standard.json` | Representative queries per benchmark (needed for `query*` graph types) |
+
+The CLI loads these automatically — no external download needed. To profile your own models, pass `--profile-data-dir` pointing to a directory with the same file schema — see [`llmrouter/routeprofile/README.md`](llmrouter/routeprofile/README.md#bundled-default-data-location) for complete field-by-field documentation.
 
 ### Full Documentation
 
