@@ -2,8 +2,8 @@
 Profile data management utilities.
 
 Provides functions to initialise a user-owned profile data directory from
-the bundled defaults, and to add/modify models, tasks, and domains in that
-directory without touching the bundled (read-only) data.
+the bundled defaults, and to add/modify models, tasks, domains, and queries
+in that directory without touching the bundled (read-only) data.
 """
 
 from __future__ import annotations
@@ -27,6 +27,18 @@ _PROFILE_FILES = [
     "task_queries_standard.json",
     "task_queries_newllm.json",
 ]
+
+_MODE_TO_MODEL_FILES = {
+    "standard": ["model_feature_standard.json"],
+    "newllm":   ["model_feature_newllm.json"],
+    "both":     ["model_feature_standard.json", "model_feature_newllm.json"],
+}
+
+_MODE_TO_QUERY_FILES = {
+    "standard": ["task_queries_standard.json"],
+    "newllm":   ["task_queries_newllm.json"],
+    "both":     ["task_queries_standard.json", "task_queries_newllm.json"],
+}
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -113,22 +125,35 @@ def add_task(
     output_dir: str,
     *,
     domains: list[str] | None = None,
+    queries: list[str] | None = None,
+    queries_mode: str | None = None,
 ) -> None:
     """Add or modify a benchmark/task entry.
 
     Writes *name → feature* into ``task_feature.json``. If *domains* is
     provided, appends *name* to each domain's list in ``domain_task_map.json``.
+    If *queries* is provided, appends them to the appropriate
+    ``task_queries_{mode}.json`` via :func:`add_query`.
 
     Every domain in *domains* **must** already exist in ``domain_feature.json``;
-    if any are missing, a ``ValueError`` is raised (with instructions to run
-    ``add_domain`` first) and no files are modified.
+    if any are missing, a ``ValueError`` is raised and no files are modified.
 
     Args:
-        name:       Benchmark key matching keys used in ``model detailed_scores``.
-        feature:    Text description for the dataset node's Longformer feature.
-        output_dir: Directory containing the profile JSON files.
-        domains:    Domain(s) this benchmark belongs to (optional).
+        name:         Benchmark key matching keys used in ``model detailed_scores``.
+        feature:      Text description for the dataset node's Longformer feature.
+        output_dir:   Directory containing the profile JSON files.
+        domains:      Domain(s) this benchmark belongs to (optional).
+        queries:      Representative query strings to associate with this task.
+        queries_mode: Which query file(s) to update — ``"standard"``,
+                      ``"newllm"``, or ``"both"``. Required when *queries* is
+                      provided.
     """
+    if queries and queries_mode is None:
+        raise ValueError(
+            "'queries_mode' is required when 'queries' are provided. "
+            "Pass mode='standard', 'newllm', or 'both'."
+        )
+
     init_profile_data_dir(output_dir)
 
     # Validate domains up-front — fail before writing anything
@@ -166,6 +191,62 @@ def add_task(
     domain_info = f" (domains: {domains})" if domains else ""
     print(f"[profile] {action} task '{name}'{domain_info} in {output_dir}.")
 
+    # Append queries if provided (task is already written, so it's valid)
+    if queries:
+        add_query(name, queries, output_dir, mode=queries_mode)
+
+
+def add_query(
+    task_name: str,
+    queries: list[str],
+    output_dir: str,
+    *,
+    mode: str,
+) -> None:
+    """Append query strings to ``task_queries_{mode}.json`` for a given task.
+
+    Duplicate query strings (exact match) are silently skipped so the
+    operation is idempotent. If *task_name* is not present in the queries
+    file it is initialised to an empty list before appending.
+
+    Args:
+        task_name:  Benchmark key — must already exist in ``task_feature.json``.
+        queries:    List of query strings to append.
+        output_dir: Directory containing the profile JSON files.
+        mode:       Which file(s) to update: ``"standard"``, ``"newllm"``,
+                    or ``"both"``.
+    """
+    if mode not in _MODE_TO_QUERY_FILES:
+        raise ValueError(
+            f"mode must be 'standard', 'newllm', or 'both'; got '{mode!r}'."
+        )
+
+    init_profile_data_dir(output_dir)
+
+    # Validate task exists
+    task_path = _path(output_dir, "task_feature.json")
+    known_tasks = set(_load(task_path).keys())
+    if task_name not in known_tasks:
+        raise ValueError(
+            f"Task '{task_name}' not found in task_feature.json. "
+            f"Run 'llmrouter profile add-task --name {task_name!r} ...' first."
+        )
+
+    target_files = _MODE_TO_QUERY_FILES[mode]
+    for fname in target_files:
+        fpath = _path(output_dir, fname)
+        qdata = _load(fpath)
+        existing = qdata.get(task_name, [])
+        existing_set = set(existing)
+        new_ones = [q for q in queries if q not in existing_set]
+        if new_ones:
+            existing.extend(new_ones)
+            qdata[task_name] = existing
+            _save(qdata, fpath)
+
+    files_str = " + ".join(target_files)
+    print(f"[profile] Appended queries to '{task_name}' in {output_dir} ({files_str}).")
+
 
 def add_model(
     name: str,
@@ -182,8 +263,9 @@ def add_model(
     service: str | None = None,
     api_endpoint: str | None = None,
     replace: bool = False,
+    mode: str = "both",
 ) -> dict:
-    """Add or modify a model entry in both model_feature JSON files.
+    """Add or modify a model entry in model_feature JSON file(s).
 
     **Add mode** (model not present): ``feature`` and ``architecture`` are
     required; all other fields are optional.
@@ -216,10 +298,17 @@ def add_model(
         api_endpoint:   API endpoint URL.
         replace:        If ``True`` and the model already exists, replace the
                         entire record rather than merging.
+        mode:           Which model feature file(s) to update: ``"standard"``,
+                        ``"newllm"``, or ``"both"`` (default: ``"both"``).
 
     Returns:
         The final model entry dict that was written to disk.
     """
+    if mode not in _MODE_TO_MODEL_FILES:
+        raise ValueError(
+            f"mode must be 'standard', 'newllm', or 'both'; got '{mode!r}'."
+        )
+
     init_profile_data_dir(output_dir)
 
     # 1. Register new_tasks first (so their benchmark keys become valid)
@@ -272,10 +361,18 @@ def add_model(
             UserWarning, stacklevel=2,
         )
 
-    # 5. Build the entry to write
+    # 5. Load file(s) and determine existing entry
     std_path = _path(output_dir, "model_feature_standard.json")
-    std_data = _load(std_path)
-    existing = std_data.get(name)
+    newllm_path = _path(output_dir, "model_feature_newllm.json")
+
+    std_data = _load(std_path) if mode in ("standard", "both") else None
+    newllm_data = _load(newllm_path) if mode in ("newllm", "both") else None
+
+    # is_new is determined from the primary file for the chosen mode
+    if mode == "newllm":
+        existing = newllm_data.get(name)
+    else:  # standard or both — use standard as canonical
+        existing = std_data.get(name)
     is_new = existing is None
 
     if is_new:
@@ -318,15 +415,16 @@ def add_model(
         existing_scores.update(detailed_scores)
         entry["detailed_scores"] = existing_scores
 
-    # 6. Write to both model_feature files
-    std_data[name] = entry
-    _save(std_data, std_path)
+    # 6. Write to file(s) based on mode
+    if std_data is not None:
+        std_data[name] = entry
+        _save(std_data, std_path)
+    if newllm_data is not None:
+        newllm_data[name] = entry
+        _save(newllm_data, newllm_path)
 
-    newllm_path = _path(output_dir, "model_feature_newllm.json")
-    newllm_data = _load(newllm_path)
-    newllm_data[name] = entry
-    _save(newllm_data, newllm_path)
-
+    files_str = " + ".join(f.replace("model_feature_", "").replace(".json", "")
+                            for f in _MODE_TO_MODEL_FILES[mode])
     action = "Added" if is_new else ("Replaced" if replace else "Modified")
-    print(f"[profile] {action} model '{name}' in {output_dir} (standard + newllm).")
+    print(f"[profile] {action} model '{name}' in {output_dir} ({files_str}).")
     return entry

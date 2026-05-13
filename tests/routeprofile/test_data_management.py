@@ -8,6 +8,7 @@ import pytest
 from llmrouter.routeprofile.data_management import (
     add_domain,
     add_model,
+    add_query,
     add_task,
     init_profile_data_dir,
 )
@@ -228,3 +229,100 @@ class TestAddModel:
         assert "my-new-bench" in tasks
         d = json.loads((tmp_path / "model_feature_standard.json").read_text())
         assert d["task-model"]["detailed_scores"]["my-new-bench"] == 77.0
+
+    def test_add_model_mode_standard_only(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        add_model("std-only-model", str(tmp_path),
+                  feature="A model.", architecture="LlamaForCausalLM",
+                  mode="standard")
+        std = json.loads((tmp_path / "model_feature_standard.json").read_text())
+        newllm = json.loads((tmp_path / "model_feature_newllm.json").read_text())
+        assert "std-only-model" in std
+        assert "std-only-model" not in newllm
+
+    def test_add_model_mode_newllm_only(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        add_model("newllm-only-model", str(tmp_path),
+                  feature="A model.", architecture="LlamaForCausalLM",
+                  mode="newllm")
+        std = json.loads((tmp_path / "model_feature_standard.json").read_text())
+        newllm = json.loads((tmp_path / "model_feature_newllm.json").read_text())
+        assert "newllm-only-model" not in std
+        assert "newllm-only-model" in newllm
+
+
+# ── add_task with queries ─────────────────────────────────────────────────────
+
+class TestAddTaskWithQueries:
+    def test_add_task_with_queries(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        add_task("my-bench", "A bench.", str(tmp_path),
+                 queries=["Q1", "Q2"], queries_mode="standard")
+        tasks = json.loads((tmp_path / "task_feature.json").read_text())
+        assert "my-bench" in tasks
+        qdata = json.loads((tmp_path / "task_queries_standard.json").read_text())
+        assert "Q1" in qdata["my-bench"]
+        assert "Q2" in qdata["my-bench"]
+        # newllm file should be untouched for this task
+        newllm = json.loads((tmp_path / "task_queries_newllm.json").read_text())
+        assert "my-bench" not in newllm
+
+    def test_add_task_queries_without_mode_errors(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        with pytest.raises(ValueError, match="queries_mode"):
+            add_task("my-bench", "A bench.", str(tmp_path), queries=["Q1"])
+
+
+# ── add_query ─────────────────────────────────────────────────────────────────
+
+class TestAddQuery:
+    def test_add_query_mode_both(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        add_query("ifeval", ["Q1", "Q2"], str(tmp_path), mode="both")
+        for fname in ("task_queries_standard.json", "task_queries_newllm.json"):
+            qdata = json.loads((tmp_path / fname).read_text())
+            assert "Q1" in qdata["ifeval"]
+            assert "Q2" in qdata["ifeval"]
+
+    def test_add_query_mode_standard_only(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        # Get original newllm ifeval queries to compare
+        orig_newllm = json.loads((tmp_path / "task_queries_newllm.json").read_text())
+        orig_ifeval = list(orig_newllm.get("ifeval", []))
+        add_query("ifeval", ["UNIQUE_STANDARD_Q"], str(tmp_path), mode="standard")
+        std = json.loads((tmp_path / "task_queries_standard.json").read_text())
+        newllm = json.loads((tmp_path / "task_queries_newllm.json").read_text())
+        assert "UNIQUE_STANDARD_Q" in std["ifeval"]
+        assert "UNIQUE_STANDARD_Q" not in newllm.get("ifeval", [])
+
+    def test_add_query_mode_newllm_only(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        add_query("ifeval", ["UNIQUE_NEWLLM_Q"], str(tmp_path), mode="newllm")
+        std = json.loads((tmp_path / "task_queries_standard.json").read_text())
+        newllm = json.loads((tmp_path / "task_queries_newllm.json").read_text())
+        assert "UNIQUE_NEWLLM_Q" not in std.get("ifeval", [])
+        assert "UNIQUE_NEWLLM_Q" in newllm["ifeval"]
+
+    def test_add_query_unknown_task_errors(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        orig_std = (tmp_path / "task_queries_standard.json").read_text()
+        with pytest.raises(ValueError, match="not found"):
+            add_query("nonexistent-bench", ["Q1"], str(tmp_path), mode="standard")
+        # File must be unmodified
+        assert (tmp_path / "task_queries_standard.json").read_text() == orig_std
+
+    def test_add_query_deduplication(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        add_query("ifeval", ["DEDUP_Q"], str(tmp_path), mode="standard")
+        add_query("ifeval", ["DEDUP_Q"], str(tmp_path), mode="standard")
+        qdata = json.loads((tmp_path / "task_queries_standard.json").read_text())
+        assert qdata["ifeval"].count("DEDUP_Q") == 1
+
+    def test_add_query_task_key_not_in_queries_file(self, tmp_path):
+        init_profile_data_dir(str(tmp_path))
+        # Add a task that exists in task_feature but not in any queries file
+        add_task("brand-new-bench", "A new bench.", str(tmp_path))
+        add_query("brand-new-bench", ["First Q"], str(tmp_path), mode="standard")
+        qdata = json.loads((tmp_path / "task_queries_standard.json").read_text())
+        assert "brand-new-bench" in qdata
+        assert qdata["brand-new-bench"] == ["First Q"]

@@ -824,7 +824,63 @@ The package ships JSON files located at `llmrouter/routeprofile/data/profile_dat
 | `domain_task_map.json` | Domain → benchmark name mapping |
 | `task_queries_standard.json` | Representative queries per benchmark (needed for `query*` graph types) |
 
-The CLI loads these automatically — no external download needed. To profile your own models, pass `--profile-data-dir` pointing to a directory with the same file schema — see [`llmrouter/routeprofile/README.md`](llmrouter/routeprofile/README.md#bundled-default-data-location) for complete field-by-field documentation.
+The CLI loads these automatically — no external download needed.
+
+### Customising the Graph with Your Own Data
+
+The bundled defaults cover 8 LLMs and ~17–29 benchmarks. Four data-management subcommands let you add your own models, benchmarks, domains, and query samples into a **user-owned directory** — the installed package files are never modified.
+
+```bash
+# Initialised automatically from bundled data on first run.
+
+# 1. Add a new domain (prerequisite if your benchmark needs a new domain)
+llmrouter profile add-domain \
+  --name "multimodal" \
+  --feature "Tasks requiring joint understanding of text and image." \
+  --output-dir data/my_profile_data/
+
+# 2. Add a new benchmark + representative queries
+llmrouter profile add-task \
+  --name "my-mm-bench" \
+  --feature "A multimodal reasoning benchmark." \
+  --domain "multimodal" \
+  --query "Describe what is happening in this image." \
+  --query "Which object appears larger in the scene?" \
+  --mode standard \
+  --output-dir data/my_profile_data/
+
+# 3. Add a model to the newllm evaluation set
+llmrouter profile add-model \
+  --name "my-new-llm" \
+  --feature "A 13B multimodal LLM." \
+  --architecture LlamaForCausalLM \
+  --scores "my-mm-bench:72.5,ifeval:80.0" \
+  --mode newllm \
+  --output-dir data/my_profile_data/
+
+# 4. Append extra queries to an existing benchmark (both query files)
+llmrouter profile add-query \
+  --task "ifeval" \
+  --query "Explain quantum entanglement in simple terms." \
+  --mode both \
+  --output-dir data/my_profile_data/
+
+# 5. Rebuild the graph with your custom data
+llmrouter profile build-graph \
+  --graph-type task_domain \
+  --profile-data-dir data/my_profile_data/ \
+  --output-dir data/my_graphs/
+```
+
+`--mode` controls which file is updated:
+
+| Value | Model file updated | Query file updated |
+|-------|-------------------|-------------------|
+| `standard` | `model_feature_standard.json` | `task_queries_standard.json` |
+| `newllm` | `model_feature_newllm.json` | `task_queries_newllm.json` |
+| `both` | both | both |
+
+Full parameter reference: [`llmrouter/routeprofile/README.md`](llmrouter/routeprofile/README.md#customising-the-graph--adding-your-own-models-benchmarks--queries)
 
 ### Full Documentation
 

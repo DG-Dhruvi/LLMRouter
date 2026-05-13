@@ -136,6 +136,39 @@ class TestParserRegistration:
         assert args.name == "my-llm"
         assert args.scores == "ifeval:72.5,bbh:48.3"
         assert not args.replace
+        assert args.mode == "both"  # default
+
+    def test_add_model_mode_parser(self):
+        from llmrouter.cli.router_profile import add_profile_parser
+        p = argparse.ArgumentParser()
+        sub = p.add_subparsers()
+        add_profile_parser(sub)
+        args = p.parse_args([
+            "profile", "add-model",
+            "--name", "my-llm",
+            "--feature", "A model.",
+            "--architecture", "LlamaForCausalLM",
+            "--mode", "newllm",
+            "--output-dir", "/tmp/rp",
+        ])
+        assert args.mode == "newllm"
+
+    def test_add_query_parser(self):
+        from llmrouter.cli.router_profile import add_profile_parser
+        p = argparse.ArgumentParser()
+        sub = p.add_subparsers()
+        add_profile_parser(sub)
+        args = p.parse_args([
+            "profile", "add-query",
+            "--task", "ifeval",
+            "--query", "Q1",
+            "--query", "Q2",
+            "--mode", "standard",
+            "--output-dir", "/tmp/rp",
+        ])
+        assert args.task == "ifeval"
+        assert args.query == ["Q1", "Q2"]
+        assert args.mode == "standard"
 
 
 # ── Help output tests ─────────────────────────────────────────────────────────
@@ -186,6 +219,8 @@ class TestHelpOutput:
         assert "--feature"    in out
         assert "--output-dir" in out
         assert "--domain"     in out
+        assert "--query"      in out
+        assert "--mode"       in out
 
     def test_add_model_help(self):
         out = self._run_help("profile", "add-model")
@@ -194,6 +229,14 @@ class TestHelpOutput:
         assert "--feature"      in out
         assert "--architecture" in out
         assert "--scores"       in out
+        assert "--mode"         in out
+
+    def test_add_query_help(self):
+        out = self._run_help("profile", "add-query")
+        assert "--task"       in out
+        assert "--query"      in out
+        assert "--mode"       in out
+        assert "--output-dir" in out
 
 
 # ── End-to-end apply dispatch ─────────────────────────────────────────────────

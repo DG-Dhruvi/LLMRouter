@@ -91,6 +91,108 @@ llmrouter train --router graphrouter --config configs/model_config_train/graphro
 llmrouter infer --router graphrouter --config configs/model_config_test/graphrouter.yaml --query "..."
 ```
 
+## Customising the Graph — Adding Your Own Models, Benchmarks & Queries
+
+The bundled defaults cover 8 LLMs and ~17–29 benchmarks. Four data-management subcommands let you extend the graph with custom data into a **user-owned directory** (auto-initialised from the bundled files on first run). The installed package is never modified.
+
+### Command Overview
+
+| Command | Modifies | When to use |
+|---------|----------|-------------|
+| `add-domain` | `domain_feature.json` | Before adding a benchmark that belongs to a new domain |
+| `add-task` | `task_feature.json`, `domain_task_map.json`, optionally `task_queries_{mode}.json` | Add a new benchmark (dataset node) and optionally seed its query samples |
+| `add-model` | `model_feature_{mode}.json` | Add or update a model; use `--mode` to target standard, newllm, or both |
+| `add-query` | `task_queries_{mode}.json` | Append representative query strings to an existing benchmark |
+
+`--mode` controls which mode-specific file is updated:
+
+| `--mode` | Model file | Query file |
+|----------|-----------|-----------|
+| `standard` | `model_feature_standard.json` | `task_queries_standard.json` |
+| `newllm` | `model_feature_newllm.json` | `task_queries_newllm.json` |
+| `both` | both | both |
+
+### Scenario A — Add a new model to the newllm evaluation set
+
+```bash
+llmrouter profile add-model \
+  --name "my-new-llm" \
+  --feature "A 13B instruction-tuned LLaMA model." \
+  --architecture LlamaForCausalLM \
+  --scores "ifeval:72.5,bbh:48.3,gsm8k:61.2" \
+  --mode newllm \
+  --output-dir data/my_profile_data/
+```
+
+Omit `--mode` (or pass `--mode both`) to add the model to both the standard and newllm files.
+
+### Scenario B — Add a new benchmark + model (full pipeline with query_task_domain graph)
+
+```bash
+# Step 1: new domain (skip if domain already exists)
+llmrouter profile add-domain \
+  --name "multimodal" \
+  --feature "Tasks requiring joint understanding of text and image." \
+  --output-dir data/my_profile_data/
+
+# Step 2: new benchmark + seed queries for the standard mode
+llmrouter profile add-task \
+  --name "my-mm-bench" \
+  --feature "A multimodal reasoning benchmark evaluating scene understanding." \
+  --domain "multimodal" \
+  --query "Describe what is happening in this image." \
+  --query "Which object appears larger in the scene?" \
+  --mode standard \
+  --output-dir data/my_profile_data/
+
+# Step 3: add the model referencing the new benchmark
+llmrouter profile add-model \
+  --name "my-model" \
+  --feature "A 13B multimodal LLM capable of reasoning over text and images." \
+  --architecture LlamaForCausalLM \
+  --scores "my-mm-bench:72.5,ifeval:80.0" \
+  --mode both \
+  --output-dir data/my_profile_data/
+
+# Step 4: rebuild the graph (use query_task_domain to include query nodes)
+llmrouter profile build-graph \
+  --graph-type query_task_domain \
+  --mode standard \
+  --profile-data-dir data/my_profile_data/ \
+  --output-dir data/my_graphs/
+```
+
+### Scenario C — Patch one score into an existing model
+
+```bash
+llmrouter profile add-model \
+  --name "qwen2.5-7b-instruct" \
+  --scores "my-mm-bench:68.0" \
+  --mode both \
+  --output-dir data/my_profile_data/
+# → Only detailed_scores["my-mm-bench"] is updated; all other fields are preserved.
+```
+
+### Scenario D — Append query samples to an existing benchmark
+
+```bash
+# Add to standard file only
+llmrouter profile add-query \
+  --task "ifeval" \
+  --query "Explain quantum entanglement in simple terms." \
+  --mode standard \
+  --output-dir data/my_profile_data/
+
+# Add from a text file (one query per line) to both files
+llmrouter profile add-query \
+  --task "bbh" \
+  --queries-file data/bbh_extra_queries.txt \
+  --mode both \
+  --output-dir data/my_profile_data/
+```
+
+Duplicate queries are silently skipped (idempotent). If the benchmark key does not yet appear in the query file, it is initialised to an empty list before appending.
+
 ## Detailed CLI Reference
 
 ### `llmrouter profile build-graph`
@@ -198,18 +300,22 @@ Adds or modifies a benchmark (dataset node) entry.
 llmrouter profile add-task --name NAME --feature TEXT --output-dir DIR [OPTIONS]
 
 Options:
-  --name        Benchmark key matching keys used in model detailed_scores
-  --feature     Text description for the dataset node's Longformer feature
-  --domain      Domain(s) this benchmark belongs to — may be repeated for multiple domains
-                The domain must already exist (run add-domain first)
-  --output-dir  Directory containing the profile JSON files
+  --name          Benchmark key matching keys used in model detailed_scores
+  --feature       Text description for the dataset node's Longformer feature
+  --domain        Domain(s) this benchmark belongs to — may be repeated for multiple domains
+                  The domain must already exist (run add-domain first)
+  --query         Representative query string (repeat for multiple). Requires --mode.
+  --queries-file  Text file with one query per line. Requires --mode.
+  --mode          {standard,newllm,both} — which task_queries file to update.
+                  Required when --query or --queries-file is provided.
+  --output-dir    Directory containing the profile JSON files
 ```
 
 If `--domain` specifies a domain not yet in `domain_feature.json`, the command errors with instructions to run `add-domain` first. No files are modified on error.
 
 ### `llmrouter profile add-model`
 
-Adds or modifies a model entry in both `model_feature_standard.json` and `model_feature_newllm.json`.
+Adds or modifies a model entry in the chosen `model_feature_{mode}.json` file(s).
 
 ```
 llmrouter profile add-model --name NAME --output-dir DIR [OPTIONS]
@@ -223,6 +329,7 @@ Options:
   --from-json     Path to a JSON file containing all fields (supports new_tasks array)
   --output-dir    Directory containing the profile JSON files
   --replace       Replace the entire existing record instead of merging (default: merge)
+  --mode          {standard,newllm,both} — which model_feature file(s) to update (default: both)
   --size          Human-readable size string (e.g. "13B")
   --parameters    Parameter count in billions
   --model-id      Provider model identifier
@@ -256,48 +363,22 @@ Scores for benchmarks not in `task_feature.json` trigger a warning — run `add-
 
 `new_tasks` entries are written to `task_feature.json` before the model entry, so their benchmark keys are valid when score validation runs.
 
-### Extending Profile Data — Full Workflow
+### `llmrouter profile add-query`
 
-```bash
-# Scenario A: add a new model (existing benchmarks only)
-llmrouter profile add-model \
-  --name "my-llama-13b" \
-  --feature "A 13B instruction-tuned LLaMA model." \
-  --architecture LlamaForCausalLM \
-  --scores "ifeval:72.5,bbh:48.3,gsm8k:61.2" \
-  --output-dir data/my_profile_data/
+Appends representative query strings to `task_queries_{mode}.json` for an existing benchmark.
 
-# Scenario B: add a new domain + benchmark + model
-llmrouter profile add-domain \
-  --name "multimodal" \
-  --feature "Tasks requiring joint understanding of text and image." \
-  --output-dir data/my_profile_data/
-
-llmrouter profile add-task \
-  --name "my-mm-bench" \
-  --feature "A multimodal reasoning benchmark." \
-  --domain "multimodal" \
-  --output-dir data/my_profile_data/
-
-llmrouter profile add-model \
-  --name "my-model" \
-  --feature "A multimodal capable model." \
-  --architecture LlamaForCausalLM \
-  --scores "my-mm-bench:72.5,ifeval:80.0" \
-  --output-dir data/my_profile_data/
-
-# Scenario C: patch one score into an existing model entry
-llmrouter profile add-model \
-  --name "qwen2.5-7b-instruct" \
-  --scores "my-mm-bench:68.0" \
-  --output-dir data/my_profile_data/
-
-# Then rebuild graph + profile as normal
-llmrouter profile build-graph \
-  --graph-type task_domain \
-  --profile-data-dir data/my_profile_data/ \
-  --output-dir data/my_graphs/
 ```
+llmrouter profile add-query --task TASK --mode MODE --output-dir DIR [OPTIONS]
+
+Options:
+  --task          Benchmark key (must exist in task_feature.json)
+  --query         Query string to append (repeat for multiple)
+  --queries-file  Text file with one query per line
+  --mode          {standard,newllm,both} — which task_queries file to update. Required.
+  --output-dir    Directory containing the profile JSON files
+```
+
+Duplicate queries (exact string match) are silently skipped. If the benchmark key does not exist in the target query file, it is initialised to an empty list before appending.
 
 ## Python API
 

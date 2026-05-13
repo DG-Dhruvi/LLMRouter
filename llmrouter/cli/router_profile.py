@@ -163,14 +163,55 @@ def _add_domain_command(args) -> None:
 
 def _add_task_command(args) -> None:
     from llmrouter.routeprofile.data_management import add_task
+
+    queries: list[str] = list(args.query or [])
+    if getattr(args, "queries_file", None):
+        try:
+            with open(args.queries_file, encoding="utf-8") as f:
+                queries.extend(line.rstrip("\n") for line in f if line.strip())
+        except OSError as e:
+            print(f"Error reading --queries-file: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    queries_mode = getattr(args, "mode", None) if queries else None
+    if queries and not queries_mode:
+        print("Error: --mode is required when --query or --queries-file is provided.",
+              file=sys.stderr)
+        sys.exit(1)
+
     try:
         add_task(
             name=args.name,
             feature=args.feature,
             output_dir=args.output_dir,
             domains=args.domain or None,
+            queries=queries or None,
+            queries_mode=queries_mode,
         )
     except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def _add_query_command(args) -> None:
+    from llmrouter.routeprofile.data_management import add_query
+
+    queries: list[str] = list(args.query or [])
+    if getattr(args, "queries_file", None):
+        try:
+            with open(args.queries_file, encoding="utf-8") as f:
+                queries.extend(line.rstrip("\n") for line in f if line.strip())
+        except OSError as e:
+            print(f"Error reading --queries-file: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    if not queries:
+        print("Error: provide at least one --query or --queries-file.", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        add_query(args.task, queries, args.output_dir, mode=args.mode)
+    except (ValueError, FileNotFoundError) as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
@@ -211,6 +252,7 @@ def _add_model_command(args) -> None:
                 service=raw.get("service"),
                 api_endpoint=raw.get("api_endpoint"),
                 replace=args.replace,
+                mode=args.mode,
             )
         except ValueError as e:
             print(f"Error: {e}", file=sys.stderr)
@@ -255,6 +297,7 @@ def _add_model_command(args) -> None:
             service=args.service,
             api_endpoint=args.api_endpoint,
             replace=args.replace,
+            mode=args.mode,
         )
     except ValueError as e:
         print(f"Error: {e}", file=sys.stderr)
@@ -294,8 +337,9 @@ def add_profile_parser(subparsers) -> argparse.ArgumentParser:
             "  build-profile Generate per-model embeddings from a graph (.npz output)\n"
             "  apply         Merge .npz embeddings into llm_data JSON (for router use)\n"
             "  add-domain    Add or modify a domain entry in a profile data directory\n"
-            "  add-task      Add or modify a benchmark entry in a profile data directory\n"
-            "  add-model     Add or modify a model entry in a profile data directory\n"
+            "  add-task      Add or modify a benchmark entry (optionally with queries)\n"
+            "  add-model     Add or modify a model entry (standard / newllm / both)\n"
+            "  add-query     Append query samples to a benchmark's query list\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -499,6 +543,15 @@ def add_profile_parser(subparsers) -> argparse.ArgumentParser:
     at.add_argument("--domain", action="append", metavar="DOMAIN",
                     help="Domain to associate this task with (repeat for multiple domains); "
                          "domain must already exist in domain_feature.json")
+    at.add_argument("--query", action="append", metavar="QUERY",
+                    help="Representative query string for this task (repeat for multiple). "
+                         "Requires --mode.")
+    at.add_argument("--queries-file", default=None, metavar="FILE", dest="queries_file",
+                    help="Text file with one query per line (appended to --query list). "
+                         "Requires --mode.")
+    at.add_argument("--mode", choices=["standard", "newllm", "both"], default=None,
+                    help="Which task_queries file to update: standard, newllm, or both. "
+                         "Required when --query or --queries-file is provided.")
     at.add_argument("--output-dir", required=True, metavar="DIR",
                     dest="output_dir", help="Target profile data directory")
     at.set_defaults(func=_add_task_command)
@@ -535,6 +588,9 @@ def add_profile_parser(subparsers) -> argparse.ArgumentParser:
                     dest="output_dir", help="Target profile data directory.")
     am.add_argument("--replace", action="store_true",
                     help="Fully replace an existing model entry instead of merging.")
+    am.add_argument("--mode", choices=["standard", "newllm", "both"], default="both",
+                    help="Which model_feature file(s) to update: standard, newllm, or both "
+                         "(default: both).")
     am.add_argument("--size", default=None, help="Human-readable model size (e.g. '13B').")
     am.add_argument("--parameters", default=None, metavar="FLOAT",
                     help="Parameter count in billions.")
@@ -544,5 +600,30 @@ def add_profile_parser(subparsers) -> argparse.ArgumentParser:
     am.add_argument("--api-endpoint", default=None, dest="api_endpoint",
                     help="API endpoint URL.")
     am.set_defaults(func=_add_model_command)
+
+    # ── add-query ──────────────────────────────────────────────────────────────
+    aq = profile_sub.add_parser(
+        "add-query",
+        help="Append query samples to a benchmark's query list",
+        description=(
+            "Appends representative query strings to task_queries_{mode}.json for an\n"
+            "existing benchmark. The task must already exist in task_feature.json\n"
+            "(run add-task first).\n\n"
+            "Duplicate queries (exact string match) are silently skipped.\n"
+            "Use --mode to specify which query file(s) to update.\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    aq.add_argument("--task", required=True,
+                    help="Benchmark key (must exist in task_feature.json).")
+    aq.add_argument("--query", action="append", metavar="QUERY",
+                    help="Query string to append (repeat for multiple).")
+    aq.add_argument("--queries-file", default=None, metavar="FILE", dest="queries_file",
+                    help="Text file with one query per line.")
+    aq.add_argument("--mode", required=True, choices=["standard", "newllm", "both"],
+                    help="Which task_queries file to update: standard, newllm, or both.")
+    aq.add_argument("--output-dir", required=True, metavar="DIR",
+                    dest="output_dir", help="Target profile data directory.")
+    aq.set_defaults(func=_add_query_command)
 
     return profile_parser
