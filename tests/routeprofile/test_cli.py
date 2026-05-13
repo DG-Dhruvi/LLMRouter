@@ -91,6 +91,52 @@ class TestParserRegistration:
             p.parse_args(["profile", "build-profile", "--method", "emb_gnn",
                           "--graph", "/x.pt", "--output", "/y.npz", "--norm", "bad_norm"])
 
+    def test_add_domain_parser(self):
+        from llmrouter.cli.router_profile import add_profile_parser
+        p = argparse.ArgumentParser()
+        sub = p.add_subparsers()
+        add_profile_parser(sub)
+        args = p.parse_args([
+            "profile", "add-domain",
+            "--name", "multimodal",
+            "--feature", "Multimodal tasks.",
+            "--output-dir", "/tmp/rp",
+        ])
+        assert args.name == "multimodal"
+        assert args.output_dir == "/tmp/rp"
+
+    def test_add_task_parser(self):
+        from llmrouter.cli.router_profile import add_profile_parser
+        p = argparse.ArgumentParser()
+        sub = p.add_subparsers()
+        add_profile_parser(sub)
+        args = p.parse_args([
+            "profile", "add-task",
+            "--name", "my-bench",
+            "--feature", "A benchmark.",
+            "--domain", "reasoning",
+            "--output-dir", "/tmp/rp",
+        ])
+        assert args.name == "my-bench"
+        assert args.domain == ["reasoning"]
+
+    def test_add_model_parser(self):
+        from llmrouter.cli.router_profile import add_profile_parser
+        p = argparse.ArgumentParser()
+        sub = p.add_subparsers()
+        add_profile_parser(sub)
+        args = p.parse_args([
+            "profile", "add-model",
+            "--name", "my-llm",
+            "--feature", "A model.",
+            "--architecture", "LlamaForCausalLM",
+            "--scores", "ifeval:72.5,bbh:48.3",
+            "--output-dir", "/tmp/rp",
+        ])
+        assert args.name == "my-llm"
+        assert args.scores == "ifeval:72.5,bbh:48.3"
+        assert not args.replace
+
 
 # ── Help output tests ─────────────────────────────────────────────────────────
 
@@ -127,6 +173,27 @@ class TestHelpOutput:
         assert "--profile"  in out
         assert "--llm-data" in out
         assert "--format"   in out
+
+    def test_add_domain_help(self):
+        out = self._run_help("profile", "add-domain")
+        assert "--name"       in out
+        assert "--feature"    in out
+        assert "--output-dir" in out
+
+    def test_add_task_help(self):
+        out = self._run_help("profile", "add-task")
+        assert "--name"       in out
+        assert "--feature"    in out
+        assert "--output-dir" in out
+        assert "--domain"     in out
+
+    def test_add_model_help(self):
+        out = self._run_help("profile", "add-model")
+        assert "--name"         in out
+        assert "--output-dir"   in out
+        assert "--feature"      in out
+        assert "--architecture" in out
+        assert "--scores"       in out
 
 
 # ── End-to-end apply dispatch ─────────────────────────────────────────────────

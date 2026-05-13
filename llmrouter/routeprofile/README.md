@@ -175,6 +175,130 @@ Options:
   --missing    {warn,skip,error} Behaviour for models in llm_data not in .npz (default: warn)
 ```
 
+### `llmrouter profile add-domain`
+
+Adds or modifies a domain entry. Run this before `add-task` if your benchmark belongs to a new domain.
+
+```
+llmrouter profile add-domain --name NAME --feature TEXT --output-dir DIR
+
+Options:
+  --name        Domain key (e.g. "multimodal")
+  --feature     Text description for the domain node's Longformer feature
+  --output-dir  Directory containing the profile JSON files (auto-initialised from bundled data)
+```
+
+If the domain already exists, only the feature text is updated; the `domain_task_map.json` entry is left untouched.
+
+### `llmrouter profile add-task`
+
+Adds or modifies a benchmark (dataset node) entry.
+
+```
+llmrouter profile add-task --name NAME --feature TEXT --output-dir DIR [OPTIONS]
+
+Options:
+  --name        Benchmark key matching keys used in model detailed_scores
+  --feature     Text description for the dataset node's Longformer feature
+  --domain      Domain(s) this benchmark belongs to — may be repeated for multiple domains
+                The domain must already exist (run add-domain first)
+  --output-dir  Directory containing the profile JSON files
+```
+
+If `--domain` specifies a domain not yet in `domain_feature.json`, the command errors with instructions to run `add-domain` first. No files are modified on error.
+
+### `llmrouter profile add-model`
+
+Adds or modifies a model entry in both `model_feature_standard.json` and `model_feature_newllm.json`.
+
+```
+llmrouter profile add-model --name NAME --output-dir DIR [OPTIONS]
+
+Options:
+  --name          Model key (must match the key in llm_data.json)
+  --feature       Text description for the model node (required when adding a new model)
+  --architecture  Architecture class name, e.g. LlamaForCausalLM (required for new models)
+  --arch-feature  Description for a new architecture node (required if --architecture is unknown)
+  --scores        Benchmark scores: "bench1:val1,bench2:val2,..." format
+  --from-json     Path to a JSON file containing all fields (supports new_tasks array)
+  --output-dir    Directory containing the profile JSON files
+  --replace       Replace the entire existing record instead of merging (default: merge)
+  --size          Human-readable size string (e.g. "13B")
+  --parameters    Parameter count in billions
+  --model-id      Provider model identifier
+  --service       API service provider name
+  --api-endpoint  API endpoint URL
+```
+
+**Add mode** (model not present): `--feature` and `--architecture` are required.
+
+**Modify mode** (model already present): only the provided arguments are merged; unspecified fields are preserved. Pass `--replace` to overwrite the entire record.
+
+Scores for benchmarks not in `task_feature.json` trigger a warning — run `add-task` first to create graph edges for those benchmarks.
+
+#### Using `--from-json`
+
+```json
+{
+  "name": "my-model",
+  "feature": "A 13B instruction-tuned model.",
+  "architecture": "LlamaForCausalLM",
+  "detailed_scores": { "my-new-bench": 72.5, "ifeval": 80.0 },
+  "new_tasks": [
+    {
+      "name": "my-new-bench",
+      "feature": "A new reasoning benchmark.",
+      "domain": "reasoning"
+    }
+  ]
+}
+```
+
+`new_tasks` entries are written to `task_feature.json` before the model entry, so their benchmark keys are valid when score validation runs.
+
+### Extending Profile Data — Full Workflow
+
+```bash
+# Scenario A: add a new model (existing benchmarks only)
+llmrouter profile add-model \
+  --name "my-llama-13b" \
+  --feature "A 13B instruction-tuned LLaMA model." \
+  --architecture LlamaForCausalLM \
+  --scores "ifeval:72.5,bbh:48.3,gsm8k:61.2" \
+  --output-dir data/my_profile_data/
+
+# Scenario B: add a new domain + benchmark + model
+llmrouter profile add-domain \
+  --name "multimodal" \
+  --feature "Tasks requiring joint understanding of text and image." \
+  --output-dir data/my_profile_data/
+
+llmrouter profile add-task \
+  --name "my-mm-bench" \
+  --feature "A multimodal reasoning benchmark." \
+  --domain "multimodal" \
+  --output-dir data/my_profile_data/
+
+llmrouter profile add-model \
+  --name "my-model" \
+  --feature "A multimodal capable model." \
+  --architecture LlamaForCausalLM \
+  --scores "my-mm-bench:72.5,ifeval:80.0" \
+  --output-dir data/my_profile_data/
+
+# Scenario C: patch one score into an existing model entry
+llmrouter profile add-model \
+  --name "qwen2.5-7b-instruct" \
+  --scores "my-mm-bench:68.0" \
+  --output-dir data/my_profile_data/
+
+# Then rebuild graph + profile as normal
+llmrouter profile build-graph \
+  --graph-type task_domain \
+  --profile-data-dir data/my_profile_data/ \
+  --output-dir data/my_graphs/
+```
+
 ## Python API
 
 ```python

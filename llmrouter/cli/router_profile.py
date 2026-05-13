@@ -152,6 +152,115 @@ def _build_profile_command(args) -> None:
     print(f"[profile] Profile saved: {args.output}")
 
 
+def _add_domain_command(args) -> None:
+    from llmrouter.routeprofile.data_management import add_domain
+    add_domain(
+        name=args.name,
+        feature=args.feature,
+        output_dir=args.output_dir,
+    )
+
+
+def _add_task_command(args) -> None:
+    from llmrouter.routeprofile.data_management import add_task
+    try:
+        add_task(
+            name=args.name,
+            feature=args.feature,
+            output_dir=args.output_dir,
+            domains=args.domain or None,
+        )
+    except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def _add_model_command(args) -> None:
+    from llmrouter.routeprofile.data_management import add_model
+    import json as _json
+
+    # --from-json overrides individual flags
+    if args.from_json:
+        try:
+            raw = _json.load(open(args.from_json, encoding="utf-8"))
+        except Exception as e:
+            print(f"Error reading --from-json file: {e}", file=sys.stderr)
+            sys.exit(1)
+        name = raw.get("name")
+        if not name:
+            print("Error: JSON file must contain a 'name' field.", file=sys.stderr)
+            sys.exit(1)
+        new_tasks = raw.pop("new_tasks", None)
+        # Parse new_tasks domains from JSON (each entry may have 'domain' as str)
+        if new_tasks:
+            for t in new_tasks:
+                if "domain" in t and isinstance(t["domain"], str):
+                    t["domain"] = t["domain"]  # keep as str, add_model handles it
+        try:
+            add_model(
+                name=name,
+                output_dir=args.output_dir,
+                feature=raw.get("feature"),
+                architecture=raw.get("architecture"),
+                arch_feature=raw.get("arch_feature"),
+                detailed_scores=raw.get("detailed_scores"),
+                new_tasks=new_tasks,
+                size=raw.get("size"),
+                parameters=raw.get("parameters"),
+                model_id=raw.get("model"),
+                service=raw.get("service"),
+                api_endpoint=raw.get("api_endpoint"),
+                replace=args.replace,
+            )
+        except ValueError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+        return
+
+    # flags mode
+    if not args.name:
+        print("Error: --name is required (or use --from-json).", file=sys.stderr)
+        sys.exit(1)
+
+    # Parse --scores "benchmark:value,..."
+    detailed_scores: dict | None = None
+    if args.scores:
+        detailed_scores = {}
+        for token in args.scores.split(","):
+            token = token.strip()
+            if not token:
+                continue
+            if ":" not in token:
+                print(f"Error: invalid --scores token '{token}'. Use 'benchmark:value'.",
+                      file=sys.stderr)
+                sys.exit(1)
+            k, v = token.split(":", 1)
+            try:
+                detailed_scores[k.strip()] = float(v.strip())
+            except ValueError:
+                print(f"Error: non-numeric score for benchmark '{k}': {v!r}.", file=sys.stderr)
+                sys.exit(1)
+
+    try:
+        add_model(
+            name=args.name,
+            output_dir=args.output_dir,
+            feature=args.feature,
+            architecture=args.architecture,
+            arch_feature=args.arch_feature,
+            detailed_scores=detailed_scores,
+            size=args.size,
+            parameters=float(args.parameters) if args.parameters else None,
+            model_id=args.model_id,
+            service=args.service,
+            api_endpoint=args.api_endpoint,
+            replace=args.replace,
+        )
+    except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
 def _apply_command(args) -> None:
     from llmrouter.routeprofile.utils import npz_to_llm_embeddings_json, npz_to_pkl
 
@@ -184,6 +293,9 @@ def add_profile_parser(subparsers) -> argparse.ArgumentParser:
             "  build-graph   Build a heterogeneous graph from model/task/domain metadata\n"
             "  build-profile Generate per-model embeddings from a graph (.npz output)\n"
             "  apply         Merge .npz embeddings into llm_data JSON (for router use)\n"
+            "  add-domain    Add or modify a domain entry in a profile data directory\n"
+            "  add-task      Add or modify a benchmark entry in a profile data directory\n"
+            "  add-model     Add or modify a model entry in a profile data directory\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -351,5 +463,86 @@ def add_profile_parser(subparsers) -> argparse.ArgumentParser:
         help="Behaviour when a model in llm_data has no profile entry (default: warn)",
     )
     ap.set_defaults(func=_apply_command)
+
+    # ── add-domain ─────────────────────────────────────────────────────────────
+    ad = profile_sub.add_parser(
+        "add-domain",
+        help="Add or modify a domain entry in a profile data directory",
+        description=(
+            "Writes a domain entry into domain_feature.json and initialises an empty\n"
+            "list in domain_task_map.json (Add mode). If the domain already exists,\n"
+            "only the feature text is updated (Modify mode).\n\n"
+            "The output-dir is initialised from bundled data automatically if it is empty.\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    ad.add_argument("--name", required=True, help="Domain key (e.g. 'reasoning')")
+    ad.add_argument("--feature", required=True, help="Text description for the domain node")
+    ad.add_argument("--output-dir", required=True, metavar="DIR",
+                    dest="output_dir", help="Target profile data directory")
+    ad.set_defaults(func=_add_domain_command)
+
+    # ── add-task ───────────────────────────────────────────────────────────────
+    at = profile_sub.add_parser(
+        "add-task",
+        help="Add or modify a benchmark entry in a profile data directory",
+        description=(
+            "Writes a benchmark entry into task_feature.json. If --domain is provided,\n"
+            "appends the task to that domain's list in domain_task_map.json.\n\n"
+            "The domain must already exist (run add-domain first if needed).\n"
+            "The output-dir is initialised from bundled data automatically if it is empty.\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    at.add_argument("--name", required=True, help="Benchmark key (must match model detailed_scores keys)")
+    at.add_argument("--feature", required=True, help="Text description for the dataset node")
+    at.add_argument("--domain", action="append", metavar="DOMAIN",
+                    help="Domain to associate this task with (repeat for multiple domains); "
+                         "domain must already exist in domain_feature.json")
+    at.add_argument("--output-dir", required=True, metavar="DIR",
+                    dest="output_dir", help="Target profile data directory")
+    at.set_defaults(func=_add_task_command)
+
+    # ── add-model ──────────────────────────────────────────────────────────────
+    am = profile_sub.add_parser(
+        "add-model",
+        help="Add or modify a model entry in a profile data directory",
+        description=(
+            "Adds or modifies a model in model_feature_standard.json AND\n"
+            "model_feature_newllm.json.\n\n"
+            "Add mode  (model not present): --feature and --architecture are required.\n"
+            "Modify mode (model exists)   : only provided fields are merged; others unchanged.\n"
+            "Use --replace to fully overwrite an existing entry.\n\n"
+            "For --from-json, the JSON may contain a 'new_tasks' array to register\n"
+            "new benchmarks before writing the model entry.\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    am.add_argument("--name", default=None,
+                    help="Model key (must match llm_data.json). Required unless --from-json.")
+    am.add_argument("--feature", default=None,
+                    help="Model text description (Longformer node feature). Required for Add.")
+    am.add_argument("--architecture", default=None,
+                    help="Architecture class name (e.g. LlamaForCausalLM). Required for Add.")
+    am.add_argument("--arch-feature", default=None, dest="arch_feature",
+                    help="Description for a new architecture (required if --architecture is unknown).")
+    am.add_argument("--scores", default=None,
+                    metavar="SCORES",
+                    help="Benchmark scores in 'bench:value,...' format (e.g. ifeval:72.5,bbh:48.3).")
+    am.add_argument("--from-json", default=None, metavar="PATH", dest="from_json",
+                    help="JSON file with model info (overrides all other flags).")
+    am.add_argument("--output-dir", required=True, metavar="DIR",
+                    dest="output_dir", help="Target profile data directory.")
+    am.add_argument("--replace", action="store_true",
+                    help="Fully replace an existing model entry instead of merging.")
+    am.add_argument("--size", default=None, help="Human-readable model size (e.g. '13B').")
+    am.add_argument("--parameters", default=None, metavar="FLOAT",
+                    help="Parameter count in billions.")
+    am.add_argument("--model-id", default=None, dest="model_id",
+                    help="Provider model identifier (e.g. 'meta/llama-2-13b-chat').")
+    am.add_argument("--service", default=None, help="API service provider name.")
+    am.add_argument("--api-endpoint", default=None, dest="api_endpoint",
+                    help="API endpoint URL.")
+    am.set_defaults(func=_add_model_command)
 
     return profile_parser

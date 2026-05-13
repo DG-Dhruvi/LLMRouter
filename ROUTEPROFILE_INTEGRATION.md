@@ -52,7 +52,7 @@ All builders emit a PyTorch Geometric `HeteroData` `.pt` file. Edge weights on m
 
 #### `data/profile_data/` — bundled default input data
 
-Seven JSON files covering 8 LLM candidates across 11+ benchmarks, packaged into the library so the CLI works out of the box without any external data download.
+Eight JSON files covering 8 LLM candidates across 11+ benchmarks, packaged into the library so the CLI works out of the box without any external data download.
 
 | File | Content |
 |------|---------|
@@ -60,21 +60,38 @@ Seven JSON files covering 8 LLM candidates across 11+ benchmarks, packaged into 
 | `model_feature_newllm.json` | Same for the new-LLM routing setting |
 | `model_family_feature.json` | Architecture family text descriptions |
 | `task_feature.json` | Benchmark dataset descriptions |
-| `task_queries_standard.json` | Representative queries per benchmark |
+| `task_queries_standard.json` | Representative queries per benchmark (17 benchmarks) |
+| `task_queries_newllm.json` | Representative queries for the newllm setting (29 benchmarks) |
 | `domain_feature.json` | Domain text descriptions |
 | `domain_task_map.json` | Domain → benchmark mapping |
+
+#### `data_management.py` — profile data extension API
+
+New module providing four functions for extending the bundled data with custom models, benchmarks, and domains:
+
+| Function | Description |
+|----------|-------------|
+| `init_profile_data_dir(output_dir)` | Copies bundled files to a user-owned directory; skips existing files |
+| `add_domain(name, feature, output_dir)` | Adds/modifies a domain in `domain_feature.json`; initialises its `domain_task_map.json` entry |
+| `add_task(name, feature, output_dir, *, domains)` | Adds/modifies a benchmark; validates all domains exist before writing |
+| `add_model(name, output_dir, *, ...)` | Adds/modifies a model in both `model_feature_standard.json` and `model_feature_newllm.json` |
 
 ---
 
 ### CLI: `llmrouter/cli/router_profile.py`
 
-New file implementing the `llmrouter profile` sub-command group with three sub-commands:
+New file implementing the `llmrouter profile` sub-command group with six sub-commands:
 
 ```
 llmrouter profile build-graph   --graph-type ... --mode ... --output-dir ...
 llmrouter profile build-profile --method ...    --graph ... --output ...
 llmrouter profile apply          --profile ...  --llm-data ... --output ...
+llmrouter profile add-domain    --name ... --feature ... --output-dir ...
+llmrouter profile add-task      --name ... --feature ... --output-dir ... [--domain ...]
+llmrouter profile add-model     --name ... --output-dir ... [--feature ...] [--scores ...]
 ```
+
+`add-domain`, `add-task`, and `add-model` delegate to `data_management.py` and support adding new entries to a user-owned profile data directory before (re)building the graph.
 
 ---
 
@@ -93,10 +110,11 @@ End-to-end Jupyter tutorial covering all four pipeline steps. Demonstrates all f
 | `test_build_graph.py` | All 5 graph builders produce valid `HeteroData` with correct node/edge types | 10 |
 | `test_build_profile.py` | All 5 profile methods produce valid float32 `[768]` `.npz`; K=0 vs K=2 text_gnn | 24 |
 | `test_utils.py` | `npz_to_llm_embeddings_json` and `npz_to_pkl` format correctness | 8 |
-| `test_cli.py` | `llmrouter profile --help` smoke tests for all 3 sub-commands | 6 |
+| `test_cli.py` | Parser registration and `--help` smoke tests for all 6 sub-commands | 19 |
+| `test_data_management.py` | `init_profile_data_dir`, `add_domain`, `add_task`, `add_model` — add/modify/replace/warn behaviour | 22 |
 | `test_router_integration.py` | Level-1: synthetic `.npz` → GraphRouter / PersonalizedRouter loading; Level-2: real end-to-end profile → router for all 5 methods | 20 |
 
-Total: **73 tests**.
+Total: **96 tests**.
 
 ---
 
