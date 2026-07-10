@@ -74,6 +74,7 @@
 | `hybrid_llm` | ✅ | ✅ | Hybrid LLM routing strategy | [📖](llmrouter/models/hybrid_llm/README.md) |
 | `graphrouter` | ✅ | ✅ | Graph-based routing | [📖](llmrouter/models/graphrouter/README.md) |
 | `causallm_router` | ✅ | ✅ | Causal Language Model router | [📖](llmrouter/models/causallm_router/README.md) |
+| `tsrouter` | ✅ | ✅ | Time series (modality, model) routing via 4-partite heterogeneous graph | [📖](llmrouter/models/tsrouter/README.md) |
 | `smallest_llm` | N/A | ✅ | Always routes to smallest model | [📖](llmrouter/models/smallest_llm/README.md) |
 | `largest_llm` | N/A | ✅ | Always routes to largest model | [📖](llmrouter/models/largest_llm/README.md) |
 
@@ -386,6 +387,9 @@ CUDA_VISIBLE_DEVICES=2 llmrouter train --router mlprouter --config configs/model
 
 # Train MF router quietly
 CUDA_VISIBLE_DEVICES=1 llmrouter train --router mfrouter --config configs/model_config_train/mfrouter.yaml --device cuda --quiet
+
+# Train TSRouter (time series modality-model routing; see tsrbench/ for data preparation)
+llmrouter train --router tsrouter --config configs/model_config_train/tsrouter.yaml --device cuda
 ```
 
 ### Running Inference
