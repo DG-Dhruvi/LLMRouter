@@ -40,3 +40,28 @@ This writes `oracle_full.csv` (per-query correctness of every candidate: `task_t
 ```bash
 python evaluation/evaluate.py --model Qwen/Qwen3-8B --modality text --workdir ./evaluation
 ```
+
+## Convert to the LLMRouter benchmark format
+
+TSRBench's native format (time-series arrays + per-candidate oracle CSV) does not match LLMRouter's standard data interface, so `convert_to_llmrouter.py` adapts it. Each (modality, model) candidate is exposed as one LLMRouter "model" (e.g. `text|qwen3-8b`), queries get a natural-language time-series summary appended, and oracle scores become per-row `performance`:
+
+```bash
+python convert_to_llmrouter.py \
+    --oracle ../../TSRouter/data/oracle_full.csv \
+    --token-counts ../../TSRouter/data/token_counts.json \
+    --model-descriptions ../../TSRouter/configs/model_descriptions.json \
+    --out-dir ../data/tsrbench_data
+```
+
+This writes `query_data_{train,test}.jsonl`, `routing_data_{train,test}.jsonl`, `llm_data.json`, `llm_embeddings.json`, and `query_embeddings.pt` (pass `--skip-embeddings` to skip the embedding step). Point any standard router's YAML at them:
+
+```yaml
+data_path:
+  query_data_train: 'data/tsrbench_data/query_data_train.jsonl'
+  query_data_test: 'data/tsrbench_data/query_data_test.jsonl'
+  query_embedding_data: 'data/tsrbench_data/query_embeddings.pt'
+  routing_data_train: 'data/tsrbench_data/routing_data_train.jsonl'
+  routing_data_test: 'data/tsrbench_data/routing_data_test.jsonl'
+  llm_data: 'data/tsrbench_data/llm_data.json'
+  llm_embedding_data: 'data/tsrbench_data/llm_embeddings.json'
+```
