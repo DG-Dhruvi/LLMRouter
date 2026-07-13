@@ -61,6 +61,13 @@ except Exception:
     PersonalizedRouter = None
     PersonalizedRouterTrainer = None
 
+try:
+    from .tsrouter import TSRouter
+    from .tsrouter import TSRouterTrainer
+except Exception:
+    TSRouter = None
+    TSRouterTrainer = None
+
 __all__ = [
     "MetaRouter",
     "BaseTrainer",
@@ -104,4 +111,7 @@ __all__ = [
 
     "PersonalizedRouter",
     "PersonalizedRouterTrainer",
+
+    "TSRouter",
+    "TSRouterTrainer",
 ]

@@ -30,11 +30,13 @@
 **LLMRouter** is an intelligent routing system designed to optimize LLM inference by dynamically selecting the most suitable model for each query. To achieve intelligent routing, it defines:
 
 1. 🚀 *Smart Routing*: Automatically routes queries to the optimal LLM based on task complexity, cost, and performance requirements.
-2. 📊 *Multiple Router Models*: Support for **over 16 routing models**, organized into four major categories—**single-round routers, multi-round routers, agentic routers, and personalized routers**—covering a wide range of strategies such as KNN, SVM, MLP, Matrix Factorization, Elo Rating, graph-based routing, BERT-based routing, hybrid probabilistic methods, transformed-score routers, and more.
+2. 📊 *Multiple Router Models*: Support for **over 16 routing models**, organized into five major categories—**single-round routers, multi-round routers, multimodal routers, agentic routers, and personalized routers**—covering a wide range of strategies such as KNN, SVM, MLP, Matrix Factorization, Elo Rating, graph-based routing, BERT-based routing, hybrid probabilistic methods, transformed-score routers, and more.
 3. 🛠️ *Unified CLI*: Complete command-line interface for training, inference, and interactive chat with Gradio-based UI.
 4. 📈 *Data Generation Pipeline*: Complete pipeline for generating training data from 11 benchmark datasets with automatic API calling and evaluation.
 
 ## 📰 News
+
+- 📈 **[2026-07]**: **TSRouter** - We've released TSRouter, a multimodal router for time series reasoning! TSRouter routes each time series query to the best (modality, model) pair — text LLMs vs. visual/mix VLMs — via a 4-partite heterogeneous graph over task, query, modality, and model nodes, supports cost-aware routing scenarios and zero-shot generalization to unseen models and novel tasks, and ships with the full TSRBench data pipeline plus a converter to the standard LLMRouter data interface. Check out the [paper](https://arxiv.org/abs/2607.08940v1) for details.
 
 - 🚀 **[2026-05]**: **RouteProfile Code & Paper Released** - We've released **RouteProfile**, a general framework for designing LLM profiles for routing! RouteProfile enables structured profile construction from heterogeneous interaction histories, supports flat, embedding-based, text-GNN, and trainable GNN profiles, and evaluates routing performance across SimRouter, MLPRouter, and GraphRouter under both standard and new-LLM settings. Check out the [paper](https://arxiv.org/abs/2605.00180) and [code](https://github.com/ulab-uiuc/RouteProfile) for details.
 
@@ -83,6 +85,11 @@
 | Router | Training | Inference | Description | Tutorial |
 |--------|:--------:|:---------:|-------------|:--------:|
 | `router_r1` | [LINK](https://github.com/ulab-uiuc/Router-R1) | ✅ | Pre-trained Router-R1 model for multi-turn conversations | [📖](llmrouter/models/router_r1/README.md) |
+
+### Multimodal Routers
+| Router | Training | Inference | Description | Tutorial |
+|--------|:--------:|:---------:|-------------|:--------:|
+| `tsrouter` | ✅ | ✅ | Routes time series queries to the best (modality, model) pair — text LLMs vs. visual/mix VLMs — via a 4-partite heterogeneous graph ([paper](https://arxiv.org/abs/2607.08940v1), [code](https://github.com/tianyi-lab/TSRouter)) | [📖](llmrouter/models/tsrouter/README.md) |
 
 ### Personalized Routers
 | Router | Training | Inference | Description | Tutorial |
@@ -388,6 +395,9 @@ CUDA_VISIBLE_DEVICES=2 llmrouter train --router mlprouter --config configs/model
 
 # Train MF router quietly
 CUDA_VISIBLE_DEVICES=1 llmrouter train --router mfrouter --config configs/model_config_train/mfrouter.yaml --device cuda --quiet
+
+# Train TSRouter (time series modality-model routing; see data/tsrbench/ for data preparation)
+llmrouter train --router tsrouter --config configs/model_config_train/tsrouter.yaml --device cuda
 ```
 
 ### Running Inference

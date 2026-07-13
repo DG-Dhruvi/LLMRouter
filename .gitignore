@@ -62,3 +62,8 @@ config.local.yaml
 
 # MkDocs build output
 site/
+
+# TSRBench inference artifacts
+data/tsrbench/datasets/
+data/tsrbench/evaluation/results/
+data/tsrbench_data/
