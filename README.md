@@ -36,6 +36,8 @@
 
 ## 📰 News
 
+- 📈 **[2026-07]**: **TSRouter** - Multimodal time series routing is here! We've added [TSRouter](https://arxiv.org/abs/2607.08940v1) (COLM 2026), the first router in our new **Multimodal Routers** category: it routes each time series query to the best **(modality, model)** pair — text LLMs vs. visual/mix VLMs — via a 4-partite heterogeneous graph over Task / Query / Modality / Model nodes. Ships with the full TSRBench data pipeline (`data/tsrbench/`) and a converter to the standard LLMRouter data interface, so every existing router can train on time series routing too. See [Supported Routers](#-supported-routers).
+
 - 🖥️ **[2026-02]**: **ComfyUI Interface** - We've released the visual interface for LLMRouter! Now you can visually construct data generation and routing pipelines, drag-and-drop nodes to train routers, and monitor performance in real-time. See [ComfyUI Interface](#-comfyui-interface) for details.
 
 - 🔗 **[2026-02]**: **OpenClaw Router** - OpenAI-compatible server with OpenClaw integration! We've also released llmrouter-lib v0.3.1. Deploy LLMRouter as a production API server that works seamlessly with Slack, Discord, and other messaging platforms via [OpenClaw](https://github.com/openclaw/openclaw). Features include multimodal understanding (image/audio/video), retrieval-augmented routing memory, streaming support, and all 16+ LLMRouter routing strategies. See [OpenClaw Router Integration](#-openclaw-router-openclaw-integration). For deployment with social platforms like Slack, refer to the [Getting Started Guide](https://www.moltcn.com/start/getting-started.html) for step-by-step setup instructions.
@@ -85,7 +87,7 @@
 ### Multimodal Routers
 | Router | Training | Inference | Description | Tutorial |
 |--------|:--------:|:---------:|-------------|:--------:|
-| `tsrouter` | ✅ | ✅ | Routes time series queries to the best (modality, model) pair — text LLMs vs. visual/mix VLMs — via a 4-partite heterogeneous graph ([TSRouter, COLM 2026](https://github.com/tianyi-lab/TSRouter)) | [📖](llmrouter/models/tsrouter/README.md) |
+| `tsrouter` | ✅ | ✅ | Routes time series queries to the best (modality, model) pair — text LLMs vs. visual/mix VLMs — via a 4-partite heterogeneous graph ([paper](https://arxiv.org/abs/2607.08940v1), [code](https://github.com/tianyi-lab/TSRouter)) | [📖](llmrouter/models/tsrouter/README.md) |
 
 ### Personalized Routers
 | Router | Training | Inference | Description | Tutorial |
